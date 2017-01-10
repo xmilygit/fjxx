@@ -5,6 +5,6 @@ var AccountSchema=new mongoose.Schema({
     pid:String,
     bron:String,
     wxopenid:String
-});
+},{collection:'Account'});
 
 mongoose.model('Account',AccountSchema);
