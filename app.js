@@ -4,8 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var exphbs=require('express-handlebars');
+var flash=require('connect-flash');
+var session=require('express-session');
+var passport=require('passport');
+var localstrategy=require('passport-local').Strategy;
+var mongoose=require('mongoose');
+
 var db=require('./model/db');
 var Account=require('./model/Account');
 var rootsite=require('./routes/root');
@@ -13,12 +18,39 @@ var Accounts = require('./routes/Account');
 
 var app = express();
 
+//设置passport相关设置
+var ppls=new localstrategy(
+  function(username,password,done){
+    //读取对应username/password符合的数据库记录
+    var user=mongoose.model('Account').find({'name':username,'password':password})
+  }
+)
+
+//设置flash相关的配置
+app.use(session({
+  secret:'xljx',
+  key:'cookieName',
+  cookie:{maxAge:60000},
+  resave:false,
+  saveUninitialized:true
+}));
+
+app.use(flash())
+
+app.use(function(req,res,next){
+  res.locals.error=req.flash('error');
+  next();
+});
+
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-app.engine('.fjxx',exphbs({extname:'.fjxx'}))
+app.engine('.fjxx',exphbs({
+  layoutsDir:'views/layouts',
+  defaultLayout:'commlayouts',
+  extname:'.fjxx'
+}))
 app.set('view engine', '.fjxx');
-
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));

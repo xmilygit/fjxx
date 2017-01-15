@@ -1,2 +1,23 @@
 var mongoose=require('mongoose');
-mongoose.connect('mongodb://fjxx:818140@fjxx.vicp.net:27017/fjxx');
+var dbURI='mongodb://fjxx:818140@fjxx.vicp.net:27017/fjxx'
+mongoose.connect(dbURI);
+
+
+mongoose.connection.on('connected',function () {
+    console.log('Mongoose数据库已连接到'+dbURI);
+});
+
+mongoose.connection.on('error',function (err) {
+    console.log('Mongoose连接时发发生错误:'+err);
+});
+
+mongoose.connection.on('disconnected',function () {
+    console.log('Mongoose已断开连接');
+});
+
+process.on('SIGINT',function () {
+    mongoose.connection.close(function () {
+        console.log('应用程序终止Mongoose已经断开连接');
+        process.exit(0);
+    });
+});
