@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var crypto=require('crypto');
 
 /* GET home page. */
 
@@ -8,7 +9,7 @@ var mongoose = require('mongoose');
 router.get('/test', function (req, res, next) {
   res.render('Account/test2');
 })
-router.get('/:id',function(req,res,next){
+router.get('/:id/edit',function(req,res,next){
   mongoose.model('Account').findById(mongoose.mongo.ObjectID(req.id),function(err,obe){
     if(err){
       console.log(err.message);
@@ -17,6 +18,39 @@ router.get('/:id',function(req,res,next){
     }
   })
 })
+
+//用于更新密码
+/*
+router.get('/changpassword', function (req, res, next) {
+  
+  mongoose.model('Account').find({}, function (err, Accounts) {
+    if (err) {
+      return console.log(err)
+    } else {
+      Accounts.forEach(function (v, i, a) {
+        let sha1 = crypto.createHash('sha1');
+        sha1.update(v.pid.substr(12, 6));
+        let np=sha1.digest('hex');
+        console.log(np);
+        console.log(v.username+v.pid);
+        v.update({
+          password:np
+        },function(err,vid){
+          if(err){
+            console.log(err);
+          }else{
+            console.log(vid);
+          }
+
+        })
+        res.end();
+      })
+    }
+  })
+  
+});
+*/
+
 router.get('/', function (req, res, next) {
   /*
   mongoose.model('Account').create({

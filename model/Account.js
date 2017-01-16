@@ -1,9 +1,10 @@
 var mongoose=require('mongoose');
 var AccountSchema=new mongoose.Schema({
-    name:String,
-    sex:String,
+    username:String,
+    password:String,
+    gender:String,
     pid:String,
-    bron:String,
+    dob:String,
     wxopenid:String
 },{collection:'Account'});
 

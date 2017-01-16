@@ -9,14 +9,19 @@ router.get('/test',function(req,res,next){
     res.render('test',{title:'aaaaaa'});
 })
 
-router.post('/login',
-    //passport.authenticate('local',{session:false},
-    //function(req,res){
-
-    //})
+router.post(
+    '/login',
+    
+    passport.authenticate('local',{session:false},
+    function(req,res){
+        res.redirect('/');
+    })
+    
+    /*
     function(req,res,next){
         req.flash('error',['测试错误信息','error2','error3']);
         res.redirect('/');
     }
+    */
 )
 module.exports=router;

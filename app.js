@@ -10,6 +10,7 @@ var session=require('express-session');
 var passport=require('passport');
 var localstrategy=require('passport-local').Strategy;
 var mongoose=require('mongoose');
+var crypto=require('crypto');
 
 var db=require('./model/db');
 var Account=require('./model/Account');
@@ -22,10 +23,17 @@ var app = express();
 var ppls=new localstrategy(
   function(username,password,done){
     //读取对应username/password符合的数据库记录
-    var user=mongoose.model('Account').find({'name':username,'password':password})
+    let sha1=crypto.createHash('sha1');
+    sha1.update(password);
+    var user=mongoose.model('Account').find({'name':username,'password':sha1.digest('hex')});
+    console.log(user);
+    if(user==null){
+      return done(null,false,{message:'请检查用户名及密码是否正确!'});
+    };
+    done(null,user);
   }
 )
-
+passport.use('local',ppls);
 //设置flash相关的配置
 app.use(session({
   secret:'xljx',
@@ -59,7 +67,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+//将passport加入进中间件
+app.use(passport.initialize());
 app.use('/Account', Accounts);
 app.use('/',rootsite);
 
