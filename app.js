@@ -11,11 +11,14 @@ var passport=require('passport');
 var localstrategy=require('passport-local').Strategy;
 var mongoose=require('mongoose');
 var crypto=require('crypto');
+var xmlparser = require('express-xml-bodyparser');
 
 var db=require('./model/db');
 var Account=require('./model/Account');
 var rootsite=require('./routes/root');
 var Accounts = require('./routes/Account');
+var Library=require('./routes/library');
+var wechat=require('./routes/wechat');
 
 var app = express();
 
@@ -106,12 +109,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(xmlparser());
 app.use(express.static(path.join(__dirname, 'public')));
 //将passport加入进中间件
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/Account', Accounts);
 app.use('/',rootsite);
+app.use('/Library',Library);
+app.use('/wechat',wechat);
 
 
 

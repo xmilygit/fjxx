@@ -1,0 +1,3 @@
+{{#each imgs.item}}
+<img src='{{url}}'/>
+{{/each}}

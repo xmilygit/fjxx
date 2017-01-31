@@ -1,16 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>{{title}}</title>
-</head>
-<body>
-
 <ul>
     {{#each Accounts}}
     <li>{{name}}——{{wxopenid}}——{{_id}}</li>
     {{/each}}
 </ul>
-
-</body>
-</html>
