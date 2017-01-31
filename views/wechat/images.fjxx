@@ -1,3 +1,22 @@
-{{#each imgs.item}}
-<img src='{{url}}'/>
-{{/each}}
+<ul data-am-widget="gallery" class="am-gallery am-avg-sm-2
+  am-avg-md-3 am-avg-lg-4 am-gallery-bordered" data-am-gallery="{pureview:{weChatImagePreview: false}}">
+    {{#each imgs.item}}
+    <li>
+        <div class="am-gallery-item  am-cf">
+            <a href="{{wechatimgurl url}}" class="">
+                <img src="{{wechatimgurl url}}" alt="{{meida_id}}" />
+                <h3 class="am-gallery-title">{{name}}</h3>
+            </a>
+            <div class="am-gallery-desc">
+                {{update_time}}
+                <div class="am-btn-group am-btn-group-xs am-fr">                                                                  
+                    <button type="button" class="am-btn am-btn-primary am-round " onclick="alert('copy');var text='111111';window.clipboardData.setData('Text',text)">复制media_id</button>
+                    <button type="button" class="am-btn am-btn-primary am-round ">复制url</button>
+                    <button type="button" class="am-btn am-btn-primary am-round">删除</button>
+                </div>
+            </div>
+        </div>
+    </li>
+    {{/each}}
+</ul>
+<button type="button" class="am-btn am-btn-primary am-round " onclick="alert('copy');window.clipboardData.setData('Text','adsfasfdasdf')">复制media_id</button>

@@ -67,6 +67,15 @@
                 <li><a href="#">其它</a></li>
                 <li class="am-dropdown am-dropdown-up" data-am-dropdown>
                     <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                      管理 
+                      <span class="am-icon-caret-up"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="/wechat/images">微信永久图片库</a></li>
+                    </ul>
+                </li>
+                <li class="am-dropdown am-dropdown-up" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
                       图书馆 
                       <span class="am-icon-caret-up"></span>
                     </a>

@@ -5,6 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     crypto = require('crypto'),
     wechat = require('wechat'),
+    moment=require('moment'),
     router = express.Router();
 
 //微信接口基本配置信息
@@ -68,7 +69,7 @@ var wechatcustomfun = {
         let sha1 = crypto.createHash('sha1');
         sha1.update(password);
         mongoose.model('Account').findOne({ 'username': username, 'password': sha1.digest('hex') }, function (err, user) {
-            user=user||''
+            user = user || ''
             if (err) {
                 sendapimsg(msg, err.message);
             } else {
@@ -172,9 +173,9 @@ router.post('/', wechat(myauth)
 );
 
 //显示永久素材（图片）列表
-router.get('/images',function(req,res,next){
-    let images=require('../model/imageslist.json');
-    res.render('wechat/images',{title:'永久图片素材列表',imgs:images});
+router.get('/images', function (req, res, next) {
+    let images = require('../model/imageslist.json');
+    res.render('wechat/images', { title: '永久图片素材列表', imgs: images });
 })
 console.log('微信监听已启动')
 module.exports = router;
