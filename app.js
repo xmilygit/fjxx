@@ -63,7 +63,7 @@ app.use(function (req, res, next) {
 
 var hbs = exphbs.create({
   layoutsDir: 'views/layouts',
-  defaultLayout: 'amazelayouts',
+  defaultLayout: 'bootcsslayouts',
   extname: '.fjxx',
   helpers: {
     foo: function () { return 'FOO!'; },

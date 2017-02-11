@@ -5,8 +5,8 @@ var passport=require('passport');
 router.get('/',function(req,res,next){
     //console.log(req.user);
     res.render('index',{
-        title:'aaaaaa',
-        layout:'amazelayouts',
+        title:'桂林市凤集小学',
+        layout:'bootcsslayouts',
         user:req.user
     });
 });

@@ -176,6 +176,12 @@ router.post('/', wechat(myauth)
 router.get('/images', function (req, res, next) {
     let images = require('../model/imageslist.json');
     res.render('wechat/images', { title: '永久图片素材列表', imgs: images });
+});
+
+//显示添加永久素材页面
+router.get('/pictxt',function(req,res,next){
+    let images = require('../model/imageslist.json');
+    res.render('wechat/pictxt',{title:'添加永久图文素材',imgs: images})
 })
 console.log('微信监听已启动')
 module.exports = router;

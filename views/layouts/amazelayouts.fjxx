@@ -72,6 +72,7 @@
                     </a>
                     <ul class="am-dropdown-content">
                         <li><a href="/wechat/images">微信永久图片库</a></li>
+                        <li><a href="/wechat/pictxt">添加微信永久图文素材</a></li>
                     </ul>
                 </li>
                 <li class="am-dropdown am-dropdown-up" data-am-dropdown>

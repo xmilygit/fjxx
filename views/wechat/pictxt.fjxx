@@ -1,0 +1,39 @@
+<form>
+    <div class="form-group">
+        <input type="text" class="form-control" id="ipt-title" name="pttitle" placeholder="图文消息的标题">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="ipt-digest" name="ptdigest" placeholder="图文消息的摘要">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="ipt-author" name="ptauthor" placeholder="图文消息的作者">
+    </div>
+    <div class="form-group">
+        <textarea rows='7' class="form-control" id="ipt-content" name="content" placeholder="主要内容"></textarea>
+    </div>
+
+
+    
+
+
+    <div class="form-group">
+        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" checked data-on-label="是" data-off-label="否">
+    点击后跳转</p>
+        <input type="text" class="form-control" id="ipt-content-clickurl" name="content-clickurl" placeholder="点击后跳转链接">
+    </div>
+    <div class="form-group">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" id="my-checkbox2" name="show_cover_pic">是否显示封面
+            </label>
+        </div>
+    </div>
+
+    <p><button type="submit" class="btn btn-default btn-block">提交</button></p>
+</form>
+<script>
+    $(function () {
+        $("#my-checkbox1").bootstrapSwitch({size:'mini'});
+    })
+
+</script>
