@@ -9,7 +9,7 @@
     <title>{{title}}</title>
     <style>
     body{
-        padding:5px;
+        padding:5px 5px 55px 5px;
     }
     </style>
     <!-- Bootstrap -->

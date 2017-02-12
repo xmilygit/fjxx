@@ -1,3 +1,20 @@
+<div class="alert alert-info">
+    <p style="font-size:18px">{{title}}</p>
+</div>
+<div class="well well-sm" id="list1">
+    <span class="badge">1</span>
+    <!--<span class="badge">2</span>
+    <span class="badge">3</span>
+    <span class="badge">4</span>
+    <span class="badge">5</span>
+    <span class="badge">6</span>
+    <span class="badge">7</span>
+    <span class="badge">8</span>-->
+    <div class="pull-right">
+        <button class="btn btn-success btn-xs" type="submit">删除</button>
+        <button class="btn btn-success btn-xs" type="submit">添加</button>
+    </div>
+</div>
 <form>
     <div class="form-group">
         <input type="text" class="form-control" id="ipt-title" name="pttitle" placeholder="图文消息的标题">
@@ -13,27 +30,50 @@
     </div>
 
 
-    
+
 
 
     <div class="form-group">
-        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" checked data-on-text="是" data-off-text="否">
-    点击后跳转</p>
+        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" data-on-text="点击后跳转" data-off-text="点击后不跳转">
+            <input type="checkbox" id="my-checkbox2" name="show_cover_pic" checked data-on-text="显示封面" data-off-text="不显示封面"></p>
         <input type="text" class="form-control" id="ipt-content-clickurl" name="content-clickurl" placeholder="点击后跳转链接">
-    </div>
-    <div class="form-group">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" id="my-checkbox2" name="show_cover_pic">是否显示封面
-            </label>
-        </div>
+
     </div>
 
     <p><button type="submit" class="btn btn-default btn-block">提交</button></p>
 </form>
-<script>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<script src="/javascripts/stickUp.min.js"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        $(document).ready(function () {
+            $("#list1").stickUp({topMargin: 'auto'});
+        });
+    });
     $(function () {
-        $("#my-checkbox1").bootstrapSwitch({size:'mini'});
+
+        $("#ipt-content-clickurl").hide();
+        $("#my-checkbox1").bootstrapSwitch({
+            size: 'mini',
+            onText: '点击后跳转',
+            offText: '点击后不跳转',
+            offColor: 'warning',
+            onSwitchChange: function (event, state) {
+                if (state) {
+                    $("#ipt-content-clickurl").show();
+                } else {
+                    $("#ipt-content-clickurl").hide();
+                }
+            }
+        });
+
+        $("#my-checkbox2").bootstrapSwitch({
+            size: 'mini',
+            onText: '显示封面',
+            offText: '不显示封面',
+            offColor: 'warning'
+        });
     })
 
 </script>
