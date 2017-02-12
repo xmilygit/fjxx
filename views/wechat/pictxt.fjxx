@@ -17,7 +17,7 @@
 
 
     <div class="form-group">
-        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" checked data-on-label="是" data-off-label="否">
+        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" checked data-on-text="是" data-off-text="否">
     点击后跳转</p>
         <input type="text" class="form-control" id="ipt-content-clickurl" name="content-clickurl" placeholder="点击后跳转链接">
     </div>
