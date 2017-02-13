@@ -1,3 +1,30 @@
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">图片素材</h4>
+      </div>
+      <div class="modal-body">
+        {{#each imgs.item}}
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        <img src="http://read.html5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl={{wechatimgurl url}}" class="img-thumbnail" width="150">
+        {{/each}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+        <button type="button" class="btn btn-primary">插入</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--/Modal-->
+
 <div class="alert alert-info">
     <p style="font-size:18px">{{title}}</p>
 </div>
@@ -17,13 +44,16 @@
 </div>
 <form>
     <div class="form-group">
-        <input type="text" class="form-control" id="ipt-title" name="pttitle" placeholder="图文消息的标题">
+        <img  data-toggle="modal" data-target="#myModal" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9InllcyI/PjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgdmlld0JveD0iMCAwIDE0MCAxNDAiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPjwhLS0KU291cmNlIFVSTDogaG9sZGVyLmpzLzE0MHgxNDAKQ3JlYXRlZCB3aXRoIEhvbGRlci5qcyAyLjYuMC4KTGVhcm4gbW9yZSBhdCBodHRwOi8vaG9sZGVyanMuY29tCihjKSAyMDEyLTIwMTUgSXZhbiBNYWxvcGluc2t5IC0gaHR0cDovL2ltc2t5LmNvCi0tPjxkZWZzPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+PCFbQ0RBVEFbI2hvbGRlcl8xNWEzNzA5ZmVkZiB0ZXh0IHsgZmlsbDojQUFBQUFBO2ZvbnQtd2VpZ2h0OmJvbGQ7Zm9udC1mYW1pbHk6QXJpYWwsIEhlbHZldGljYSwgT3BlbiBTYW5zLCBzYW5zLXNlcmlmLCBtb25vc3BhY2U7Zm9udC1zaXplOjEwcHQgfSBdXT48L3N0eWxlPjwvZGVmcz48ZyBpZD0iaG9sZGVyXzE1YTM3MDlmZWRmIj48cmVjdCB3aWR0aD0iMTQwIiBoZWlnaHQ9IjE0MCIgZmlsbD0iI0VFRUVFRSIvPjxnPjx0ZXh0IHg9IjQ1LjUiIHk9Ijc0LjUiPjE0MHgxNDA8L3RleHQ+PC9nPjwvZz48L3N2Zz4=" alt="..." class="img-thumbnail">
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" id="ipt-digest" name="ptdigest" placeholder="图文消息的摘要">
+        <input type="text" class="form-control" id="ipt-title" name="pttitle" placeholder="标题">
     </div>
     <div class="form-group">
-        <input type="text" class="form-control" id="ipt-author" name="ptauthor" placeholder="图文消息的作者">
+        <input type="text" class="form-control" id="ipt-digest" name="ptdigest" placeholder="摘要">
+    </div>
+    <div class="form-group">
+        <input type="text" class="form-control" id="ipt-author" name="ptauthor" placeholder="作者">
     </div>
     <div class="form-group">
         <textarea rows='7' class="form-control" id="ipt-content" name="content" placeholder="主要内容"></textarea>
@@ -34,8 +64,8 @@
 
 
     <div class="form-group">
-        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1" data-on-text="点击后跳转" data-off-text="点击后不跳转">
-            <input type="checkbox" id="my-checkbox2" name="show_cover_pic" checked data-on-text="显示封面" data-off-text="不显示封面"></p>
+        <p><input type="checkbox" value="" id="my-checkbox1" name="my-checkbox1">
+            <input type="checkbox" id="my-checkbox2" name="show_cover_pic" checked></p>
         <input type="text" class="form-control" id="ipt-content-clickurl" name="content-clickurl" placeholder="点击后跳转链接">
 
     </div>

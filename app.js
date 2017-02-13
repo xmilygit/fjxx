@@ -69,7 +69,8 @@ var hbs = exphbs.create({
     foo: function () { return 'FOO!'; },
     bar: function () { return 'BAR!'; },
     wechatimgurl: function (val) {
-      return val.replace('http://mmbiz.qpic.cn', 'http://read.HTML5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn');
+      //return val.replace('http://mmbiz.qpic.cn', 'http://read.HTML5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn');
+      return val;
     },
     ifCond: function (v1, operator, v2, options) {
       switch (operator) {
