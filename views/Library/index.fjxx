@@ -10,4 +10,14 @@ wx.config({
 });
 */
 alert('{{qm}}');
+$.ajax({
+    url:'txm',
+    data:{txm:'a000001'},
+    error:function(err){
+        alert("出错了"+err);
+    },
+    success:function(res){
+        alert(res[0].sm);
+    }
+})
 </script>

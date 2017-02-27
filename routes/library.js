@@ -4,13 +4,31 @@ var sql = require('mssql');
 
 var config = {
     user: 'sa',
-    password: '',
+    password: '19810921xmily',
     server: 'fjxx.vicp.net',
     database: 'tsdata',
     options: {
         tdsVersion: '7_1'
     }
 }
+
+router.get('/txm',function(req,res,next){
+    sql.connect(config).then(function(){
+        console.log('mssql连接成功');
+        let sqlreq=new sql.Request();
+        sqlreq.input('txm',sql.Char,req.query['txm']);
+        sqlreq.query('select * from ts where txm=@txm').then(function(recordset){
+            console.log(recordset);
+            res.json(recordset);
+            //res.end(json(recordset));
+        }).catch(function(err){
+            console.log(err);
+        })
+    }).catch(function(err){
+        console.log('数据连接出错：'+err);
+    })
+})
+
 
 router.get('/', function (req, res, next) {
     sql.connect(config).then(function () {

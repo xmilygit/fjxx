@@ -180,6 +180,36 @@ router.get('/images', function (req, res, next) {
 
 //显示添加永久素材页面
 router.get('/pictxt',function(req,res,next){
+    /*
+    let txt='（原标题：2017年2月15日外交部发言人耿爽主持例行记者会）<img src="http://cms-bucket.nosdn.127.net/b005364b149f4f40b92f1b9abe16c8a320170215175605.jpeg?imageView&thumbnail=550x0" alt="undefined"/>应国务院总理李克强邀请，法兰西共和国总理贝尔纳·卡泽纳夫将于2月21日至23日对中国进行正式访问。此次系卡泽纳夫理首次访华，也是今年首位欧洲国家领导人来访。';
+    let pictxtjson={
+ "articles": [
+   {
+     "title": 'TITLE',
+     "thumb_media_id": 'dMNqI8ZACG8uYl7ddIFTXY_Xoy5qCuYjaAwshZhOXlQ',
+     "author": 'AUTHOR',
+     "digest": 'DIGEST',
+     "show_cover_pic": 0,
+     "content":txt,
+     "content_source_url": 'CONTENT_SOURCE_URL'
+   }
+   //若新增的是多图文素材，则此处应还有几段articles结构
+ ]
+}
+
+    api.uploadNewsMaterial(pictxtjson,function(err,result){
+        if(err){
+            console.log(err);
+        }
+        console.log(result);
+    })
+    */
+    api.getMaterial('dMNqI8ZACG8uYl7ddIFTXYfM1NnHv9j64eByckparnA', function(err,result,res){
+        if(err)
+        console.log(err);
+
+        console.log(result.toString('utf-8'));
+    });
     let images = require('../model/imageslist.json');
     res.render('wechat/pictxt',{title:'添加永久图文素材',imgs: images})
 })
