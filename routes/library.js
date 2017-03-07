@@ -29,6 +29,11 @@ router.get('/txm',function(req,res,next){
     })
 })
 
+router.post('/unreturnBook',function(req,res,next){
+    console.log(req["pagesize"]+"==="+req["pagenum"]+"==="+req["keyword"]+"==="+req["datarang"]);
+    res.end();
+})
+
 
 router.get('/', function (req, res, next) {
     sql.connect(config).then(function () {
@@ -48,3 +53,7 @@ router.get('/', function (req, res, next) {
 })
 
 module.exports=router;
+
+
+//with temp as(select *,row_number() over(order by hnyr) as id from v_borrow where hsbz=0)
+//select top 10 * from temp where id between 230 and 240
