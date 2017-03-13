@@ -19,6 +19,7 @@ var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
 var Library = require('./routes/library');
 var wechat = require('./routes/wechat');
+var test=require('./routes/test');
 
 var app = express();
 
@@ -122,6 +123,7 @@ app.use('/Account', Accounts);
 app.use('/', rootsite);
 app.use('/Library', Library);
 app.use('/wechat', wechat);
+app.use('/test',test);
 
 
 

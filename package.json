@@ -22,6 +22,7 @@
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "request": "^2.79.0",
+    "sequelize": "^3.30.2",
     "serve-favicon": "~2.3.0",
     "wechat": "^2.0.3",
     "wechat-api": "^1.32.0"
