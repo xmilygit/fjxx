@@ -87,7 +87,7 @@ router.get('/getborrow', function (req, res, next) {
     sqlhelp(res, sqlstr, '获取一定时间内借书数量')
 })
 
-//获取某时间段读者到馆人数
+//获取某时间段选定读者到馆人数
 router.get('/getvisiuser', function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -108,6 +108,27 @@ router.get('/getvisiuser', function (req, res, next) {
         sqlstr2 = "select count(*) as selectalluser from dz where dzdw in(" + temp + ")";
     }
     sqlhelp(res, sqlstr + ";" + sqlstr2, '获取某段时间内读者到馆人数', true)
+})
+
+//获取某时间段选定读者借阅数
+router.get('/getvisiuserborrow', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+
+    let daterange1 = req.query['daterange'].substring(0, 10).replace(/-/g, '');
+    let daterange2 = req.query['daterange'].substring(13, 23).replace(/-/g, '');
+    let usergroups = req.query['usergroups'] || "";
+    var sqlstr = "";
+    if (usergroups.length <= 0) {
+        sqlstr = "select sum(books) as visiusercount from(select dztm,count(dztm) as books from  v_borrow  where jnyr>='" + daterange1 + "' and jnyr<='" + daterange2 + "' group by dztm)a";
+    } else {
+        let temp = "";
+        usergroups.forEach(function (item, index, array) {
+            temp = temp + "'" + item + "',"
+        })
+        temp = temp.substring(0, temp.length - 1);
+        sqlstr = "select sum(books) as visiusercount from(select dztm,count(dztm) as books from  v_borrow  where jnyr>='" + daterange1 + "' and jnyr<='" + daterange2 + "' and dzdw in(" + temp + ")group by dztm)a"
+    }
+    sqlhelp(res, sqlstr, '获取某段时间内选定读者到馆人数')
 })
 
 //数据库查询辅助类
