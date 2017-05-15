@@ -19,6 +19,7 @@ var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
 var Library = require('./routes/library');
 var wechat = require('./routes/wechat');
+var graduate=require('./routes/graduate');
 var test=require('./routes/test');
 
 var app = express();
@@ -64,40 +65,14 @@ app.use(function (req, res, next) {
 
 var hbs = exphbs.create({
   layoutsDir: 'views/layouts',
-  defaultLayout: 'bootcsslayouts',
-  extname: '.fjxx',
+  defaultLayout: 'f7layouts',
+  extname: '.html',
   helpers: {
     foo: function () { return 'FOO!'; },
     bar: function () { return 'BAR!'; },
     wechatimgurl: function (val) {
       //return val.replace('http://mmbiz.qpic.cn', 'http://read.HTML5.qq.com/image?src=forum&q=5&r=0&imgflag=7&imageUrl=http://mmbiz.qpic.cn');
       return val;
-    },
-    ifCond: function (v1, operator, v2, options) {
-      switch (operator) {
-        case '==':
-          return (v1 == v2) ? options.fn(this) : options.inverse(this);
-          break;
-        case '===':
-          return (v1 === v2) ? options.fn(this) : options.inverse(this);
-          break;
-        case '<':
-          return (v1 < v2) ? options.fn(this) : options.inverse(this);
-          break;
-        case '<=':
-          return (v1 <= v2) ? options.fn(this) : options.inverse(this);
-          break;
-        case '>':
-          return (v1 > v2) ? options.fn(this) : options.inverse(this);
-          break;
-        case '>=':
-          return (v1 >= v2) ? options.fn(this) : options.inverse(this);
-          break;
-        default:
-          return options.inverse(this);
-          break;
-      }
-      return options.inverse(this);
     }
   }
 })
@@ -105,8 +80,8 @@ var hbs = exphbs.create({
 // view engine setup
 //app.set('views', path.join(__dirname, 'views'));
 //app.set('view engine', 'jade');
-app.engine('.fjxx', hbs.engine);
-app.set('view engine', '.fjxx');
+app.engine('.html', hbs.engine);
+app.set('view engine', '.html');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -123,7 +98,9 @@ app.use('/Account', Accounts);
 app.use('/', rootsite);
 app.use('/Library', Library);
 app.use('/wechat', wechat);
+app.use('/graduate',graduate);
 app.use('/test',test);
+
 
 
 

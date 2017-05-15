@@ -1,0 +1,134 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+    <link rel="icon" type="image/png" href="/assets/i/favicon.png">
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="192x192" href="/assets/i/app-icon72x72@2x.png">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="apple-touch-icon-precomposed" href="/assets/i/app-icon72x72@2x.png">
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="/assets/i/app-icon72x72@2x.png">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
+    <!--
+  <link rel="canonical" href="http://www.example.com/">
+  -->
+
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <!--[if lt IE 9]>
+    <script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
+    <![endif]-->
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <script src="/assets/js/jquery.min.js"></script>
+    <!--<![endif]-->
+    <script src="http://res.wx.qq.com/open/js/weixin-1.0.0.js"></script>
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+<p class="browsehappy">你正在使用<strong>过时</strong>的浏览器，Amaze UI 暂不支持。 请 <a
+  href="http://browsehappy.com/" target="_blank">升级浏览器</a>
+  以获得更好的体验！</p>
+<![endif]-->
+    <header class="am-topbar am-topbar-inverse am-topbar-fixed-bottom">
+        <h1 class="am-topbar-brand">
+            <i class="am-header-icon am-icon-home am-topbar-brand"><a href="#left-link"></a></i>
+            <a href="#">FJXX</a>
+        </h1>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+        <div class="am-collapse am-topbar-collapse" id="doc-topbar-collapse">
+
+            <ul class="am-nav am-nav-pills am-topbar-nav">
+                <li class="am-active"><a href="#">首页</a></li>
+                <li><a href="#">其它</a></li>
+                <li class="am-dropdown am-dropdown-up" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                      管理 
+                      <span class="am-icon-caret-up"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <li><a href="/wechat/images">微信永久图片库</a></li>
+                        <li><a href="/wechat/pictxt">添加微信永久图文素材</a></li>
+                    </ul>
+                </li>
+                <li class="am-dropdown am-dropdown-up" data-am-dropdown>
+                    <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+                      图书馆 
+                      <span class="am-icon-caret-up"></span>
+                    </a>
+                    <ul class="am-dropdown-content">
+                        <!--<li class="am-dropdown-header">标题</li>-->
+                        <li><a href="#">借书</a></li>
+                        <li class="am-active"><a href="#">还书</a></li>
+                        <li><a href="#">图书入库</a></li>
+                        <li class="am-disabled"><a href="#">相关数据</a></li>
+                        <li class="am-divider"></li>
+                        <li><a href="#">其它</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="am-topbar-right">
+                {{#if user}}
+                <div class="am-dropdown am-dropdown-up" data-am-dropdown="{boundary: '.am-topbar'}">
+                    <button class="am-btn am-btn-secondary am-topbar-btn am-btn-sm am-dropdown-toggle" data-am-dropdown-toggle>
+                        <i class="am-header-icon am-icon-user"></i>&nbsp;&nbsp;{{user.username}}&nbsp;&nbsp; <span class="am-icon-caret-up"></span>
+                    </button>
+                    <ul class="am-dropdown-content">
+                        <li><a href="#">我</a></li>
+                        <li><a href="/logout"><i class="am-icon-sign-out"></i>注销</a></li>
+                    </ul>
+                </div>
+                {{else}}
+                <form action="/login" method="POST" class="am-topbar-form am-topbar-left am-form-inline">
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-user am-text-primary"></i>
+                        <input type="text" name="username" class="am-radius am-form-field am-input-sm" placeholder="姓名/手机号">
+                    </div>
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-key  am-text-primary"></i>
+                        <input type="password" name="password" class="am-radius am-form-field am-input-sm" placeholder="密码">
+                    </div>
+                    <div class="am-form-group am-form-icon">
+                        <i class="am-icon-sign-in"></i>
+                        <button type="submit" class="am-btn am-btn-primary  am-btn-sm">&nbsp;&nbsp; 登录</button>
+                    </div>
+                </form>
+                {{/if}}
+            </div>
+        </div>
+    </header>
+    {{{body}}}
+    <!--[if lt IE 9]>
+<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
+<script src="/assets/js/amazeui.ie8polyfill.min.js"></script>
+<![endif]-->
+    <script src="/assets/js/amazeui.min.js"></script>
+
+</body>
+
+</html>

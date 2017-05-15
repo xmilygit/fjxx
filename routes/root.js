@@ -3,7 +3,7 @@ var router = express.Router();
 var passport=require('passport');
 
 router.get('/',function(req,res,next){
-    //console.log(req.user);
+    console.log(req.user);
     res.render('index',{
         title:'桂林市凤集小学',
         layout:'bootcsslayouts',

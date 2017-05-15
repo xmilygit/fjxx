@@ -26,6 +26,20 @@ var myauth = {
     token: 'xmilyhh'
 };
 
+//菜单配置
+var mymenu = {
+    "button": [
+        {
+            "name": "和正学子",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "毕业生",
+                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+                }]
+        }
+    ]
+};
 
 //初始化wechat-api库，并将access_token写入文件保存
 var api = new wechatapi(myauth.appid, myauth.appsecret, function (callback) {
@@ -94,6 +108,23 @@ var wechatcustomfun = {
 var wechatmsgtypefun = {
     "text": function (msg, req, res) {
         switch (true) {
+            case(msg.Content=='删除菜单'):
+            api.removeMenu(function(err,result){
+                if(err){
+                    console.log(err)
+                }
+                console.log(result);
+                sendpassivemsg(res,"菜单删除成功")
+            })
+            case(msg.Content=='创建菜单'):
+            api.createMenu(mymenu, function(err,result){
+                if(err){
+                    console.log(err)
+                }
+                console.log(result);
+                sendpassivemsg(res,"菜单创建成功");
+            });
+            break;
             case (msg.Content == '获取素材总数'):
                 api.getMaterialCount(function (err, result, res2) {
                     if (err) {
@@ -127,6 +158,8 @@ var wechatmsgtypefun = {
             case (msg.Content == '链接'):
                 sendpassivemsg(res, '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect">链接</a>');
                 break;
+            case(msg.Content=='毕业'):
+                sendpassivemsg(res,'<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect">毕业</a>')
             case (/bd#\S+#pw#\S+#/.test(msg.Content)):
                 sendpassivemsg(res, '正在绑定你的微信帐户，请稍等...');
                 wechatcustomfun['binduser'](msg, req, res);
@@ -168,7 +201,7 @@ router.post('/', wechat(myauth)
         wechatmsgtypefun['text'](msg, req, res);
     })
     .event(function (msg, req, res, next) {
-        wechatmsgtypefun['evnet'](msg, req, res);
+        //wechatmsgtypefun['evnet'](msg, req, res);
     }).middlewarify()
 );
 
