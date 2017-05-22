@@ -13,26 +13,32 @@ var myauth = {
 
 router.get('/', function (req, res, next) {
     let code = req.query['code'];
-    async.series([
-        function (callback) {
-            fun.getUseOpenId(code, callback);
-        }
-    ], function (error, result) {
-        if (result[0] != "error") {
-            res.render('graduate/index', {
-                title: '桂林市凤集小学--毕业生信息管理系统',
-                layout: 'f7layouts',
-                useropenid: result[0],
-                code: req.query['code']
-            });
-        } else {
-            console.log(error)
-        }
-    })
-
-
-
-
+    console.log('code:' + code)
+    if (code == null) {
+        res.render('graduate/index', {
+            title: '桂林市凤集小学--毕业生信息管理系统',
+            layout: 'f7layouts',
+            useropenid: '111111111111111111',
+            code: 'code is null'
+        })
+    } else {
+        async.series([
+            function (callback) {
+                fun.getUseOpenId(code, callback);
+            }
+        ], function (error, result) {
+            if (result[0] != "error") {
+                res.render('graduate/index', {
+                    title: '桂林市凤集小学--毕业生信息管理系统',
+                    layout: 'f7layouts',
+                    useropenid: result[0],
+                    code: code
+                });
+            } else {
+                console.log(error)
+            }
+        })
+    }
 })
 
 var fun = {
