@@ -1,4 +1,6 @@
 var express = require('express');
+//var session = require('express-session');
+//var cookieParser = require('cookie-parser');
 var async = require('async')
 var request = require('request');
 var router = express.Router();
@@ -13,31 +15,43 @@ var myauth = {
 
 router.get('/', function (req, res, next) {
     let code = req.query['code'];
-    console.log('code:' + code)
-    if (code == null) {
+    if (req.session.openid) {
+        console.log('session has openid')
         res.render('graduate/index', {
-            title: '桂林市凤集小学--毕业生信息管理系统',
-            layout: 'f7layouts',
-            useropenid: '111111111111111111',
-            code: 'code is null'
-        })
+                title: '桂林市凤集小学--毕业生信息管理系统',
+                layout: 'f7layouts',
+                useropenid: req.session.openid,
+                code: 'code is null'
+            })
     } else {
-        async.series([
-            function (callback) {
-                fun.getUseOpenId(code, callback);
-            }
-        ], function (error, result) {
-            if (result[0] != "error") {
-                res.render('graduate/index', {
-                    title: '桂林市凤集小学--毕业生信息管理系统',
-                    layout: 'f7layouts',
-                    useropenid: result[0],
-                    code: code
-                });
-            } else {
-                console.log(error)
-            }
-        })
+        console.log('session is null');
+        console.log('code:' + code)
+        if (code == null) {
+            res.render('graduate/index', {
+                title: '桂林市凤集小学--毕业生信息管理系统',
+                layout: 'f7layouts',
+                useropenid: '111111111111111111',
+                code: 'code is null'
+            })
+        } else {
+            async.series([
+                function (callback) {
+                    fun.getUseOpenId(code, callback);
+                }
+            ], function (error, result) {
+                if (result[0] != "error") {
+                    req.session.openid=result[0];
+                    res.render('graduate/index', {
+                        title: '桂林市凤集小学--毕业生信息管理系统',
+                        layout: 'f7layouts',
+                        useropenid: result[0],
+                        code: code
+                    });
+                } else {
+                    console.log(error)
+                }
+            })
+        }
     }
 })
 

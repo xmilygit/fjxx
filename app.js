@@ -50,7 +50,8 @@ passport.use('local', ppls);
 var h = 3600000 * 3;
 app.use(session({
   secret: 'xljx',
-  key: 'cookieName',
+  //key: 'cookieName',
+  name:'usersession',
   cookie: { maxAge: h },
   resave: false,
   saveUninitialized: true
