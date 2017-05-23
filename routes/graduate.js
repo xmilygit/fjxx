@@ -1,11 +1,20 @@
 var express = require('express');
-//var session = require('express-session');
-//var cookieParser = require('cookie-parser');
+//var sql = require('mssql');
+var moment = require('moment');
 var async = require('async')
 var request = require('request');
+var db=require('../model/MyDBHelper')
 var router = express.Router();
 
-
+var dbconfig = {
+    user: 'sa',
+    password: '19810921xmily',
+    server: 'fjxx.vicp.net',
+    database: 'fjxx',
+    options: {
+        tdsVersion: '7_1'
+    }
+}
 
 var myauth = {
     appid: 'wxba8db6584881bbab',
@@ -13,6 +22,12 @@ var myauth = {
     token: 'xmilyhh'
 };
 
+router.get('/testclass',function(req,res,next){
+    db.config="dfadsfadfsaf"
+    db.output();
+    //console.log(tc.add()+"===="+testclass.add2())
+    res.end();
+})
 router.get('/', function (req, res, next) {
     let code = req.query['code'];
     if (req.session.openid) {
