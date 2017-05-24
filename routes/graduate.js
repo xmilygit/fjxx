@@ -3,7 +3,7 @@ var express = require('express');
 var moment = require('moment');
 var async = require('async')
 var request = require('request');
-var db=require('../model/MyDBHelper')
+var db = require('../model/MyDBHelper')
 var router = express.Router();
 
 var dbconfig = {
@@ -22,7 +22,7 @@ var myauth = {
     token: 'xmilyhh'
 };
 
-router.get('/testzs',function(req,res,next){
+router.get('/testzs', function (req, res, next) {
     /*
     let a1=setTimeout(function(){
         res.write('阻塞执行完成')        
@@ -31,33 +31,53 @@ router.get('/testzs',function(req,res,next){
     sleep(10000);
     res.end();
 })
-function sleep(milliSeconds) { 
-    var startTime = new Date().getTime(); 
+function sleep(milliSeconds) {
+    var startTime = new Date().getTime();
     while (new Date().getTime() < startTime + milliSeconds);
- };
- 
-router.get('/testbzs',function(req,res,next){
+};
+
+router.get('/testbzs', function (req, res, next) {
     res.write('不阻塞执行完成');
     res.end();
 })
 
-router.get('/testclass',function(req,res,next){
-    db.config=dbconfig;
-    let sqlstr='select count(*) from graduate'
-    db.execsql(res,sqlstr,"test",false)
+router.get('/testclass', function (req, res, next) {
+    db.config = dbconfig;
+    let sqlstr = 'select count(*) from graduate';
+    async.series([
+        function (callback) {
+            db.execsqlAsync(callback, sqlstr, "test sql", false);
+        }
+    ], function (err, result) {
+        console.log(result[0]);
+        res.end();
+    })
     //console.log(tc.add()+"===="+testclass.add2())
     //res.end();
 })
 router.get('/', function (req, res, next) {
+    if (req.session.openid) {
+        console.log('session is hav')
+        
+    } else {
+        console.log('session is null writer abcd')
+        req.session.openid = 'abcd'
+    }
+    res.render('graduate/index', {
+        title: '桂林市凤集小学--毕业生信息管理系统',
+        layout: 'f7layouts',
+        useropenid: req.session.openid,
+    })
+    /*
     let code = req.query['code'];
     if (req.session.openid) {
         console.log('session has openid')
         res.render('graduate/index', {
-                title: '桂林市凤集小学--毕业生信息管理系统',
-                layout: 'f7layouts',
-                useropenid: req.session.openid,
-                code: 'code is null'
-            })
+            title: '桂林市凤集小学--毕业生信息管理系统',
+            layout: 'f7layouts',
+            useropenid: req.session.openid,
+            code: 'code is null'
+        })
     } else {
         console.log('session is null');
         console.log('code:' + code)
@@ -75,7 +95,7 @@ router.get('/', function (req, res, next) {
                 }
             ], function (error, result) {
                 if (result[0] != "error") {
-                    req.session.openid=result[0];
+                    req.session.openid = result[0];
                     res.render('graduate/index', {
                         title: '桂林市凤集小学--毕业生信息管理系统',
                         layout: 'f7layouts',
@@ -88,6 +108,7 @@ router.get('/', function (req, res, next) {
             })
         }
     }
+    */
 })
 
 var fun = {

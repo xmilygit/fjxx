@@ -20,6 +20,29 @@ var MyDBHelper={
                 res.json({ 'type': 'ok', 'readme': readme, 'recordset': recordset })
             })
         })
+    },
+    execsqlAsync:function(callback, sqlstr, readme, multiple) {
+        let result='';
+        let connection = new sql.Connection(this.config, function (err) {
+            if (err) {
+                console.log("获取" + readme + "时发生连接错误:" + err);
+                //res.json({ 'type': 'error', 'message': '获取' + readme + '时发生连接失败错误：' + err });
+                result={ 'type': 'error', 'message': '获取' + readme + '时发生连接失败错误：' + err };
+                callback(err,result)
+            }
+            let request = connection.request();
+            request.multiple = multiple || false;
+            request.query(sqlstr, function (err, recordset) {
+                if (err) {
+                    console.log('获取' + readme + '时查询失败：' + err);
+                    result={ 'type': 'error', 'message': '获取' + readme + '时查询失败：' + err };
+                    callback(err,result)
+                }
+                console.log('成功获取到' + readme + '');
+                result={ 'type': 'ok', 'readme': readme, 'recordset': recordset };
+                callback(err,result)
+            })
+        })
     }
 }
 
