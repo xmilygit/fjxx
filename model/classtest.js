@@ -1,3 +1,4 @@
+
 class testcls{
     constructor(a,b){
         this.a=a;
@@ -10,4 +11,7 @@ class testcls{
         return this.a*this.b*2;
     }
 }
+
+
+
 module.exports = testcls;

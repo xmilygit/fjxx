@@ -10,7 +10,7 @@ var dbconfig = {
     user: 'sa',
     password: '19810921xmily',
     server: 'fjxx.vicp.net',
-    database: 'fjxx',
+    database: 'schoolwx',
     options: {
         tdsVersion: '7_1'
     }
@@ -22,11 +22,31 @@ var myauth = {
     token: 'xmilyhh'
 };
 
-router.get('/testclass',function(req,res,next){
-    db.config="dfadsfadfsaf"
-    db.output();
-    //console.log(tc.add()+"===="+testclass.add2())
+router.get('/testzs',function(req,res,next){
+    /*
+    let a1=setTimeout(function(){
+        res.write('阻塞执行完成')        
+    },5000);
+    */
+    sleep(10000);
     res.end();
+})
+function sleep(milliSeconds) { 
+    var startTime = new Date().getTime(); 
+    while (new Date().getTime() < startTime + milliSeconds);
+ };
+ 
+router.get('/testbzs',function(req,res,next){
+    res.write('不阻塞执行完成');
+    res.end();
+})
+
+router.get('/testclass',function(req,res,next){
+    db.config=dbconfig;
+    let sqlstr='select count(*) from graduate'
+    db.execsql(res,sqlstr,"test",false)
+    //console.log(tc.add()+"===="+testclass.add2())
+    //res.end();
 })
 router.get('/', function (req, res, next) {
     let code = req.query['code'];
