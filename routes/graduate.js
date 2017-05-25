@@ -56,6 +56,7 @@ router.get('/testclass', function (req, res, next) {
     //res.end();
 })
 router.get('/', function (req, res, next) {
+    /*测试session功能
     if (req.session.openid) {
         console.log('session is hav')
         
@@ -68,11 +69,12 @@ router.get('/', function (req, res, next) {
         layout: 'f7layouts',
         useropenid: req.session.openid,
     })
-    /*
+    */
+    
     let code = req.query['code'];
     if (req.session.openid) {
         console.log('session has openid')
-        res.render('graduate/index', {
+        res.render('graduate/studentinfo', {
             title: '桂林市凤集小学--毕业生信息管理系统',
             layout: 'f7layouts',
             useropenid: req.session.openid,
@@ -95,7 +97,7 @@ router.get('/', function (req, res, next) {
                 }
             ], function (error, result) {
                 if (result[0] != "error") {
-                    req.session.openid = result[0];
+                    //req.session.openid = result[0];
                     res.render('graduate/index', {
                         title: '桂林市凤集小学--毕业生信息管理系统',
                         layout: 'f7layouts',
@@ -108,7 +110,10 @@ router.get('/', function (req, res, next) {
             })
         }
     }
-    */
+})
+
+router.post('/bindopenid',function(req,res,next){
+    req['']
 })
 
 var fun = {
