@@ -35,11 +35,21 @@ var mymenu = {
                 {
                     "type": "view",
                     "name": "毕业生",
-                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.ngrok.cc/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
                 }]
         }
     ]
 };
+
+function sha1(str){
+    var md5sum=crypto.createHash('sha1');
+    md5sum.update(str);
+    str=md5sum.digest('hex');
+    return str;
+}
+
+
+
 
 //初始化wechat-api库，并将access_token写入文件保存
 var api = new wechatapi(myauth.appid, myauth.appsecret, function (callback) {
@@ -195,6 +205,28 @@ router.post('/', function (req, res, next) {
     res.end();
 })
 */
+// 用于微信后台地址绑定的验证
+router.get('/',function(req,res,next){
+    var signature=req.query['signature']
+    var echostr=req.query['echostr']
+    var timestamp=req.query['timestamp'];
+    var nonce=req.query['nonce'];
+    var oriArray=["xmilyhh",timestamp,nonce];
+    oriArray.sort();
+    var original=oriArray.join('');
+    var scyptoString=sha1(original);
+    if(signature==scyptoString){
+        res.end(echostr)
+        console.log('绑定服务器成功')
+    }else{
+        res.end('false')
+        console.log('绑定服务器失败')
+    }
+    console.log(signature)
+    res.end();
+})
+
+
 //微信消息处理主入口2
 router.post('/', wechat(myauth)
     .text(function (msg, req, res, next) {
