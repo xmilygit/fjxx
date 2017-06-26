@@ -72,6 +72,7 @@ router.get('/', function (req, res, next) {
     */
     
     let code = req.query['code'];
+    //如果缓存中有openid
     if (req.session.openid) {
         console.log('session has openid')
         res.render('graduate/studentinfo', {
@@ -81,8 +82,10 @@ router.get('/', function (req, res, next) {
             code: 'code is null'
         })
     } else {
+        //否则检查code是否有
         console.log('session is null');
         console.log('code:' + code)
+        //如果没有则引导其到绑定页面
         if (code == null) {
             res.render('graduate/index', {
                 title: '桂林市凤集小学--毕业生信息管理系统',
@@ -91,6 +94,7 @@ router.get('/', function (req, res, next) {
                 code: 'code is null'
             })
         } else {
+            //否则根据code查询openid
             async.series([
                 function (callback) {
                     fun.getUseOpenId(code, callback);

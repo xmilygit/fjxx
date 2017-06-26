@@ -35,7 +35,7 @@ var mymenu = {
                 {
                     "type": "view",
                     "name": "毕业生",
-                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.ngrok.cc/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
                 }]
         }
     ]
