@@ -14,6 +14,7 @@ var crypto = require('crypto');
 var xmlparser = require('express-xml-bodyparser');
 
 var db = require('./model/db');
+var admin=require('./routes/admin/main');
 var Account = require('./model/Account');
 var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
@@ -101,7 +102,7 @@ app.use('/Library', Library);
 app.use('/wechat', wechat);
 app.use('/graduate',graduate);
 app.use('/test',test);
-
+app.use('/main',admin);
 
 
 

@@ -1,6 +1,7 @@
 // Initialize your app
 var myApp = new Framework7({
-    precompileTemplates: true
+    precompileTemplates: true,
+    swipePanel: 'left'
     //template7Pages: true
 });
 
