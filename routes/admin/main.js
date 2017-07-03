@@ -19,4 +19,9 @@ router.get('/', function (req, res, next) {
     })
 })
 
+
+router.get('/getaccountlist',function(req,res,next){
+    
+}
+
 module.exports = router;
