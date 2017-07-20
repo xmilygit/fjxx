@@ -1,5 +1,7 @@
 var mongoose=require('mongoose');
-var dbURI='mongodb://fjxx:818140@fjxx.vicp.net:27017/fjxx'
+mongoose.Promise = global.Promise;  
+//var dbURI='mongodb://fjxx:818140@fjxx.vicp.net:27017/fjxx'
+var dbURI='mongodb://localhost:27017/fjxx'
 mongoose.connect(dbURI);
 
 

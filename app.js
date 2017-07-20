@@ -14,13 +14,16 @@ var crypto = require('crypto');
 var xmlparser = require('express-xml-bodyparser');
 
 var db = require('./model/db');
-var admin=require('./routes/admin/main');
 var Account = require('./model/Account');
+var StudentInfo=require('./model/StudentInfo');
+var admin=require('./routes/admin/main');
+var StuWctInfoInput=require('./routes/student/wachat/infoinput')
 var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
 var Library = require('./routes/library');
 var wechat = require('./routes/wechat');
 var graduate=require('./routes/graduate');
+var wechat2=require('./routes/wechat/wechat')
 var test=require('./routes/test');
 
 var app = express();
@@ -103,6 +106,8 @@ app.use('/wechat', wechat);
 app.use('/graduate',graduate);
 app.use('/test',test);
 app.use('/main',admin);
+app.use('/student/wechat',StuWctInfoInput);
+app.use('/wechat/binder',wechat2);
 
 
 

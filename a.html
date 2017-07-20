@@ -1,0 +1,57 @@
+    <!--修改用户信息弹出层-->
+    <div class="popup modiAccInfo">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left"><a href="#" class="button button-fill color-yellow close-popup">关闭</a></div>
+                <div class="center">修改用户信息</div>
+                <div class="right"><a href="#" class="button button-fill color-green" id="accSaveButt">保存</a></div>
+            </div>
+        </div>
+        <div class="content-block">
+            <!--<div class="content-block-title">修改信息</div>-->
+            <form id="acc-modi-form" class="list-block">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input type="hidden" value="" id="vindex">
+                                    <input type="text" placeholder="姓名" name="username" id="username">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input type="email" placeholder="身份证" name="pid" id="pid">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <select id="gender" name="gender">
+                                                    <option>男</option>
+                                                    <option>女</option>
+                                                </select>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-input">
+                                    <input type="date" placeholder="出生日期" name="dob" value="2014-04-30" id="dob">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </from>
+        </div>
+    </div>

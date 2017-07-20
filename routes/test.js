@@ -1,5 +1,13 @@
 var express = require('express')
 var router = express.Router();
+var xlstojson=require('xls-to-json');
+var path=require('path');
+var mongoose=require('mongoose');
+var locationcode=require('../model/locationcode');
+
+
+
+/*
 var sql = require('mssql');
 var moment = require('moment');
 var Sequelize = require('sequelize');
@@ -47,4 +55,57 @@ router.get('/test', function (req, res, next) {
     })
 
 })
+
+*/
+
+router.get('/test',function(req,res,next){
+    
+    var xls=path.resolve(__dirname,'../public/学籍信息基础字段.xlsx');
+    var jsonf=path.resolve(__dirname,'../public/test.json');
+    xlstojson({
+        input:xls,
+        output:jsonf,
+        sheet:'Sheet2'
+    },function(err,result){
+        if(err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
+router.get('/test1',function(req,res,next){
+    var xls=path.resolve(__dirname,'../public/行政区划.xlsx');
+    var jsonf=path.resolve(__dirname,'../public/locationcode.json');
+    xlstojson({
+        input:xls,
+        output:jsonf,
+        sheet:'Sheet1'
+    },function(err,result){
+        if(err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
+router.get('/test2',function(req,res,next){
+    /*
+    mongoose.model("StudentInfo").find({})
+    .limit(10)
+    .exec(function(err,result){
+        if(err){
+            console.error(err);
+            return;
+        }
+        console.log(result);
+        res.end()
+    })
+    */
+    console.log(locationcode)
+    
+})
+
 module.exports = router;

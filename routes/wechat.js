@@ -31,12 +31,8 @@ var mymenu = {
     "button": [
         {
             "name": "和正学子",
-            "sub_button": [
-                {
-                    "type": "view",
-                    "name": "毕业生",
-                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
-                }]
+            "type": "view",
+            "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/wechat/binder/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
         }
     ]
 };

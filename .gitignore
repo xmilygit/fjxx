@@ -39,3 +39,4 @@ jspm_packages
 # Optional VS Code
 .vscode
 access_token.txt
+nogit

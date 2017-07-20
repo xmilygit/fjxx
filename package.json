@@ -25,6 +25,7 @@
     "sequelize": "^3.30.2",
     "serve-favicon": "~2.3.0",
     "wechat": "^2.0.3",
-    "wechat-api": "^1.32.0"
+    "wechat-api": "^1.32.0",
+    "xls-to-json": "^0.4.0"
   }
 }
