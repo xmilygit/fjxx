@@ -8,8 +8,6 @@ var myApp = new Framework7({
 // Export selectors engine
 var $$ = Dom7;
 
-//定义AJAX服务器地址
-var svrUrl = "http://fjxx.localtunnel.me";
 // Add view
 var mainView = myApp.addView('.view-main', {
     // Because we use fixed-through navbar we can enable dynamic navbar
@@ -385,6 +383,34 @@ function vlistAfterInsert(a, b) {
         var account = myList.items[index];
         $("#accid").val(account._id)
         myApp.popup('.accrstpw');
+    })
+    $$("#vuserlist .unbind").on('click', function () {
+        myApp.confirm('请确认是否要解除该用户的绑定状态', '确认操作', function () {
+            var index = $(myApp.swipeoutOpenedEl).children('input').val();
+            var id = myList.items[index]._id;
+            myApp.showPreloader('正在处理...')
+            try {
+                $$.ajax({
+                    url: svrUrl + '/main/unbinder',
+                    method: 'GET',
+                    dataType: 'json',
+                    data: { id: id },
+                    complete: function () {
+                        myApp.hidePreloader();
+                    },
+                    success: function (data) {
+                        if (data.error) {
+                            myApp.alert(data.message, "出错了");
+                            return;
+                        }
+                        myList.replaceItem(index, data.recordset);
+                    },
+                    error: ajaxError
+                })
+            } catch (err) {
+                myApp.alert(err, "出错了");
+            }
+        })
     })
     $$("#vuserlist .delete").on('click', function () {
         myApp.confirm('请确认是否执行删除操作','确认操作',function () {

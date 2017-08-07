@@ -17,13 +17,13 @@ var db = require('./model/db');
 var Account = require('./model/Account');
 var StudentInfo=require('./model/StudentInfo');
 var admin=require('./routes/admin/main');
-var StuWctInfoInput=require('./routes/student/wachat/infoinput')
+var StuInfoInput=require('./routes/wechat/stuinfoinput')
 var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
 var Library = require('./routes/library');
-var wechat = require('./routes/wechat');
+var rootWechat = require('./routes/rootWechat');
 var graduate=require('./routes/graduate');
-var wechat2=require('./routes/wechat/wechat')
+var wcBinder=require('./routes/wechat/binder')
 var test=require('./routes/test');
 
 var app = express();
@@ -102,12 +102,18 @@ app.use(passport.session());
 app.use('/Account', Accounts);
 app.use('/', rootsite);
 app.use('/Library', Library);
-app.use('/wechat', wechat);
+//微信接入总入口
+app.use('/wechat', rootWechat);
+//微信绑定功能入口
+app.use('/wechat/binder',wcBinder);
+//微信新生学籍信息补充功能入口
+app.use('/wechat/stuinfo',StuInfoInput);
 app.use('/graduate',graduate);
 app.use('/test',test);
+//web端管理功能入口
 app.use('/main',admin);
-app.use('/student/wechat',StuWctInfoInput);
-app.use('/wechat/binder',wechat2);
+
+
 
 
 

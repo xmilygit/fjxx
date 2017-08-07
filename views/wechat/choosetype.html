@@ -28,7 +28,7 @@
                 <div class="item-content">
                     <div class="item-inner">
                         <div class="item-input">
-                            <input type="password" placeholder="密码" name="password" id="tpassword">
+                            <input type="password" placeholder="密码(身份证后6位)" name="password" id="tpassword">
                         </div>
                     </div>
                 </div>
@@ -43,16 +43,16 @@
         <div class="navbar-inner">
             <div class="left"><a href="#" class="button button-fill color-yellow close-popup">关闭</a></div>
             <div class="center">新生绑定</div>
-            <div class="right"><a href="#" class="button button-fill color-green" id="accSaveButt">绑定</a></div>
+            <div class="right"><a href="#" class="button button-fill color-green" id="nsBinderButt">绑定</a></div>
         </div>
     </div>
-    <form id="acc-inst-form" class="list-block">
+    <form id="newstudent-form" class="list-block">
         <ul>
             <li>
                 <div class="item-content">
                     <div class="item-inner">
                         <div class="item-input">
-                            <input type="text" placeholder="新生姓名" name='username' id="addusername">
+                            <input type="text" placeholder="新生姓名" name='username' id="nsusername">
                         </div>
                     </div>
                 </div>
@@ -61,25 +61,7 @@
                 <div class="item-content">
                     <div class="item-inner">
                         <div class="item-input">
-                            <input type="text" placeholder="监护人姓名" name="pid" id="addpid">
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="item-content">
-                    <div class="item-inner">
-                        <div class="item-input">
-                            <input type="text" placeholder="上面所填监护人联系电话" name="pid" id="addpid">
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <div class="item-content">
-                    <div class="item-inner">
-                        <div class="item-input">
-                            <input type="date" placeholder="出生日期" name="dob" id="adddob">
+                            <input type="password" placeholder="密码(学生身份证后6位)" name="password" id="nspassword">
                         </div>
                     </div>
                 </div>
@@ -95,16 +77,16 @@
         <div class="navbar-inner">
             <div class="left"><a href="#" class="button button-fill color-yellow close-popup">关闭</a></div>
             <div class="center">在校生绑定</div>
-            <div class="right"><a href="#" class="button button-fill color-green" id="accSaveButt">绑定</a></div>
+            <div class="right"><a href="#" class="button button-fill color-green" id="sBinderButt">绑定</a></div>
         </div>
     </div>
-    <form id="acc-inst-form" class="list-block">
+    <form id="student-form" class="list-block">
         <ul>
             <li>
                 <div class="item-content">
                     <div class="item-inner">
                         <div class="item-input">
-                            <input type="text" placeholder="学生姓名" name='username' id="addusername">
+                            <input type="text" placeholder="学生姓名" name='username' id="susername">
                         </div>
                     </div>
                 </div>
@@ -113,7 +95,7 @@
                 <div class="item-content">
                     <div class="item-inner">
                         <div class="item-input">
-                            <input type="text" placeholder="学生身份证后6位" name="pid" id="addpid">
+                            <input type="text" placeholder="密码(学生身份证后6位)" name="password" id="spassword">
                         </div>
                     </div>
                 </div>
@@ -125,7 +107,7 @@
 <div class="view view-main">
     <div class="pages navbar-fixed">
         <div data-page="index" class="page">
-            <input type="hidden" value="{{openid}}">
+            <input type="hidden" value="{{openid}}" id="openid">
             <div class="page-content">
                 <div class="content-block">
                     <p><a href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">教师</a></p>
@@ -140,6 +122,7 @@
 <script type="text/javascript" src="/js/f7/js/framework7.min.js"></script>
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
-<!--<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>-->
+<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 <script type="text/javascript" src="/js/additional-methods.js"></script>
+<script type="text/javascript" src="/js/appinit.js"></script>
 <script type="text/javascript" src="/js/f7/js/my-app-wxbinder.js"></script>

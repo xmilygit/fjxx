@@ -3,10 +3,28 @@ var router = express.Router();
 var xlstojson=require('xls-to-json');
 var path=require('path');
 var mongoose=require('mongoose');
+var crypto=require('crypto');
 var locationcode=require('../model/locationcode');
 
 
+function strtomd5(str){
+    var sha1=crypto.createHash('sha1')
+    sha1.update(str);
+    return sha1.digest('hex');
+}
 
+router.get('/setstudentpasswordbat', function (req, res, next) {
+    mongoose.model('Account').find({ infoid: { $ne: null } }, function (err, docs) {
+        docs.forEach(function (v, i, docs) {
+            if (v.pid != "") {
+                //console.log(v.username + "===" + strtomd5(v.pid.substr(12, 6)));
+                v.password=strtomd5(v.pid.substr(12,6));
+                v.save();
+            }
+        })
+        res.end();
+    })
+})
 /*
 var sql = require('mssql');
 var moment = require('moment');
@@ -60,12 +78,12 @@ router.get('/test', function (req, res, next) {
 
 router.get('/test',function(req,res,next){
     
-    var xls=path.resolve(__dirname,'../public/学籍信息基础字段.xlsx');
+    var xls=path.resolve(__dirname,'../public/studentinfo.xlsx');
     var jsonf=path.resolve(__dirname,'../public/test.json');
     xlstojson({
         input:xls,
         output:jsonf,
-        sheet:'Sheet2'
+        sheet:'studentinfo'
     },function(err,result){
         if(err)
             console.error(err);

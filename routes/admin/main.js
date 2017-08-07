@@ -128,6 +128,32 @@ router.get('/delacc', function (req, res, next) {
     )
 })
 
+//解除微信绑定
+router.get('/unbinder',function(req,res,next){
+    res.setHeader('Access-Control-Allow-Origin',"*");
+    var id=req.query['id'];
+    mongoose.model('Account').findById(
+        id,
+        function(err,doc){
+            if(err){
+                res.json({'error':true,'message':err});
+                return;
+            }
+            if(doc){
+                doc.wxopenid=null;
+                doc.save(function(err,result){
+                    if(err){
+                        res.json({'error':true,'message':err});
+                        return;
+                    }
+                    res.json({'recordset':result});
+                })
+            }
+
+        }
+    )
+})
+
 //读取用户数据时不读取密码信息
 //获取所有用户记录
 router.get('/getaccountlist', function (req, res, next) {

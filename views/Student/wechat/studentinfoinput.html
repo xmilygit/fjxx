@@ -4,7 +4,7 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <div class="center">学籍信息采集</div>
-                    <div class="right"><a href="#" class="button button-fill color-green">保存</a></div>
+                    <div class="right"><a href="#" class="button button-fill color-green" id="savebutt">保存</a></div>
                     <div class="subnavbar">
                         <!-- Buttons row as tabs controller in Subnavbar-->
                         <div class="buttons-row">
@@ -23,7 +23,7 @@
                     <!-- Tab 1, active by default -->
                     <div id="tab1" class="page-content tab active">
                         <!--<div class="content-block">-->
-                            <form class="list-block">
+                            <form class="list-block" id="form1">
                                 <ul>
                                     <!-- Text inputs -->
                                     <li>
@@ -54,7 +54,7 @@
                                             <div class="item-inner">
                                                 <div class="item-title label">出生日期</div>
                                                 <div class="item-input">
-                                                    <input type="date" placeholder="出生日期" disabled name="dob">
+                                                    <input type="text" placeholder="出生日期" readonly name="dob" id="dob">
                                                 </div>
                                             </div>
                                         </div>
@@ -115,7 +115,7 @@
                                                 <div class="item-title label">独生子女</div>
                                                 <div class="item-input">
                                                     <label class="label-switch">
-                                                        <input type="checkbox" name="onlychild">
+                                                        <input type="checkbox" name="onlychild" value="是">
                                                         <div class="checkbox"></div>
                                                     </label>
                                                 </div>
@@ -128,7 +128,7 @@
                                                 <div class="item-title label">受过学前教育</div>
                                                 <div class="item-input">
                                                     <label class="label-switch">
-                                                        <input type="checkbox" name="preschool">
+                                                        <input type="checkbox" name="preschool" value="是">
                                                         <div class="checkbox"></div>
                                                     </label>
                                                 </div>
@@ -184,7 +184,7 @@
                     </div>
                     <!-- Tab 2 -->
                     <div id="tab2" class="page-content tab">
-                        <form class="list-block">
+                        <form class="list-block" id="form2">
                                 <ul>
                                     <!-- Text inputs -->
                                     <li class="item-divider">成员1基本信息</li>
@@ -220,7 +220,7 @@
                                                 <div class="item-title label">是否监护人</div>
                                                 <div class="item-input">
                                                     <label class="label-switch">
-                                                        <input type="checkbox" name="Fguardian">
+                                                        <input type="checkbox" name="Fguardian" value="是">
                                                         <div class="checkbox"></div>
                                                     </label>
                                                 </div>
@@ -290,7 +290,7 @@
                                                 <div class="item-title label">是否监护人</div>
                                                 <div class="item-input">
                                                     <label class="label-switch">
-                                                        <input type="checkbox" name="sguardian">
+                                                        <input type="checkbox" name="sguardian" value="是">
                                                         <div class="checkbox"></div>
                                                     </label>
                                                 </div>
@@ -344,7 +344,7 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 
 <!-- Path to your app js-->
-<script type="text/javascript" src="/js/f7/js/appinit.js"></script>
+<script type="text/javascript" src="/js/appinit.js"></script>
 <script type="text/javascript" src="/js/locationcode.js"></script>
 <script type="text/javascript" src="/js/jquery.linq.min.js"></script>
 <script type="text/javascript" src="/js/f7/js/my-app-studentinfoinput.js"></script>

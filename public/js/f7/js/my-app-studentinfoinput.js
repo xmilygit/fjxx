@@ -13,13 +13,13 @@ var mainView = myApp.addView('.view-main', {
     domCache: true,
     dynamicNavbar: true
 });
-
+myApp.showPreloader('正在加载数据...')
 
 //console.log($.Enumerable.From(locationcode).First("$.locationname=='桂林市'"));
 var lv1 = "[1-9][0-9]0{10}"
-var lv2init="11([0-9][1-9]|[1-9][0-9])0{8}"
-var lv3init="1101([0-9][1-9]|[1-9][0-9])0{6}"
-var temppk=[];
+var lv2init = "11([0-9][1-9]|[1-9][0-9])0{8}"
+var lv3init = "1101([0-9][1-9]|[1-9][0-9])0{6}"
+var temppk = [];
 function returnLocationArray(regex) {
     var lnames = $.Enumerable.From(locationcode)
         .Where("x=>x.code.match(/" + regex + "/)")
@@ -36,27 +36,27 @@ function returnLocationArray(regex) {
 }
 
 $("#pid").on('blur', function (obj) {
-var newVal=[];
-        var targetVal = $(this).val()
-        var c1 = targetVal.substr(0, 2);
-        var c2 = targetVal.substr(0, 4);
-        var c3 = targetVal.substr(0, 6);
-        newVal=[c1+'0000000000',c2+'00000000',c3+'000000'];
+    var newVal = [];
+    var targetVal = $(this).val()
+    var c1 = targetVal.substr(0, 2);
+    var c2 = targetVal.substr(0, 4);
+    var c3 = targetVal.substr(0, 6);
+    newVal = [c1 + '0000000000', c2 + '00000000', c3 + '000000'];
     if ($("#locationcode1").val().length == 0) {
         locationpick1.setValue(newVal)
-        temppk[0]=newVal;
+        temppk[0] = newVal;
     }
     if ($("#locationcode2").val().length == 0) {
         locationpick2.setValue(newVal)
-        temppk[1]=newVal;
+        temppk[1] = newVal;
     }
     if ($("#locationcode3").val().length == 0) {
-        locationpick2.setValue(newVal)
-        temppk[2]=newVal;
+        locationpick3.setValue(newVal)
+        temppk[2] = newVal;
     }
     if ($("#locationcode4").val().length == 0) {
-        locationpick2.setValue(newVal)
-        temppk[3]=newVal;
+        locationpick4.setValue(newVal)
+        temppk[3] = newVal;
     }
 })
 
@@ -66,7 +66,7 @@ var locationpick1 = myApp.picker({
     formatValue: function (picker, values) {
         return values[2];
     },
-    toolbarCloseText:'确定',
+    toolbarCloseText: '确定',
     onOpen: function (picker) {
         if (temppk[0]) {
             picker.setValue(temppk[0])
@@ -77,7 +77,7 @@ var locationpick1 = myApp.picker({
         {
             width: 160,
             textAlign: 'left',
-            values:returnLocationArray(lv1).codes,//code,
+            values: returnLocationArray(lv1).codes,//code,
             displayValues: returnLocationArray(lv1).names,//names,
             onChange: function (picker, value, displayValue) {
                 var l1 = value.substr(0, 2);
@@ -115,7 +115,7 @@ var locationpick2 = myApp.picker({
     formatValue: function (picker, values) {
         return values[2];
     },
-    toolbarCloseText:'确定',
+    toolbarCloseText: '确定',
     onOpen: function (picker) {
         if (temppk[1]) {
             picker.setValue(temppk[1])
@@ -126,7 +126,7 @@ var locationpick2 = myApp.picker({
         {
             width: 160,
             textAlign: 'left',
-            values:returnLocationArray(lv1).codes,//code,
+            values: returnLocationArray(lv1).codes,//code,
             displayValues: returnLocationArray(lv1).names,//names,
             onChange: function (picker, value, displayValue) {
                 var l1 = value.substr(0, 2);
@@ -164,7 +164,7 @@ var locationpick3 = myApp.picker({
     formatValue: function (picker, values) {
         return values[2];
     },
-    toolbarCloseText:'确定',
+    toolbarCloseText: '确定',
     onOpen: function (picker) {
         if (temppk[2]) {
             picker.setValue(temppk[2])
@@ -175,7 +175,7 @@ var locationpick3 = myApp.picker({
         {
             width: 160,
             textAlign: 'left',
-            values:returnLocationArray(lv1).codes,//code,
+            values: returnLocationArray(lv1).codes,//code,
             displayValues: returnLocationArray(lv1).names,//names,
             onChange: function (picker, value, displayValue) {
                 var l1 = value.substr(0, 2);
@@ -213,7 +213,7 @@ var locationpick4 = myApp.picker({
     formatValue: function (picker, values) {
         return values[2];
     },
-    toolbarCloseText:'确定',
+    toolbarCloseText: '确定',
     onOpen: function (picker) {
         if (temppk[3]) {
             picker.setValue(temppk[3])
@@ -224,7 +224,7 @@ var locationpick4 = myApp.picker({
         {
             width: 160,
             textAlign: 'left',
-            values:returnLocationArray(lv1).codes,//code,
+            values: returnLocationArray(lv1).codes,//code,
             displayValues: returnLocationArray(lv1).names,//names,
             onChange: function (picker, value, displayValue) {
                 var l1 = value.substr(0, 2);
@@ -255,3 +255,153 @@ var locationpick4 = myApp.picker({
         }
     ]
 });
+
+
+
+$(function () {
+    try{
+    $.ajax({
+        url: svrUrl + "/wechat/stuinfo/GetInfoById",
+        method: 'POST',
+        dataType:'json',
+        data:null,
+        success:getinfoAjaxSuccess,
+        complete:function(){
+            myApp.hidePreloader();
+        },
+        error:ajaxError
+    })
+    }catch(err){
+        myApp.alert(err,"出错了")
+    }
+})
+
+function getinfoAjaxSuccess(data){
+    if(data.error){
+        myApp.alert(err,"出错了")
+        return
+    }
+    var stu = {
+        "stuname": data.recordset.姓名,
+        "gender":data.recordset.性别,
+        "dob":data.recordset.出生日期,
+        "nation":data.recordset.民族,
+        "homeaddress":data.recordset.家庭地址,
+        "regaddress":data.recordset.现住址,
+        "origin":data.recordset.籍贯,
+        "pid":data.recordset.身份证件号,
+        "onlychild":[data.recordset.是否独生子女],
+        "preschool":[data.recordset.是否受过学前教育],
+        "regtype":data.recordset.户口性质,
+        "borncode":data.recordset.出生地行政区划代码,
+        "regcode":data.recordset.户口所在地行政区划,
+        "zipcode":data.recordset.邮政编码
+    }
+    var fs={
+        "fname":data.recordset.成员1姓名,
+        "frelationship":data.recordset.成员1关系,
+        "Fguardian":[data.recordset.成员1是否监护人],
+        "fhomeaddress":data.recordset.成员1现住址,
+        "fregcode":data.recordset.成员1户口所在地行政区划,
+        "ftel":data.recordset.成员1联系电话,
+        "sname":data.recordset.成员2姓名,
+        "srelationship":data.recordset.成员2关系,
+        "sguardian":[data.recordset.成员2是否监护人],
+        "shomeaddress":data.recordset.成员2现住址,
+        "sregcode":data.recordset.成员2户口所在地行政区划,
+        "stel":data.recordset.成员2联系电话
+    }
+
+    
+    myApp.formFromJSON('#form1', stu)
+    myApp.formFromJSON('#form2',fs)
+    var dob=stu.dob.substr(0,4)+"-"+stu.dob.substr(5,2)+"-"+stu.dob.substr(6,2);
+    calendarDateFormat.value=[dob]
+    $('#pid').trigger("blur");
+    //alert(data.recordset.成员2联系电话)
+}
+
+//ajax执行出错时执行
+function ajaxError(data) {
+    myApp.alert("系统出错!", "出错了")
+    //vlistloading = false;
+    console.log(data);
+}
+
+//定义日期控件的配置变量
+
+var calendarconfig = {
+    monthNames: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+    monthNamesShort: ['一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二'],
+    dayNames: ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+    dayNamesShort: ['日', '一', '二', '三', '四', '五', '六'],
+    toolbarCloseText: "Ok",
+}
+
+var calendarDateFormat = myApp.calendar({
+    input: '#dob',
+    dateFormat: 'yyyymmdd',
+    monthNames: calendarconfig.monthNames,
+    monthNamesShort: calendarconfig.monthNamesShort,
+    dayNames: calendarconfig.dayNames,
+    dayNamesShort: calendarconfig.dayNamesShort,
+    toolbarCloseText: "Ok"
+});
+
+
+$$("#savebutt").on('click',function(){
+    alert('adsfaf')
+    var stdata=myApp.formToJSON('#form1')
+    var fsdata=myApp.formToJSON('#form2')
+    /*
+    var stu = {
+        "姓名":stdata.stuname,
+        "性别":stdata.gender,
+        "出生日期":stdata.dob,
+        "民族":stdata.nation,
+        "家庭地址":stdata.homeaddress,
+        "现住址":stdata.regaddress,
+        "籍贯":stdata.origin,
+        "身份证件号":stdata.pid,
+        "是否独生子女":stdata.onlychild[0]|"否",
+        "是否受过学前教育":stdata.preschool[0]|"否",
+        "户口性质":stdata.regtype,
+        "出生地行政区划代码":stdata.borncode,
+        "户口所在地行政区划":stdata.regcode,
+        "邮政编码":stdata.zipcode,
+        "成员1姓名":fsdata.fname,
+        "成员1关系":fsdata.frelationship,
+        "成员1是否监护人":fsdata.Fguardian[0]|"否",
+        "成员1现住址":fsdata.fhomeaddress,
+        "成员1户口所在地行政区划":fsdata.fregcode,
+        "成员1联系电话":fsdata.ftel,
+        "成员2姓名":fsdata.sname,
+        "成员2关系":fsdata.srelationship,
+        "成员2是否监护人":fsdata.sguardian[0]|"否",
+        "成员2现住址":fsdata.shomeaddress,
+        "成员2户口所在地行政区划":fsdata.sregcode,
+        "成员2联系电话":fsdata.stel
+    }
+    */
+    alert('adsfaf')
+    myApp.showPreloader('正在保存数据...')
+    $.ajax({
+        url: svrUrl + "/wechat/stuinfo/SaveInfoByOpenid",
+        method: 'POST',
+        dataType: 'json',
+        data: {stdata:JSON.stringify(stdata),fsdata:JSON.stringify(fsdata)},
+        complete: function () {
+            myApp.hidePreloader()
+        },
+        success: saveinfoAjaxSuccess,
+        error: ajaxError
+    })
+})
+
+function saveinfoAjaxSuccess(data){
+    if(data.error){
+        myApp.alert(data.message,"出错了");
+        return;
+    }
+    myApp.alert('保存成功!',"提示")
+}
