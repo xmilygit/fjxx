@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var crypto = require('crypto');
-var async = require('async')
+var async = require('async');
+var appvar=require("../../model/varmange");
 
 
 router.get('/', function (req, res, next) {

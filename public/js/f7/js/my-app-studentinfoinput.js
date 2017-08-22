@@ -278,7 +278,7 @@ $(function () {
 
 function getinfoAjaxSuccess(data){
     if(data.error){
-        myApp.alert(err,"出错了")
+        myApp.alert(data.message,"出错了")
         return
     }
     var stu = {
@@ -350,7 +350,6 @@ var calendarDateFormat = myApp.calendar({
 
 
 $$("#savebutt").on('click',function(){
-    alert('adsfaf')
     var stdata=myApp.formToJSON('#form1')
     var fsdata=myApp.formToJSON('#form2')
     /*
@@ -383,7 +382,6 @@ $$("#savebutt").on('click',function(){
         "成员2联系电话":fsdata.stel
     }
     */
-    alert('adsfaf')
     myApp.showPreloader('正在保存数据...')
     $.ajax({
         url: svrUrl + "/wechat/stuinfo/SaveInfoByOpenid",

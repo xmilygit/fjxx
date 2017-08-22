@@ -6,7 +6,7 @@ var crypto = require('crypto');
 var varmange = require('../../model/varmange')
 var router = express.Router();
 
-var myauth = varmange.wechatauth;
+var myauth = varmange.varmng.wechatauth;
 router.post("*",function(req,res,next){
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();

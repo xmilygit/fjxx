@@ -491,6 +491,15 @@ $$("#userSearch").on("click", function () {
     */
 })
 
+//当新生信息录入状态改变时
+$$("#newstuinput").on("change",function(){
+    if($("#newstuinput").is(':checked'))
+        $("#newstuinput").attr("checked",false);
+    else
+        $("#newstuinput").attr("checked",true);
+    //执行AJAX程序，如果设置成功就不用做什么，设置不成功，刚将状态还原为之前的状态,之前只是举例
+})
+
 //搜索用户列表的AJAX执行成功success的方法
 function dispUSRes(data){
     if(data.error){
