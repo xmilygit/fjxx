@@ -297,4 +297,40 @@ router.get('/usersearch', function (req, res, next) {
     */
 })
 
+
+//获取新生信息录入激活状态
+router.get('/getnewstuinfoenable', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    async.auto({
+        method1: function (callback) {
+            appvar.GetNewStuInfoEnable(callback);
+        }
+    }, function (err, result) {
+        if (err) {
+            res.json({ 'error': true, 'message': err });
+            return
+        } else {
+            res.json({ "type": "ok", 'recordset': result.method1 });
+            return
+        }
+    })
+})
+
+//设置新生信息录入激活状态
+router.get('/setnewstuinfoenable', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    async.auto({
+        method1:function(callback){
+            appvar.SetNewStuInfoDisable(req.query['state'],callback)
+        }
+    },function(err,result){
+        if(err){
+            res.json({ 'error': true, 'message': err });
+            return
+        }else{
+            res.json({ "type": "ok", recordset: req.query['state'] });
+            return
+        }
+    })
+})
 module.exports = router;

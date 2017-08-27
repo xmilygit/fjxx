@@ -445,6 +445,30 @@ $$(document).on('pageInit', function (e) {
     // Do something here when page loaded and initialized
     console.log(e.detail.page.name)
 })
+//新生信息录入状态页面打开时初始化
+myApp.onPageInit('newstuinfomng', function (e) {    
+    myApp.showPreloader("正在初始数据...");
+    try {
+        $$.ajax({
+            url: svrUrl + '/main/getnewstuinfoenable',
+            method: 'GET',
+            dataType: 'json',
+            data:{},
+            success: NewStuInfoEnableAS,
+            error: ajaxError,
+            complete: function () {
+                myApp.hidePreloader();
+            }
+        })
+    } catch (err) {
+        myApp.hidePreloader();
+        myApp.alert(err,"出错了！")
+    }
+})
+//执行获取新生信息激活状态的Ajax的success方法
+function NewStuInfoEnableAS(data){
+    $("#newstuinput").attr("checked",data.recordset);
+}
 myApp.onPageInit('userlist', function (page) {
     vlistInit();
 })
@@ -491,14 +515,37 @@ $$("#userSearch").on("click", function () {
     */
 })
 
+
+//myApp.onPageReinit('newstuinfomng', function (page) {
+//    alert('adfadfs')
+//})
+
 //当新生信息录入状态改变时
 $$("#newstuinput").on("change",function(){
-    if($("#newstuinput").is(':checked'))
-        $("#newstuinput").attr("checked",false);
-    else
-        $("#newstuinput").attr("checked",true);
-    //执行AJAX程序，如果设置成功就不用做什么，设置不成功，刚将状态还原为之前的状态,之前只是举例
+    //alert($("#newstuinput").is(':checked'))
+    var state=$("#newstuinput").is(':checked')?true:false;
+    myApp.showPreloader("正在保存...");
+    try {
+        $$.ajax({
+            url: svrUrl + '/main/setnewstuinfoenable',
+            method: 'GET',
+            dataType: 'json',
+            data:{'state':state},
+            success: function setNewStuInfoEnableAS(data){
+                
+            },
+            error: ajaxError,
+            complete: function () {
+                myApp.hidePreloader();
+            }
+        })
+    } catch (err) {
+        myApp.hidePreloader();
+        myApp.alert(err,"出错了！")
+    }
 })
+//设置新生信息录入状态ajax success方法
+
 
 //搜索用户列表的AJAX执行成功success的方法
 function dispUSRes(data){

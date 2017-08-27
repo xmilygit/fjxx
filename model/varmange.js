@@ -8,31 +8,36 @@ var wechatauth = {
 
 exports.varmng = { wechatauth: wechatauth };
 //module.exports = { wechatauth: wechatauth }
-exports.GetNewStuInfoEnable = function () {
+exports.GetNewStuInfoEnable = function (cb) {
     fs.readFile("appvar.txt", function (err, txt) {
         if (err) {
-            console.error("读取应用基础数据失败!部分功能可能失效!")
+            console.error("读取应用基础数据失败!部分功能可能失效!");
+            cb("读取应用基础数据失败!部分功能可能失效!",null);
             return;
         }
         var t = JSON.parse(txt.toString())
         console.log(t.newstudentinfoEnable);
-        return t.newstudentinfoEnable;
+        cb(null,t.newstudentinfoEnable);
     })
 }
-exports.SetNewStuInfoDisable = function () {
+exports.SetNewStuInfoDisable = function (state,cb) {
     fs.readFile("appvar.txt", function (err, txt) {
         if (err) {
             console.error("写入应用基础数据失败!部分功能可能失效!")
+            cb("写入应用基础数据失败!部分功能可能失效!",null)
             return;
         }
         var t = JSON.parse(txt.toString())
         console.log(t.newstudentinfoEnable);
-        t.newstudentinfoEnable = false;
+        state=state==='false'?false:true;
+        t.newstudentinfoEnable = state;
         fs.writeFile("appvar.txt", JSON.stringify(t), function (err) {
             if (err) {
                 console.error('写入应用基础数据失败！部分功能可能出现异常！')
-                return;
+                cb("写入应用基础数据失败！部分功能可能出现异常！",null)
+                //return;
             }
+            cb(null,'写入成功')
         })
     })
 }

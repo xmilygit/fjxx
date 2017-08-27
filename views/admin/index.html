@@ -25,18 +25,18 @@
             color: red;
         }
 
-        .mysearchbutton{
-            margin-top:2px;
-            margin-right:2px;
-            line-height:23px;
+        .mysearchbutton {
+            margin-top: 2px;
+            margin-right: 2px;
+            line-height: 23px;
             position: absolute;
-    width: 60px;
-    height: 24px;
-    right: 0;
-    top: 0;
-    pointer-events:auto;
-    background-position: center;
-    background-repeat: no-repeat;
+            width: 60px;
+            height: 24px;
+            right: 0;
+            top: 0;
+            pointer-events: auto;
+            background-position: center;
+            background-repeat: no-repeat;
         }
     </style>
 </head>
@@ -357,38 +357,34 @@
                 <div class="page cached" data-page="newstuinfomng">
                     <div class="page-content">
                         <form class="list-block">
-                        <ul>
-                            <li>
-                                <div class="item-content">
-                                    <div class="item-inner">
-                                        <div class="item-title label">新生录入状态</div>
-                                        <div class="item-input">
-                                            <label class="label-switch">
+                            <ul>
+                                <li>
+                                    <div class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">新生录入状态</div>
+                                            <div class="item-input">
+                                                <label class="label-switch">
                                                         <input type="checkbox" name="newstuinput" id="newstuinput" checked="checked">
                                                         <div class="checkbox"></div>
                                                     </label>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
                         </form>
                     </div>
                 </div>
-            </div>
-                
-
-
                 <div class="page cached" data-page="userlist">
                     <form class="searchbar">
-                            <div class="searchbar-input">
-                                <input type="search" placeholder="搜索关键字，直接点击搜索显示全部" style="padding-right:60px;">
-                                <a href="#" class="mysearchbutton button button-fill" id="userSearch">搜索</a>
-                            </div>
-                        </form>
+                        <div class="searchbar-input">
+                            <input type="search" placeholder="搜索关键字，直接点击搜索显示全部" style="padding-right:60px;">
+                            <a href="#" class="mysearchbutton button button-fill" id="userSearch">搜索</a>
+                        </div>
+                    </form>
 
                     <div class="page-content infinite-scroll" id="userlistInfinite">
-                        
+
                         <div class="list-block virtual-list" id="vuserlist">
                             <!-- keep it empty -->
                         </div>
@@ -399,7 +395,12 @@
                     </div>
                 </div>
             </div>
+
+
+
+
         </div>
+    </div>
 
 
 
