@@ -259,64 +259,90 @@ var locationpick4 = myApp.picker({
 
 
 $(function () {
-    try{
-    $.ajax({
-        url: svrUrl + "/wechat/stuinfo/GetInfoById",
-        method: 'POST',
-        dataType:'json',
-        data:null,
-        success:getinfoAjaxSuccess,
-        complete:function(){
-            myApp.hidePreloader();
-        },
-        error:ajaxError
-    })
-    }catch(err){
-        myApp.alert(err,"出错了")
+    try {
+        $$.ajax({
+            url: svrUrl + '/main/getnewstuinfoenable',
+            method: 'GET',
+            dataType: 'json',
+            data: {},
+            success: NewStuInfoEnableAS,
+            error: ajaxError,
+            complete: function () {
+                myApp.hidePreloader();
+            }
+        })
+    } catch (err) {
+        myApp.hidePreloader();
+        myApp.alert(err, "出错了！")
+    }
+
+    //执行获取新生信息激活状态的Ajax的success方法
+    function NewStuInfoEnableAS(data) {
+        if (data.recordset) {
+            try {
+                $.ajax({
+                    url: svrUrl + "/wechat/stuinfo/GetInfoById",
+                    method: 'POST',
+                    dataType: 'json',
+                    data: null,
+                    success: getinfoAjaxSuccess,
+                    complete: function () {
+                        myApp.hidePreloader();
+                    },
+                    error: ajaxError
+                })
+            } catch (err) {
+                myApp.alert(err, "出错了")
+            }
+        } else {
+            myApp.alert('系统已关闭新生学籍信息录入,确定后跳转到首页', '提示', function () {
+                window.location.href="/wechat/ui";
+            })
+        };
     }
 })
 
-function getinfoAjaxSuccess(data){
-    if(data.error){
-        myApp.alert(data.message,"出错了")
+function getinfoAjaxSuccess(data) {
+    if (data.error) {
+        myApp.alert(data.message, "出错了")
         return
     }
     var stu = {
         "stuname": data.recordset.姓名,
-        "gender":data.recordset.性别,
-        "dob":data.recordset.出生日期,
-        "nation":data.recordset.民族,
-        "homeaddress":data.recordset.家庭地址,
-        "regaddress":data.recordset.现住址,
-        "origin":data.recordset.籍贯,
-        "pid":data.recordset.身份证件号,
-        "onlychild":[data.recordset.是否独生子女],
-        "preschool":[data.recordset.是否受过学前教育],
-        "regtype":data.recordset.户口性质,
-        "borncode":data.recordset.出生地行政区划代码,
-        "regcode":data.recordset.户口所在地行政区划,
-        "zipcode":data.recordset.邮政编码
+        "gender": data.recordset.性别,
+        "dob": data.recordset.出生日期,
+        "nation": data.recordset.民族,
+        "homeaddress": data.recordset.家庭地址,
+        "regaddress": data.recordset.现住址,
+        "origin": data.recordset.籍贯,
+        "pid": data.recordset.身份证件号,
+        "onlychild": [data.recordset.是否独生子女],
+        "preschool": [data.recordset.是否受过学前教育],
+        "regtype": data.recordset.户口性质,
+        "borncode": data.recordset.出生地行政区划代码,
+        "regcode": data.recordset.户口所在地行政区划,
+        "zipcode": data.recordset.邮政编码
     }
-    var fs={
-        "fname":data.recordset.成员1姓名,
-        "frelationship":data.recordset.成员1关系,
-        "Fguardian":[data.recordset.成员1是否监护人],
-        "fhomeaddress":data.recordset.成员1现住址,
-        "fregcode":data.recordset.成员1户口所在地行政区划,
-        "ftel":data.recordset.成员1联系电话,
-        "sname":data.recordset.成员2姓名,
-        "srelationship":data.recordset.成员2关系,
-        "sguardian":[data.recordset.成员2是否监护人],
-        "shomeaddress":data.recordset.成员2现住址,
-        "sregcode":data.recordset.成员2户口所在地行政区划,
-        "stel":data.recordset.成员2联系电话
+    var fs = {
+        "fname": data.recordset.成员1姓名,
+        "frelationship": data.recordset.成员1关系,
+        "Fguardian": [data.recordset.成员1是否监护人],
+        "fhomeaddress": data.recordset.成员1现住址,
+        "fregcode": data.recordset.成员1户口所在地行政区划,
+        "ftel": data.recordset.成员1联系电话,
+        "sname": data.recordset.成员2姓名,
+        "srelationship": data.recordset.成员2关系,
+        "sguardian": [data.recordset.成员2是否监护人],
+        "shomeaddress": data.recordset.成员2现住址,
+        "sregcode": data.recordset.成员2户口所在地行政区划,
+        "stel": data.recordset.成员2联系电话
     }
 
-    
+
     myApp.formFromJSON('#form1', stu)
-    myApp.formFromJSON('#form2',fs)
-    var dob=stu.dob.substr(0,4)+"-"+stu.dob.substr(5,2)+"-"+stu.dob.substr(6,2);
-    calendarDateFormat.value=[dob]
+    myApp.formFromJSON('#form2', fs)
+    var dob = stu.dob.substr(0, 4) + "-" + stu.dob.substr(5, 2) + "-" + stu.dob.substr(6, 2);
+    calendarDateFormat.value = [dob]
     $('#pid').trigger("blur");
     //alert(data.recordset.成员2联系电话)
 }
@@ -349,9 +375,9 @@ var calendarDateFormat = myApp.calendar({
 });
 
 
-$$("#savebutt").on('click',function(){
-    var stdata=myApp.formToJSON('#form1')
-    var fsdata=myApp.formToJSON('#form2')
+$$("#savebutt").on('click', function () {
+    var stdata = myApp.formToJSON('#form1')
+    var fsdata = myApp.formToJSON('#form2')
     /*
     var stu = {
         "姓名":stdata.stuname,
@@ -387,7 +413,7 @@ $$("#savebutt").on('click',function(){
         url: svrUrl + "/wechat/stuinfo/SaveInfoByOpenid",
         method: 'POST',
         dataType: 'json',
-        data: {stdata:JSON.stringify(stdata),fsdata:JSON.stringify(fsdata)},
+        data: { stdata: JSON.stringify(stdata), fsdata: JSON.stringify(fsdata) },
         complete: function () {
             myApp.hidePreloader()
         },
@@ -396,10 +422,10 @@ $$("#savebutt").on('click',function(){
     })
 })
 
-function saveinfoAjaxSuccess(data){
-    if(data.error){
-        myApp.alert(data.message,"出错了");
+function saveinfoAjaxSuccess(data) {
+    if (data.error) {
+        myApp.alert(data.message, "出错了");
         return;
     }
-    myApp.alert('保存成功!',"提示")
+    myApp.alert('保存成功!', "提示")
 }

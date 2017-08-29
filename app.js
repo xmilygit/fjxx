@@ -24,6 +24,7 @@ var Library = require('./routes/library');
 var rootWechat = require('./routes/rootWechat');
 var graduate=require('./routes/graduate');
 var wcBinder=require('./routes/wechat/binder')
+var wcIndex=require('./routes/wechat/index');
 var test=require('./routes/test');
 
 var app = express();
@@ -106,6 +107,8 @@ app.use('/Library', Library);
 app.use('/wechat', rootWechat);
 //微信绑定功能入口
 app.use('/wechat/binder',wcBinder);
+//微信默认首页
+app.use('/wechat/ui',wcIndex);
 //微信新生学籍信息补充功能入口
 app.use('/wechat/stuinfo',StuInfoInput);
 app.use('/graduate',graduate);
