@@ -20,6 +20,7 @@ var lv1 = "[1-9][0-9]0{10}"
 var lv2init = "11([0-9][1-9]|[1-9][0-9])0{8}"
 var lv3init = "1101([0-9][1-9]|[1-9][0-9])0{6}"
 var temppk = [];
+var currentPid="";
 function returnLocationArray(regex) {
     var lnames = $.Enumerable.From(locationcode)
         .Where("x=>x.code.match(/" + regex + "/)")
@@ -34,7 +35,8 @@ function returnLocationArray(regex) {
     return { names: lnames, codes: lcodes };
 
 }
-
+//学生身份证设置为禁用后，该功能取消
+/*
 $("#pid").on('blur', function (obj) {
     var newVal = [];
     var targetVal = $(this).val()
@@ -59,6 +61,18 @@ $("#pid").on('blur', function (obj) {
         temppk[3] = newVal;
     }
 })
+*/
+
+//根据lesspid计算出picker的相应值 
+function getPickerVal(lesspid){
+    var newVal = [];
+    var targetVal = lesspid
+    var c1 = targetVal.substr(0, 2);
+    var c2 = targetVal.substr(0, 4);
+    var c3 = targetVal.substr(0, 6);
+    newVal = [c1 + '0000000000', c2 + '00000000', c3 + '000000'];
+    return newVal;
+}
 
 
 var locationpick1 = myApp.picker({
@@ -338,12 +352,37 @@ function getinfoAjaxSuccess(data) {
         "stel": data.recordset.成员2联系电话
     }
 
+    var pickerVal = stu.pid.substr(0,6)+'000000';
+    if (stu.borncode === ""){
+        stu.borncode = pickerVal;
+        temppk[0]=getPickerVal(pickerVal)
+    }else{
+        temppk[0]=getPickerVal(stu.borncode)
+    }
+    if (stu.regcode === ""){
+        stu.regcode = pickerVal;
+        temppk[1]=getPickerVal(pickerVal)
+    }else{
+        temppk[1]=getPickerVal(stu.regcode)
+    }
+    if (fs.fregcode === ""){
+        fs.fregcode = pickerVal;
+        temppk[2]=getPickerVal(pickerVal)
+    }else{
+        temppk[2]=getPickerVal(fs.fregcode)
+    }
+    if (fs.sregcode === ""){
+        fs.sregcode = pickerVal;
+        temppk[3]=getPickerVal(pickerVal)
+    }else{
+        temppk[3]=getPickerVal(fs.sregcode)
+    }
 
     myApp.formFromJSON('#form1', stu)
     myApp.formFromJSON('#form2', fs)
     var dob = stu.dob.substr(0, 4) + "-" + stu.dob.substr(5, 2) + "-" + stu.dob.substr(6, 2);
     calendarDateFormat.value = [dob]
-    $('#pid').trigger("blur");
+    //$('#pid').trigger("blur");
     //alert(data.recordset.成员2联系电话)
 }
 

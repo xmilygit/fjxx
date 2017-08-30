@@ -11,17 +11,22 @@ router.post("*",function(req,res,next){
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 })
+router.get("*",function(req,res,next){
+    console.log(req.url);
+    next();
+})
 //教师绑定
 router.post('/teacher', function (req, res, next) {
     var username=req.body.username;
     var password=fun.passwordsha1(req.body.password);
     var openid=req.session.openid;
-    mongoose.model('Account').findOne({ username: username, password: password },{upsert:true}, function (err, doc) {
+    mongoose.model('Account').findOne({ username: username, password: password },'wxopenid',{upsert:true}, function (err, doc) {
         if (err) {
             res.json({ 'error': true, 'message': err });
             return;
         }
         if (doc) {
+            console.log(doc.wxopenid)
             if (doc.wxopenid && doc.wxopenid.length > 0) {
                 res.json({ 'error': true, 'message': '该用户已绑定，请检查用户名及密码是否正确' })
                 return;
@@ -40,14 +45,17 @@ router.post('/teacher', function (req, res, next) {
     })
 })
 //新生绑定
+/*
 router.get('/newstudent', function (req, res, next) {
     res.end("选择的是新生绑定");
 })
+*/
 //在校生绑定
+/*
 router.get('/student', function (req, res, next) {
     res.end("选择的是在校生绑定");
 })
-
+*/
 
 router.get('/', function (req, res, next) {
     let code = req.query['code'];
