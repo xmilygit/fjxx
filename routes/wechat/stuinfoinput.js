@@ -10,16 +10,22 @@ router.all('*',function(req,res,next){
 })
 */
 router.get('/', function (req, res, next) {
-    res.render('Student/wechat/studentinfoinput', {
-        title: '新生学籍信息采集',
-        layout: 'f7layoutsbase'
-    })
+    if (req.session.openid) {
+        res.render('Student/wechat/studentinfoinput', {
+            title: '新生学籍信息采集',
+            layout: 'f7layoutsbase'
+        })
+    } else {
+        res.render('wechat/error', {
+            layout: null
+        })
+    }
 })
 
 router.post('/GetInfoById', function (req, res, next) {
     console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");
-    var openid =req.session.openid;//"o_BZpuDFj3Gi-psvtFFDRgl9id-0";//
+    var openid = req.session.openid;//"o_BZpuDFj3Gi-psvtFFDRgl9id-0";//
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
         if (err) {
             if (err) {
@@ -41,7 +47,7 @@ router.post('/GetInfoById', function (req, res, next) {
 
 router.post('/SaveInfoByOpenid', function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
-    var openid =req.session.openid;//"o_BZpuDFj3Gi-psvtFFDRgl9id-0";//
+    var openid = req.session.openid;//"o_BZpuDFj3Gi-psvtFFDRgl9id-0";//
     var stdata = JSON.parse(req.body.stdata);
     var fsdata = JSON.parse(req.body.fsdata);
     var stu = {
@@ -76,14 +82,14 @@ router.post('/SaveInfoByOpenid', function (req, res, next) {
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
         if (err) {
             if (err) {
-                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ','') });
+                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });
                 return;
             }
         }
         console.log(doc.infoid)
         mongoose.model('StudentInfo').findByIdAndUpdate(doc.infoid, stu, { runValidators: true }, function (err, doc2) {
             if (err) {
-                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ','') });
+                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });
                 return;
             }
             res.json({ 'recordset': doc2 });

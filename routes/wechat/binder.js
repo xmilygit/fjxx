@@ -11,10 +11,11 @@ router.post("*",function(req,res,next){
   res.setHeader("Access-Control-Allow-Origin", "*");
   next();
 })
-router.get("*",function(req,res,next){
-    console.log(req.url);
-    next();
-})
+
+//router.get("*",function(req,res,next){
+//    console.log("该显示证明执行了*处的代码");
+//    next();
+//})
 //教师绑定
 router.post('/teacher', function (req, res, next) {
     var username=req.body.username;
@@ -57,7 +58,7 @@ router.get('/student', function (req, res, next) {
 })
 */
 
-router.get('/', function (req, res, next) {
+router.get('*', function (req, res, next) {
     let code = req.query['code'];
     //如果缓存中有openid
     if (req.session.openid) {
@@ -102,9 +103,8 @@ router.get('/', function (req, res, next) {
         //如果没有则引导其到绑定页面
         if (code == null) {
             console.log("code is null")
-            res.render('wechat/choosetype', {
-                title: '选择绑定类型',
-                layout: 'f7layoutsbase'
+            res.render('wechat/error',{
+                layout:null
             })
         } else {
             //否则根据code查询openid
