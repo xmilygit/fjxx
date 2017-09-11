@@ -37,6 +37,23 @@ var mymenu = {
     ]
 };
 
+// noncestr
+var createNonceStr = function() {
+    return Math.random().toString(36).substr(2, 15);
+};
+
+// timestamp
+var createTimeStamp = function () {
+    return parseInt(new Date().getTime() / 1000) + '';
+};
+// 计算签名方法
+var calcSignature = function (ticket, noncestr, ts, url) {
+    var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp='+ ts +'&url=' + url;
+    shaObj = new jsSHA(str, 'TEXT');
+    return shaObj.getHash('SHA-1', 'HEX');
+}
+//var signature = calcSignature(ticket, noncestr, timestamp, url);
+
 function sha1(str){
     var md5sum=crypto.createHash('sha1');
     md5sum.update(str);
@@ -166,9 +183,30 @@ var wechatmsgtypefun = {
                 break;
             case(msg.Content=='毕业'):
                 sendpassivemsg(res,'<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect">毕业</a>')
+                break;
             case (/bd#\S+#pw#\S+#/.test(msg.Content)):
                 sendpassivemsg(res, '正在绑定你的微信帐户，请稍等...');
                 wechatcustomfun['binduser'](msg, req, res);
+                break;
+            case (msg.Content == 'js'):
+            /*
+                api.getTicket(function (err, result) {
+                    if (err) {
+                        console.error(err)
+                        return
+                    }
+                    console.log(result.ticket);
+                })
+            */
+                var param = {
+                    debug: false,
+                    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+                    url: 'http://www.xxx.com'
+                };
+                api.getJsConfig(param, function (err, result) {
+                    console.log(result);
+                })
+                sendpassivemsg(res,'');
                 break;
             default:
                 sendpassivemsg(res,
