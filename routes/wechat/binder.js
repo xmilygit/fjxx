@@ -167,7 +167,7 @@ var fun = {
     "isBinder": function (openid, callback) {
         if (openid.length > 0) {
             mongoose.model('Account').findOne({ wxopenid: openid }, function (err, doc) {
-                console.log(doc);
+                //console.log(doc);
                 if (doc) {
                     callback(null, openid, doc,true);
                 } else {

@@ -273,6 +273,7 @@ var locationpick4 = myApp.picker({
 
 
 $(function () {
+    //获取当前系统是否允许编辑新生学籍信息
     try {
         $$.ajax({
             url: svrUrl + '/main/getnewstuinfoenable',
@@ -314,8 +315,40 @@ $(function () {
             })
         };
     }
-})
 
+    try{
+        $.ajax({
+            url:svrUrl+'/wechat/jsconfig',
+            method:'GET',
+            dataType:'json',
+            data:{},
+            success:jsconfigSuccess,
+            error:ajaxError,
+            complete:function(){
+                myApp.hidePreloader();
+            }
+        })
+    }catch(err){
+        myApp.hidePreloader();
+        myApp.alert(err,"出错了!")
+    }
+
+    function jsconfigSuccess(data){
+        if(data){
+            //alert(data)
+            wx.config(data);
+        }else{
+            myApp.alert("出错了!")
+        }
+    }
+    wx.ready(function () {
+        //alert("js接口已准备好")
+        wx.hideOptionMenu();
+    });
+    wx.error(function(res){
+        alert("js接口加载失败"+res)
+    })
+})
 function getinfoAjaxSuccess(data) {
     if (data.error) {
         myApp.alert(data.message, "出错了")

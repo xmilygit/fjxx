@@ -37,23 +37,6 @@ var mymenu = {
     ]
 };
 
-// noncestr
-var createNonceStr = function() {
-    return Math.random().toString(36).substr(2, 15);
-};
-
-// timestamp
-var createTimeStamp = function () {
-    return parseInt(new Date().getTime() / 1000) + '';
-};
-// 计算签名方法
-var calcSignature = function (ticket, noncestr, ts, url) {
-    var str = 'jsapi_ticket=' + ticket + '&noncestr=' + noncestr + '&timestamp='+ ts +'&url=' + url;
-    shaObj = new jsSHA(str, 'TEXT');
-    return shaObj.getHash('SHA-1', 'HEX');
-}
-//var signature = calcSignature(ticket, noncestr, timestamp, url);
-
 function sha1(str){
     var md5sum=crypto.createHash('sha1');
     md5sum.update(str);
@@ -188,46 +171,27 @@ var wechatmsgtypefun = {
                 sendpassivemsg(res, '正在绑定你的微信帐户，请稍等...');
                 wechatcustomfun['binduser'](msg, req, res);
                 break;
-            case (msg.Content == 'js'):
-            /*
-                api.getTicket(function (err, result) {
-                    if (err) {
-                        console.error(err)
-                        return
-                    }
-                    console.log(result.ticket);
-                })
-            */
-                var param = {
-                    debug: false,
-                    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
-                    url: 'http://www.xxx.com'
-                };
-                api.getJsConfig(param, function (err, result) {
-                    console.log(result);
-                })
-                sendpassivemsg(res,'');
-                break;
             default:
                 sendpassivemsg(res,
-                    '/:,@@对不起！无法理解您输入的内容：“' + msg.Content + '”。\n\r' +
-                    '1、绑定您的帐户获取更多服务。\n\r' +
-                    '绑定方式：\n\r' +
-                    '输入:“bd#用户名#pw#密码#”\n\r' +
-                    '例：bd#张三#pw#123456#'
+                    //'/:,@@对不起！无法理解您输入的内容：“' + msg.Content + '”。\n\r' +
+                    //'1、绑定您的帐户获取更多服务。\n\r' +
+                    //'绑定方式：\n\r' +
+                    //'输入:“bd#用户名#pw#密码#”\n\r' +
+                    //'例：bd#张三#pw#123456#'
+                    '该微信号目前不支持自动回复功能'
                 );
                 break;
         }
     },
     "event": function (msg, req, res) {
-        wechateventfun[msg.Event[0]](msg, req);
+        //wechateventfun[msg.Event[0]](msg, req);
     }
 }
 
 //处理微信事件消息的程序
 var wechateventfun = {
     "subscribe": function (msg, req) {
-
+        console.log('发生一个事件' + msg)
     }
 }
 
@@ -260,14 +224,41 @@ router.get('/',function(req,res,next){
     res.end();
 })
 
+//获取wechat js ticket  用于测试
+router.get('/t',function(req,res,next){
+    api.getTicket(function (err, result) {
+        if (err) {
+            console.error(err)
+            return
+        }
+        console.log(result.ticket);
+    })
+    res.end();
+
+})
+//获取用于wechat的JS SDK CONFIG
+router.get('/jsconfig',function(req,res,next){
+    var param = {
+        debug: false,
+        jsApiList: ['hideOptionMenu'],
+        url: 'http://fjxx.tunnel.echomod.cn/wechat/stuinfo'
+    };
+    api.getJsConfig(param, function (err, result) {
+        //console.log(result);
+        res.json(result);
+    })
+})
+
 
 //微信消息处理主入口2
 router.post('/', wechat(myauth)
     .text(function (msg, req, res, next) {
         wechatmsgtypefun['text'](msg, req, res);
     })
-    .event(function (msg, req, res, next) {
-        //wechatmsgtypefun['evnet'](msg, req, res);
+    .event(function (event, req, res, next) {
+        //wechatmsgtypefun['event'](event, req, res);
+        //console.log(event.Event);
+        sendpassivemsg(res,'');
     }).middlewarify()
 );
 
