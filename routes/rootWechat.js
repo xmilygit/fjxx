@@ -5,7 +5,8 @@ var express = require('express'),
     mongoose = require('mongoose'),
     crypto = require('crypto'),
     wechat = require('wechat'),
-    moment=require('moment'),
+    moment = require('moment'),
+    appvar = require('../model/varmange'),
     router = express.Router();
 
 //微信接口基本配置信息
@@ -19,28 +20,40 @@ var myauth = {
 */
 
 //测试配置
-
+/*
 var myauth = {
     appid: 'wxba8db6584881bbab',
     appsecret: '7d234a1b76eb803e6683d3a8945985bb',
     token: 'xmilyhh'
 };
+*/
+var myauth = appvar.varmng.wechatauth;
 
 //菜单配置
 var mymenu = {
     "button": [
         {
-            "name": "和正学子",
+            "name": "和美凤集",
+            "sub_button": [
+                {
+                    "type": "view",
+                    "name": "2017招生指南",
+                    "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/wechat/binder/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+                }
+            ]
+        },
+        {
+            "name": "我的凤集",
             "type": "view",
-            "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/wechat/binder/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+            "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/wechat/binder/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
         }
     ]
 };
 
-function sha1(str){
-    var md5sum=crypto.createHash('sha1');
+function sha1(str) {
+    var md5sum = crypto.createHash('sha1');
     md5sum.update(str);
-    str=md5sum.digest('hex');
+    str = md5sum.digest('hex');
     return str;
 }
 
@@ -114,23 +127,24 @@ var wechatcustomfun = {
 var wechatmsgtypefun = {
     "text": function (msg, req, res) {
         switch (true) {
-            case(msg.Content=='删除菜单'):
-            api.removeMenu(function(err,result){
-                if(err){
-                    console.log(err)
-                }
-                console.log(result);
-                sendpassivemsg(res,"菜单删除成功")
-            })
-            case(msg.Content=='创建菜单'):
-            api.createMenu(mymenu, function(err,result){
-                if(err){
-                    console.log(err)
-                }
-                console.log(result);
-                sendpassivemsg(res,"菜单创建成功");
-            });
-            break;
+            case (msg.Content == '删除菜单'):
+                api.removeMenu(function (err, result) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    console.log(result);
+                    sendpassivemsg(res, "菜单删除成功")
+                })
+                break;
+            case (msg.Content == '创建菜单'):
+                api.createMenu(mymenu, function (err, result) {
+                    if (err) {
+                        console.log(err)
+                    }
+                    console.log(result);
+                    sendpassivemsg(res, "菜单创建成功");
+                });
+                break;
             case (msg.Content == '获取素材总数'):
                 api.getMaterialCount(function (err, result, res2) {
                     if (err) {
@@ -141,11 +155,11 @@ var wechatmsgtypefun = {
                 });
                 break;
             case (msg.Content == '获取图文素材'):
-                api.getMaterials('image', 0, 10, function (err, result, res2) {
+                api.getMaterials('news', 0, 10, function (err, result, res2) {
                     if (err) {
                         console.log(err)
                     }
-                    console.log(result);
+                    console.log(result.item[0].content);
                     sendpassivemsg(res, '');
                 });
                 break;
@@ -164,8 +178,8 @@ var wechatmsgtypefun = {
             case (msg.Content == '链接'):
                 sendpassivemsg(res, '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect">链接</a>');
                 break;
-            case(msg.Content=='毕业'):
-                sendpassivemsg(res,'<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/")+'&response_type=code&scope=snsapi_base&state=123#wechat_redirect">毕业</a>')
+            case (msg.Content == '毕业'):
+                sendpassivemsg(res, '<a href="https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.2bdata.com/graduate/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect">毕业</a>')
                 break;
             case (/bd#\S+#pw#\S+#/.test(msg.Content)):
                 sendpassivemsg(res, '正在绑定你的微信帐户，请稍等...');
@@ -204,19 +218,19 @@ router.post('/', function (req, res, next) {
 })
 */
 // 用于微信后台地址绑定的验证
-router.get('/',function(req,res,next){
-    var signature=req.query['signature']
-    var echostr=req.query['echostr']
-    var timestamp=req.query['timestamp'];
-    var nonce=req.query['nonce'];
-    var oriArray=["xmilyhh",timestamp,nonce];
+router.get('/', function (req, res, next) {
+    var signature = req.query['signature']
+    var echostr = req.query['echostr']
+    var timestamp = req.query['timestamp'];
+    var nonce = req.query['nonce'];
+    var oriArray = ["xmilyhh", timestamp, nonce];
     oriArray.sort();
-    var original=oriArray.join('');
-    var scyptoString=sha1(original);
-    if(signature==scyptoString){
+    var original = oriArray.join('');
+    var scyptoString = sha1(original);
+    if (signature == scyptoString) {
         res.end(echostr)
         console.log('绑定服务器成功')
-    }else{
+    } else {
         res.end('false')
         console.log('绑定服务器失败')
     }
@@ -225,7 +239,7 @@ router.get('/',function(req,res,next){
 })
 
 //获取wechat js ticket  用于测试
-router.get('/t',function(req,res,next){
+router.get('/t', function (req, res, next) {
     api.getTicket(function (err, result) {
         if (err) {
             console.error(err)
@@ -237,7 +251,7 @@ router.get('/t',function(req,res,next){
 
 })
 //获取用于wechat的JS SDK CONFIG
-router.get('/jsconfig',function(req,res,next){
+router.get('/jsconfig', function (req, res, next) {
     var param = {
         debug: false,
         jsApiList: ['hideOptionMenu'],
@@ -258,18 +272,28 @@ router.post('/', wechat(myauth)
     .event(function (event, req, res, next) {
         //wechatmsgtypefun['event'](event, req, res);
         //console.log(event.Event);
-        sendpassivemsg(res,'');
+        sendpassivemsg(res, '');
     }).middlewarify()
 );
 
 //显示永久素材（图片）列表
 router.get('/images', function (req, res, next) {
-    let images = require('../model/imageslist.json');
-    res.render('wechat/images', { title: '永久图片素材列表', imgs: images });
+    api.getMaterials('news', 0, 10, function (err, result, res2) {
+        if (err) {
+            console.error('获取素材集合失败：' + err);
+            res.render('wechat/error')
+            return;
+        }
+        console.log(result)
+        var images = result;
+        res.render('wechat/images', { title: '永久图片素材列表', imgs: images });
+    });
+    //let images = require('../model/imageslist.json');
+    //res.render('wechat/images', { title: '永久图片素材列表', imgs: images });
 });
 
 //显示添加永久素材页面
-router.get('/pictxt',function(req,res,next){
+router.get('/pictxt', function (req, res, next) {
     /*
     let txt='（原标题：2017年2月15日外交部发言人耿爽主持例行记者会）<img src="http://cms-bucket.nosdn.127.net/b005364b149f4f40b92f1b9abe16c8a320170215175605.jpeg?imageView&thumbnail=550x0" alt="undefined"/>应国务院总理李克强邀请，法兰西共和国总理贝尔纳·卡泽纳夫将于2月21日至23日对中国进行正式访问。此次系卡泽纳夫理首次访华，也是今年首位欧洲国家领导人来访。';
     let pictxtjson={
@@ -294,14 +318,14 @@ router.get('/pictxt',function(req,res,next){
         console.log(result);
     })
     */
-    api.getMaterial('dMNqI8ZACG8uYl7ddIFTXYfM1NnHv9j64eByckparnA', function(err,result,res){
-        if(err)
-        console.log(err);
+    api.getMaterial('dMNqI8ZACG8uYl7ddIFTXYfM1NnHv9j64eByckparnA', function (err, result, res) {
+        if (err)
+            console.log(err);
 
         console.log(result.toString('utf-8'));
     });
     let images = require('../model/imageslist.json');
-    res.render('wechat/pictxt',{title:'添加永久图文素材',imgs: images})
+    res.render('wechat/pictxt', { title: '添加永久图文素材', imgs: images })
 })
 console.log('微信监听已启动')
 module.exports = router;

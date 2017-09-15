@@ -1,4 +1,5 @@
 var fs = require("fs");
+//测试号配置
 
 var wechatauth = {
     appid: 'wxba8db6584881bbab',
@@ -6,6 +7,14 @@ var wechatauth = {
     token: 'xmilyhh'
 };
 
+//MXThink测试用
+/*
+var wechatauth={
+    appid:'wxbc80d33f96722772',
+    appsecret:'50d110e3e2c1cac00c8e0f51038f2cdd',
+    token:'xmilyhh'
+}
+*/
 exports.varmng = { wechatauth: wechatauth };
 //module.exports = { wechatauth: wechatauth }
 exports.GetNewStuInfoEnable = function (cb) {
