@@ -19,7 +19,9 @@ router.get('/testjssdk',function(req,res,next){
     })
 })
 router.get('/setstudentpasswordbat', function (req, res, next) {
-    mongoose.model('Account').find({ infoid: { $ne: null } }, function (err, docs) {
+    //mongoose.model('Account').find({ infoid: { $ne: null } }, function (err, docs) {
+    mongoose.model('Account').find({ _id: { $gt: '59860ba9bc1d5059d9b96a48' } }, function (err, docs) {
+
         docs.forEach(function (v, i, docs) {
             if (v.pid != "") {
                 //console.log(v.username + "===" + strtomd5(v.pid.substr(12, 6)));
@@ -27,6 +29,8 @@ router.get('/setstudentpasswordbat', function (req, res, next) {
                 v.save();
             }
         })
+
+        //console.log(docs)
         res.end();
     })
 })
@@ -83,7 +87,7 @@ router.get('/test', function (req, res, next) {
 
 router.get('/test',function(req,res,next){
     
-    var xls=path.resolve(__dirname,'../public/studentinfo.xlsx');
+    var xls=path.resolve(__dirname,'../public/append.xlsx');
     var jsonf=path.resolve(__dirname,'../public/test.json');
     xlstojson({
         input:xls,
