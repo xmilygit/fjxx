@@ -12,7 +12,12 @@ function strtomd5(str){
     sha1.update(str);
     return sha1.digest('hex');
 }
-
+router.get('/testjssdk',function(req,res,next){
+    res.render('test',{
+        title: '测试页面',
+        layout: 'f7layoutsbase'
+    })
+})
 router.get('/setstudentpasswordbat', function (req, res, next) {
     mongoose.model('Account').find({ infoid: { $ne: null } }, function (err, docs) {
         docs.forEach(function (v, i, docs) {

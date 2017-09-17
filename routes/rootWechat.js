@@ -49,7 +49,7 @@ var mymenu = {
         }
     ]
 };
-
+console.log(mymenu)
 function sha1(str) {
     var md5sum = crypto.createHash('sha1');
     md5sum.update(str);
@@ -252,10 +252,13 @@ router.get('/t', function (req, res, next) {
 })
 //获取用于wechat的JS SDK CONFIG
 router.get('/jsconfig', function (req, res, next) {
+    var debug=req.query['debug']
+    var jsapilist=req.query['jsapilist']
+    var url=req.query['url']
     var param = {
-        debug: false,
-        jsApiList: ['hideOptionMenu'],
-        url: 'http://fjxx.tunnel.echomod.cn/wechat/stuinfo'
+        debug: debug,
+        jsApiList:jsapilist,// eval('['+jsapilist+']'),
+        url: url
     };
     api.getJsConfig(param, function (err, result) {
         //console.log(result);

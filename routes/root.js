@@ -4,10 +4,13 @@ var passport=require('passport');
 
 router.get('/',function(req,res,next){
     console.log(req.user);
+    /*
     res.render('zqnb',{
         title:'桂林市凤集小学',
         layout:null
     });
+    */
+    res.render('wechat/error')
 });
 router.get('/test',function(req,res,next){
     data = {
