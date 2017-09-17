@@ -291,31 +291,6 @@ $(function () {
         myApp.alert(err, "出错了！")
     }
 
-    //执行获取新生信息激活状态的Ajax的success方法
-    function NewStuInfoEnableAS(data) {
-        if (data.recordset) {
-            try {
-                $.ajax({
-                    url: svrUrl + "/wechat/stuinfo/GetInfoById",
-                    method: 'POST',
-                    dataType: 'json',
-                    data: null,
-                    success: getinfoAjaxSuccess,
-                    complete: function () {
-                        myApp.hidePreloader();
-                    },
-                    error: ajaxError
-                })
-            } catch (err) {
-                myApp.alert(err, "出错了")
-            }
-        } else {
-            myApp.alert('系统已关闭新生学籍信息录入,确定后跳转到首页', '提示', function () {
-                window.location.href="/wechat/ui";
-            })
-        };
-    }
-
     try{
         $.ajax({
             url:svrUrl+'/wechat/jsconfig',
@@ -333,6 +308,32 @@ $(function () {
         myApp.alert(err,"出错了!")
     }
 })
+
+//执行获取新生信息激活状态的Ajax的success方法
+function NewStuInfoEnableAS(data) {
+    if (data.recordset) {
+        try {
+            $.ajax({
+                url: svrUrl + "/wechat/stuinfo/GetInfoById",
+                method: 'POST',
+                dataType: 'json',
+                data: null,
+                success: getinfoAjaxSuccess,
+                complete: function () {
+                    myApp.hidePreloader();
+                },
+                error: ajaxError
+            })
+        } catch (err) {
+            myApp.alert(err, "出错了")
+        }
+    } else {
+        myApp.alert('系统已关闭新生学籍信息录入,确定后跳转到首页', '提示', function () {
+            window.location.href="/wechat/ui";
+        })
+    };
+}
+
 function jsconfigSuccess(data){
     if(data){
         //alert(data)
@@ -346,7 +347,7 @@ wx.ready(function () {
     wx.hideOptionMenu();
 });
 wx.error(function(res){
-    alert("js接口加载失败"+res)
+    myApp.alert("js接口加载失败","出错了")
 })
 function getinfoAjaxSuccess(data) {
     if (data.error) {

@@ -39,7 +39,7 @@ router.post('/GetInfoById', function (req, res, next) {
                 res.json({ 'error': true, 'message': err });
                 return;
             }
-            console.log(stuinfo)
+            //console.log(stuinfo)
             res.json({ 'recordset': stuinfo })
         })
     })
@@ -86,7 +86,7 @@ router.post('/SaveInfoByOpenid', function (req, res, next) {
                 return;
             }
         }
-        console.log(doc.infoid)
+        //console.log(doc.infoid)
         mongoose.model('StudentInfo').findByIdAndUpdate(doc.infoid, stu, { runValidators: true }, function (err, doc2) {
             if (err) {
                 res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });

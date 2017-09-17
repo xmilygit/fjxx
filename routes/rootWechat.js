@@ -49,7 +49,7 @@ var mymenu = {
         }
     ]
 };
-console.log(mymenu)
+//console.log(mymenu)
 function sha1(str) {
     var md5sum = crypto.createHash('sha1');
     md5sum.update(str);
@@ -256,7 +256,7 @@ router.get('/jsconfig', function (req, res, next) {
     var jsapilist=req.query['jsapilist']
     var url=req.query['url']
     var param = {
-        debug: debug,
+        debug: eval(debug),
         jsApiList:jsapilist,// eval('['+jsapilist+']'),
         url: url
     };

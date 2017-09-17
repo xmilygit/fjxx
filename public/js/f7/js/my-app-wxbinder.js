@@ -183,3 +183,44 @@ function ajaxError(data) {
     //vlistloading = false;
     console.log(data);
 }
+
+/*
+$(function(){
+    try{
+        $.ajax({
+            url:svrUrl+'/wechat/jsconfig',
+            method:'GET',
+            dataType:'json',
+            data: {
+                debug:true,
+                //url:'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxba8db6584881bbab&redirect_uri=http%3A%2F%2Ffjxx.tunnel.echomod.cn%2Fwechat%2Fbinder%2F&response_type=code&scope=snsapi_base&state=123',
+                url:'http://fjxx.tunnel.echomod.cn/wechat/binder',
+                jsapilist:['hideOptionMenu']},
+            success:jsconfigSuccess,
+            error:ajaxError,
+            complete:function(){
+                myApp.hidePreloader();
+            }
+        })
+    }catch(err){
+        myApp.hidePreloader();
+        myApp.alert(err,"出错了!")
+    }
+})
+
+function jsconfigSuccess(data){
+    if(data){
+        //alert(data)
+        wx.config(data);
+    }else{
+        myApp.alert("出错了!")
+    }
+}
+wx.ready(function () {
+    //alert("js接口已准备好")
+    wx.hideOptionMenu();
+});
+wx.error(function(res){
+    myApp.alert("js接口加载失败"+JSON.parse(res),"出错了")
+})
+*/
