@@ -1,19 +1,4 @@
-// Initialize your app
-var myApp = new Framework7({
-    precompileTemplates: true,
-});
 
-// Export selectors engine
-var $$ = Dom7;
-
-
-// Add view
-var mainView = myApp.addView('.view-main', {
-    // Because we use fixed-through navbar we can enable dynamic navbar
-    domCache: true,
-    dynamicNavbar: true
-});
-myApp.showPreloader('正在加载数据...')
 
 //console.log($.Enumerable.From(locationcode).First("$.locationname=='桂林市'"));
 var lv1 = "[1-9][0-9]0{10}"
