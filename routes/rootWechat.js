@@ -7,6 +7,7 @@ var express = require('express'),
     wechat = require('wechat'),
     moment = require('moment'),
     appvar = require('../model/varmange'),
+    path=require('path'),
     router = express.Router();
 
 //微信接口基本配置信息
@@ -252,12 +253,12 @@ router.get('/t', function (req, res, next) {
 })
 //获取用于wechat的JS SDK CONFIG
 router.get('/jsconfig', function (req, res, next) {
-    var debug=req.query['debug']
-    var jsapilist=req.query['jsapilist']
-    var url=req.query['url']
+    var debug = req.query['debug']
+    var jsapilist = req.query['jsapilist']
+    var url = req.query['url']
     var param = {
         debug: eval(debug),
-        jsApiList:jsapilist,// eval('['+jsapilist+']'),
+        jsApiList: jsapilist,// eval('['+jsapilist+']'),
         url: url
     };
     api.getJsConfig(param, function (err, result) {
@@ -278,6 +279,20 @@ router.post('/', wechat(myauth)
         sendpassivemsg(res, '');
     }).middlewarify()
 );
+//微信获取临时素材
+router.get('/getMedia', function (req, res, next) {
+    var mediaId=req.query['mediaid'];
+    api.getMedia(mediaId, function (err, result, res2) {
+        fs.writeFile(path.resolve(__dirname, '../public/userupload/images/'+mediaId+'.jpg'), result, function (err) {
+            if (err) {
+                console.log('save fail' + err);
+                return
+            }
+            
+            console.log('save ok')
+        })
+    })
+})
 
 //显示永久素材（图片）列表
 router.get('/images', function (req, res, next) {

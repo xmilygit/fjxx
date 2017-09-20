@@ -10,7 +10,7 @@ $(function () {
             url: svrUrl + '/wechat/jsconfig',
             method: 'GET',
             dataType: 'json',
-            data: {debug:false,url:'http://home.tunnel.echomod.cn/test/testjssdk',jsapilist:['hideOptionMenu','chooseImage']},
+            data: {debug:true,url:'http://xmilyhome.tunnel.echomod.cn/test/testjssdk',jsapilist:['hideOptionMenu','chooseImage','uploadImage','downloadImage']},
             success: jsconfigSuccess,
             error: ajaxError,
             complete: function () {
@@ -56,11 +56,42 @@ $$("#can").on('click',function(){
         success: function (res) {
             var localIds = res.localIds; // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
             alert(res.localIds)
-            console.log(res.localIds)
+            alert("第一次:"+res.localIds)
             //$$("#img").src='https://www.baidu.com/img/bd_logo1.png';
              $$("#img").prop('src', res.localIds)
+             uploadpic(res.localIds)
         }
     });
     
 })
 
+
+function uploadpic(localIds){
+    wx.uploadImage({
+        localId: localIds[0], // 需要上传的图片的本地ID，由chooseImage接口获得
+        isShowProgressTips: 1, // 默认为1，显示进度提示
+        success: function (res) {
+            var serverId = res.serverId; // 返回图片的服务器端ID
+            alert("第二次:"+serverId);
+            savetoserver(serverId)
+        }
+    });
+}
+
+function savetoserver(serverId){
+    $.ajax({
+        url: svrUrl + '/wechat/getMedia',
+        method: 'GET',
+        dataType: 'json',
+        data: {mediaid:serverId},
+        success: getMediaSuccess,
+        error: ajaxError,
+        complete: function () {
+            myApp.hidePreloader();
+        }
+    })
+}
+
+function getMediaSuccess(result){
+    alert(result)
+}
