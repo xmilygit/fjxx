@@ -258,6 +258,25 @@ var locationpick4 = myApp.picker({
 
 
 $(function () {
+    //获取JS-SDK配置信息
+    try{
+        $.ajax({
+            url:svrUrl+'/wechat/jsconfig',
+            method:'GET',
+            dataType:'json',
+            data: {debug:false,url:svrUrl+'/wechat/stuinfo',jsapilist:['hideOptionMenu','closeWindow']},
+            success:jsconfigSuccess,
+            error:ajaxError,
+            complete:function(){
+                //myApp.hidePreloader();
+            }
+        })
+    }catch(err){
+        //myApp.hidePreloader();
+        myApp.alert('系统出错：'+err,"出错了!")
+    }
+
+
     //获取当前系统是否允许编辑新生学籍信息
     try {
         $$.ajax({
@@ -268,29 +287,12 @@ $(function () {
             success: NewStuInfoEnableAS,
             error: ajaxError,
             complete: function () {
-                myApp.hidePreloader();
+                //myApp.hidePreloader();
             }
         })
     } catch (err) {
-        myApp.hidePreloader();
-        myApp.alert(err, "出错了！")
-    }
-
-    try{
-        $.ajax({
-            url:svrUrl+'/wechat/jsconfig',
-            method:'GET',
-            dataType:'json',
-            data: {debug:false,url:'http://fjxx.tunnel.echomod.cn/wechat/stuinfo',jsapilist:['hideOptionMenu']},
-            success:jsconfigSuccess,
-            error:ajaxError,
-            complete:function(){
-                myApp.hidePreloader();
-            }
-        })
-    }catch(err){
-        myApp.hidePreloader();
-        myApp.alert(err,"出错了!")
+        //myApp.hidePreloader();
+        myApp.alert('系统出错'+err, "出错了！")
     }
 })
 
@@ -310,11 +312,13 @@ function NewStuInfoEnableAS(data) {
                 error: ajaxError
             })
         } catch (err) {
-            myApp.alert(err, "出错了")
+            myApp.alert('系统出错'+err, "出错了")
         }
     } else {
-        myApp.alert('系统已关闭新生学籍信息录入,确定后跳转到首页', '提示', function () {
-            window.location.href="/wechat/ui";
+        myApp.hidePreloader();
+        myApp.alert('系统已关闭新生学籍信息录入,确定后回到微信', '提示', function () {
+            //window.location.href = "/wechat/ui";
+            wx.closeWindow();
         })
     };
 }
