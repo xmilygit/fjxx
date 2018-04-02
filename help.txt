@@ -1,0 +1,2 @@
+备份：
+mongodump --host 188.188.3.2 --port 27017 --username fjxx --password "818140" --db fjxx --out d:/node/mongodb_bak/fjxx20180402
