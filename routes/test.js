@@ -135,4 +135,21 @@ router.get('/test2',function(req,res,next){
     
 })
 
+router.get('/test3',function(req,res,next){
+    
+    var xls=path.resolve(__dirname,'../public/6ginfo.xlsx');
+    var jsonf=path.resolve(__dirname,'../public/6ginfo.json');
+    xlstojson({
+        input:xls,
+        output:jsonf,
+        sheet:'studentinfo'
+    },function(err,result){
+        if(err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
 module.exports = router;
