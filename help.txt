@@ -1,2 +1,16 @@
 备份：
 mongodump --host 188.188.3.2 --port 27017 --username fjxx --password "818140" --db fjxx --out d:/node/mongodb_bak/fjxx20180402
+批量插入：
+db.StudentInfo.insertMany([{})
+关联两个表
+db.getCollection('Account').find({infoid:null,_id:{$gte:ObjectId("5ac24b5389c40a4dc9970600")}}).forEach(
+    function(doc){
+        var f=db.StudentInfo.findOne({'姓名':doc.username})
+        //print(f._id)
+        if(f)
+        //printjson(f._id)
+        db.Account.update({username:f.姓名},{$set:{infoid:f._id}})
+        //doc.infoid=f._id;
+        
+        }
+)
