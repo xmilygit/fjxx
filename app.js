@@ -22,7 +22,7 @@ var rootsite = require('./routes/root');
 var Accounts = require('./routes/Account');
 var Library = require('./routes/library');
 var rootWechat = require('./routes/rootWechat');
-var graduate=require('./routes/graduate');
+var graduate=require('./routes/wechat/graduate');
 var wcBinder=require('./routes/wechat/binder')
 var wcIndex=require('./routes/wechat/index');
 var test=require('./routes/test');
@@ -111,7 +111,8 @@ app.use('/wechat/binder',wcBinder);
 app.use('/wechat/ui',wcIndex);
 //微信新生学籍信息补充功能入口
 app.use('/wechat/stuinfo',StuInfoInput);
-app.use('/graduate',graduate);
+//微信毕业生信息补充功能入口 
+app.use('/wechat/graduate',graduate);
 app.use('/test',test);
 //web端管理功能入口
 app.use('/main',admin);

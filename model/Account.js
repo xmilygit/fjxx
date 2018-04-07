@@ -21,7 +21,8 @@ var AccountSchema=new mongoose.Schema({
     sname:String,
     ftel:String,
     stel:String,
-    wxopenid:String
+    wxopenid:String,
+    usertype:String,
 },{collection:'Account'});
 
 mongoose.model('Account',AccountSchema);

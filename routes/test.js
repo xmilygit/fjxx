@@ -172,4 +172,21 @@ router.get('/test4', function(req, res, next) {
     res.end();
 })
 
+router.get('/test5', function(req, res, next) {
+
+    var xls = path.resolve(__dirname, '../public/xsxx.xlsx');
+    var jsonf = path.resolve(__dirname, '../public/xsxx.json');
+    xlstojson({
+        input: xls,
+        output: jsonf,
+        sheet: '1'
+    }, function(err, result) {
+        if (err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
 module.exports = router;

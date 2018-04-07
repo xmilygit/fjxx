@@ -75,13 +75,14 @@ router.get('*', function (req, res, next) {
 
                 if (isBinder) {
                     //res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
-                    if (doc.infoid) {
+                    /*if (doc.infoid) {
                         res.redirect('/wechat/stuinfo')
                         //res.end("当前绑定的用户是新生")
                         return;
-                    }
-                    if (doc.studentid) {
-                        res.end("当前绑定的是老生")
+                    }*/
+                    if (doc.usertype=="graduate") {
+                        //res.end("old student")
+                        res.redirect('/wechat/graduate')
                         return;
                     }
 
@@ -121,13 +122,14 @@ router.get('*', function (req, res, next) {
                 if (isBinder) {
                     //res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
                     req.session.openid = openid;
-                    if (doc.infoid) {
+                    /*if (doc.infoid) {
                         res.redirect('/wechat/stuinfo')
                         //res.end("当前绑定的用户是新生")
                         return;
-                    }
-                    if (doc.studentid) {
-                        res.end("当前绑定的是老生")
+                    }*/
+                    if (doc.usertype=='graduate') {
+                        //res.end("毕业生")
+                        res.redirect("/wechat/graduate")
                         return;
                     }
 

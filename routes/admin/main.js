@@ -298,7 +298,27 @@ router.get('/usersearch', function (req, res, next) {
 })
 
 
-//获取新生信息录入激活状态
+//获取信息录入激活状态（改进版20180407)
+router.get('/getgraduateinfoenable', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    var tgstr=req.query['target'];
+    async.auto({
+        method1: function (callback) {
+            appvar.GetEnable(tgstr, callback);
+        }
+    }, function (err, result) {
+        if (err) {
+            res.json({ 'error': true, 'message': err });
+            retur;
+        } else {
+            res.json({ 'type': "ok", "recordset": result.method1 });
+            return;
+        }
+
+    })
+})
+
+//获取新生信息录入激活状态(可使用上面改进版本20180407暂没改动)
 router.get('/getnewstuinfoenable', function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     async.auto({

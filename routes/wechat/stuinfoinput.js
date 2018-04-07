@@ -10,6 +10,7 @@ router.all('*',function(req,res,next){
 })
 */
 router.get('/', function (req, res, next) {
+    /*网页测试用
     if (req.session.openid) {
         res.render('Student/wechat/studentinfoinput', {
             title: '新生学籍信息采集',
@@ -20,12 +21,17 @@ router.get('/', function (req, res, next) {
             layout: null
         })
     }
+    */
+    res.render('Student/wechat/studentinfoinput', {
+        title: '新生学籍信息采集',
+        layout: 'f7layoutsbase'
+    })
 })
 
 router.post('/GetInfoById', function (req, res, next) {
     console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");
-    var openid = req.session.openid;//"o_BZpuDFj3Gi-psvtFFDRgl9id-0";//
+    var openid = "opFC7v33Bv242Ic7tMxvt-JbhyD0";//req.session.openid;"opFC7v33Bv242Ic7tMxvt-JbhyD0";//
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
         if (err) {
             if (err) {

@@ -1,1 +1,1 @@
-{"newstudentinfoEnable":true}
+{"newstudentinfoEnable":true,"graduateinfoEnable":true}

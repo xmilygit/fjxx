@@ -26,6 +26,20 @@ var wechatauth={
 */
 exports.varmng = { wechatauth: wechatauth };
 //module.exports = { wechatauth: wechatauth }
+//以下是改进功能版本
+exports.GetEnable=function(tg,cb){
+    fs.readFile("appvar.txt",function(err,txt){
+        if(err){
+            console.error("读取应用基础数据失败!部分功能可能失效!");
+            cb("读取应用基础数据失败!部分功能可能失效!",null);
+            return;
+        }
+        var t=JSON.parse(txt.toString());
+        //console.log(eval("t."+tg));
+        cb(null,eval("t."+tg))
+    })
+}
+//以下是原来的版本
 exports.GetNewStuInfoEnable = function (cb) {
     fs.readFile("appvar.txt", function (err, txt) {
         if (err) {
