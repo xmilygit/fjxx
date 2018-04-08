@@ -19,7 +19,9 @@ function returnLocationArray(regex) {
 
 }
 */
-
+$$("#fregsame").on('change',function(obj){
+    alert(obj)
+})
 //学生身份证设置为禁用后，该功能取消
 /*
 $("#pid").on('blur', function (obj) {
