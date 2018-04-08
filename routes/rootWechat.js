@@ -259,7 +259,7 @@ router.get('/jsconfig', function(req, res, next) {
         url: url
     };
     api.getJsConfig(param, function(err, result) {
-        //console.log(result);
+        console.log(result);
         res.json(result);
     })
 })

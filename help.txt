@@ -14,3 +14,7 @@ db.getCollection('Account').find({infoid:null,_id:{$gte:ObjectId("5ac24b5389c40a
         
         }
 )
+
+
+JS接口安全域名
+填写该接口不能带http://直接填写域名如：fjxx.tunnel.echomod.cn
