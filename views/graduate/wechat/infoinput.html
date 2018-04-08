@@ -85,7 +85,8 @@
                                         <div class="item-inner">
                                             <div class="item-title label">户籍地址</div>
                                             <div class="item-input">
-                                                <textarea style="height:80px" name="regaddress"></textarea>
+                                                <input type="text" placeholder="省、市、区" readonly id="picker-custom-toolbar">
+                                                <textarea style="height:80px" placeholder="详细地址" name="regaddress" id="regaddress"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -239,6 +240,6 @@
 
 <!-- Path to your app js-->
 <script type="text/javascript" src="/js/appinit.js"></script>
-<!--<script type="text/javascript" src="/js/locationcode.js"></script>-->
-<!--<script type="text/javascript" src="/js/jquery.linq.min.js"></script>-->
+<script type="text/javascript" src="/js/locationcode.js"></script>
+<script type="text/javascript" src="/js/jquery.linq.min.js"></script>
 <script type="text/javascript" src="/js/f7/js/my-app-graduateinfoinput.js"></script>

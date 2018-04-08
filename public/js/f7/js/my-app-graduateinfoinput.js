@@ -105,6 +105,75 @@ $$("#sregsame").on('change', function(obj) {
         $$("#sregaddress_li").show();
 })
 
+var lv1 = "[1-9][0-9]0{10}"
+var lv2init = "11([0-9][1-9]|[1-9][0-9])0{8}"
+var lv3init = "1101([0-9][1-9]|[1-9][0-9])0{6}"
+//var temppk = [];
+//var currentPid="";
+function returnLocationArray(regex) {
+    var lnames = $.Enumerable.From(locationcode)
+        .Where("x=>x.code.match(/" + regex + "/)")
+        .OrderBy("x=>x.code")
+        .Select("x=>x.locationname")
+        .ToArray();
+    var lcodes = $.Enumerable.From(locationcode)
+        .Where("x=>x.code.match(/" + regex + "/)")
+        .OrderBy("x=>x.code")
+        .Select("x=>x.code")
+        .ToArray();
+    return { names: lnames, codes: lcodes };
+
+}
+
+var locationpick1 = myApp.picker({
+    input: '#picker-custom-toolbar',
+    formatValue: function (picker, values) {
+        return values[2];
+    },
+    toolbarCloseText: '确定',
+    //onOpen: function (picker) {
+    //    if (temppk[0]) {
+    //        picker.setValue(temppk[0])
+    //        temppk[0] = null
+    //    }
+    //},
+    cols: [
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv1).codes,//code,
+            displayValues: returnLocationArray(lv1).names,//names,
+            onChange: function (picker, value, displayValue) {
+                var l1 = value.substr(0, 2);
+                var l2reg = l1 + "([0-9][1-9]|[1-9][0-9])0{8}"
+                if (picker.cols[1].replaceValues) {
+                    picker.cols[1].replaceValues(returnLocationArray(l2reg).codes, returnLocationArray(l2reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv2init).codes,
+            displayValues: returnLocationArray(lv2init).names,
+            onChange: function (picker, value, displayValue) {
+                alert('asdfaf')
+                var l2 = value.substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}"
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv3init).codes,
+            displayValues: returnLocationArray(lv3init).names
+        }
+    ]
+});
+
 //执行获取毕业生信息激活状态的Ajax的success方法
 function graduateInfoEnableAS(data) {
     if (data.recordset) {
