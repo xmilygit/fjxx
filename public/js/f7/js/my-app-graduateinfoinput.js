@@ -19,9 +19,6 @@ function returnLocationArray(regex) {
 
 }
 */
-$$("#fregsame").on('change',function(obj){
-    alert(obj)
-})
 //学生身份证设置为禁用后，该功能取消
 /*
 $("#pid").on('blur', function (obj) {
@@ -53,41 +50,59 @@ $("#pid").on('blur', function (obj) {
 
 
 $(function() {
-    //获取JS-SDK配置信息
-    try {
-        $.ajax({
-            url: svrUrl + '/wechat/jsconfig',
-            method: 'GET',
-            dataType: 'json',
-            data: { debug: false, url: svrUrl + '/wechat/graduate', jsapilist: ['hideOptionMenu', 'closeWindow'] },
+        //获取JS-SDK配置信息
+        try {
+            $.ajax({
+                url: svrUrl + '/wechat/jsconfig',
+                method: 'GET',
+                dataType: 'json',
+                data: { debug: false, url: svrUrl + '/wechat/graduate', jsapilist: ['hideOptionMenu', 'closeWindow'] },
 
-            success: jsconfigSuccess,
-            error: ajaxError,
-            complete: function() {
-                //myApp.hidePreloader();
-            }
-        })
-    } catch (err) {
-        //myApp.hidePreloader();
-        myApp.alert('系统出错：' + err, "获取JS-SDK出错了!")
-    }
-    //获取当前系统是否允许编辑毕业生信息
-    try {
-        $$.ajax({
-            url: svrUrl + '/main/getgraduateinfoenable',
-            method: 'GET',
-            dataType: 'json',
-            data: { target: "graduateinfoEnable" },
-            success: graduateInfoEnableAS,
-            error: ajaxError,
-            complete: function() {
-                //myApp.hidePreloader();
-            }
-        })
-    } catch (err) {
-        //myApp.hidePreloader();
-        myApp.alert('系统出错' + err, "出错了！")
-    }
+                success: jsconfigSuccess,
+                error: ajaxError,
+                complete: function() {
+                    //myApp.hidePreloader();
+                }
+            })
+        } catch (err) {
+            //myApp.hidePreloader();
+            myApp.alert('系统出错：' + err, "获取JS-SDK出错了!")
+        }
+        //获取当前系统是否允许编辑毕业生信息
+        try {
+            $$.ajax({
+                url: svrUrl + '/main/getgraduateinfoenable',
+                method: 'GET',
+                dataType: 'json',
+                data: { target: "graduateinfoEnable" },
+                success: graduateInfoEnableAS,
+                error: ajaxError,
+                complete: function() {
+                    //myApp.hidePreloader();
+                }
+            })
+        } catch (err) {
+            //myApp.hidePreloader();
+            myApp.alert('系统出错' + err, "出错了！")
+        }
+    })
+    //户籍1同册处理事件
+$$("#fregsame").on('change', function(obj) {
+        var fstate = $("#fregsame").is(':checked') ? true : false;
+        //alert(state)
+        if (fstate)
+            $$("#fregaddress_li").hide();
+        else
+            $$("#fregaddress_li").show();
+    })
+    //户籍2同册处理事件
+$$("#sregsame").on('change', function(obj) {
+    var sstate = $("#sregsame").is(':checked') ? true : false;
+    //alert(state)
+    if (sstate)
+        $$("#sregaddress_li").hide();
+    else
+        $$("#sregaddress_li").show();
 })
 
 //执行获取毕业生信息激活状态的Ajax的success方法
