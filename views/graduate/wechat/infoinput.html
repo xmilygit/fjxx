@@ -85,7 +85,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">户籍地址</div>
                                             <div class="item-input">
-                                                <input type="text" placeholder="省、市、区" readonly id="picker-custom-toolbar">
+                                                <input type="text" placeholder="省、市、区" readonly id="stureglocation">
                                                 <textarea style="height:80px" placeholder="详细地址" name="regaddress" id="regaddress"></textarea>
                                             </div>
                                         </div>
@@ -120,6 +120,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">户籍地址</div>
                                             <div class="item-input">
+                                                <input type="text" placeholder="省、市、区" readonly id="freglocation">
                                                 <textarea style="height:80px" name="fregaddress"></textarea>
                                             </div>
                                         </div>
@@ -153,6 +154,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">户籍地址</div>
                                             <div class="item-input">
+                                                <input type="text" placeholder="省、市、区" readonly id="sreglocation">
                                                 <textarea style="height:80px" name="sregaddress"></textarea>
                                             </div>
                                         </div>
@@ -189,6 +191,7 @@
                                         <div class="item-inner">
                                             <div class="item-title label">居住地址</div>
                                             <div class="item-input">
+                                                <input type="text" placeholder="省、市、区" readonly id="homelocation">
                                                 <textarea style="height:80px" name="homeaddress"></textarea>
                                             </div>
                                         </div>
@@ -233,9 +236,9 @@
         domCache: true,
         dynamicNavbar: true
     });
-    //myApp.showPreloader('正在加载数据...')
+    myApp.showPreloader('正在加载数据...')
 </script>
-<script type="text/javascript" src="js/async.min.js"></script>
+<!--<script type="text/javascript" src="js/async.min.js"></script>-->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
 
 <!-- Path to your app js-->

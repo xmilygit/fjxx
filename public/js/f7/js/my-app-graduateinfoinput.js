@@ -105,11 +105,13 @@ $$("#sregsame").on('change', function(obj) {
         $$("#sregaddress_li").show();
 })
 
+//区域选择基础部分
+var defaultlocation = ["450000000000", "450300000000", "450303000000"];
 var lv1 = "[1-9][0-9]0{10}"
 var lv2init = "11([0-9][1-9]|[1-9][0-9])0{8}"
 var lv3init = "1101([0-9][1-9]|[1-9][0-9])0{6}"
-//var temppk = [];
-//var currentPid="";
+    //var temppk = [];
+    //var currentPid="";
 function returnLocationArray(regex) {
     var lnames = $.Enumerable.From(locationcode)
         .Where("x=>x.code.match(/" + regex + "/)")
@@ -122,32 +124,41 @@ function returnLocationArray(regex) {
         .Select("x=>x.code")
         .ToArray();
     return { names: lnames, codes: lcodes };
-
 }
+//end//
 
+//学生户籍区域选择器
 var locationpick1 = myApp.picker({
-    input: '#picker-custom-toolbar',
-    formatValue: function (picker, values) {
-        return values[2];
+    input: '#stureglocation',
+    formatValue: function(picker, values, displayValues) {
+        //return values[2];
+        return displayValues[0] + displayValues[1] + displayValues[2]
     },
     toolbarCloseText: '确定',
-    //onOpen: function (picker) {
-    //    if (temppk[0]) {
-    //        picker.setValue(temppk[0])
-    //        temppk[0] = null
-    //    }
-    //},
-    cols: [
-        {
+    onOpen: function(picker) {
+        //if (temppk[0]) {
+        //picker.setValue(temppk[0])
+        //temppk[0] = null
+        //}
+        picker.setValue(defaultlocation);
+    },
+    cols: [{
             width: 160,
             textAlign: 'left',
-            values: returnLocationArray(lv1).codes,//code,
-            displayValues: returnLocationArray(lv1).names,//names,
-            onChange: function (picker, value, displayValue) {
+            values: returnLocationArray(lv1).codes, //code,
+            displayValues: returnLocationArray(lv1).names, //names,
+            onChange: function(picker, value, displayValue) {
                 var l1 = value.substr(0, 2);
                 var l2reg = l1 + "([0-9][1-9]|[1-9][0-9])0{8}"
+                var l2codes = returnLocationArray(l2reg).codes;
+                var l2names = returnLocationArray(l2reg).names;
                 if (picker.cols[1].replaceValues) {
-                    picker.cols[1].replaceValues(returnLocationArray(l2reg).codes, returnLocationArray(l2reg).names);
+                    picker.cols[1].replaceValues(l2codes, l2names);
+                }
+                var l2 = l2codes[0].substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}";
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
                 }
             }
         },
@@ -156,8 +167,175 @@ var locationpick1 = myApp.picker({
             textAlign: 'left',
             values: returnLocationArray(lv2init).codes,
             displayValues: returnLocationArray(lv2init).names,
-            onChange: function (picker, value, displayValue) {
-                alert('asdfaf')
+            onChange: function(picker, value, displayValue) {
+                var l2 = value.substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}"
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv3init).codes,
+            displayValues: returnLocationArray(lv3init).names
+        }
+    ]
+});
+
+//监护人1户籍区域选择器
+var locationpick2 = myApp.picker({
+    input: '#freglocation',
+    formatValue: function(picker, values, displayValues) {
+        //return values[2];
+        return displayValues[0] + displayValues[1] + displayValues[2]
+    },
+    toolbarCloseText: '确定',
+    //onOpen: function (picker) {
+    //    if (temppk[0]) {
+    //        picker.setValue(temppk[0])
+    //        temppk[0] = null
+    //    }
+    //},
+    cols: [{
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv1).codes, //code,
+            displayValues: returnLocationArray(lv1).names, //names,
+            onChange: function(picker, value, displayValue) {
+                var l1 = value.substr(0, 2);
+                var l2reg = l1 + "([0-9][1-9]|[1-9][0-9])0{8}"
+                var l2codes = returnLocationArray(l2reg).codes;
+                var l2names = returnLocationArray(l2reg).names;
+                if (picker.cols[1].replaceValues) {
+                    picker.cols[1].replaceValues(l2codes, l2names);
+                }
+                var l2 = l2codes[0].substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}";
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv2init).codes,
+            displayValues: returnLocationArray(lv2init).names,
+            onChange: function(picker, value, displayValue) {
+                var l2 = value.substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}"
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv3init).codes,
+            displayValues: returnLocationArray(lv3init).names
+        }
+    ]
+});
+
+//监护人2户籍区域选择器
+var locationpick3 = myApp.picker({
+    input: '#sreglocation',
+    formatValue: function(picker, values, displayValues) {
+        //return values[2];
+        return displayValues[0] + displayValues[1] + displayValues[2]
+    },
+    toolbarCloseText: '确定',
+    //onOpen: function (picker) {
+    //    if (temppk[0]) {
+    //        picker.setValue(temppk[0])
+    //        temppk[0] = null
+    //    }
+    //},
+    cols: [{
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv1).codes, //code,
+            displayValues: returnLocationArray(lv1).names, //names,
+            onChange: function(picker, value, displayValue) {
+                var l1 = value.substr(0, 2);
+                var l2reg = l1 + "([0-9][1-9]|[1-9][0-9])0{8}"
+                var l2codes = returnLocationArray(l2reg).codes;
+                var l2names = returnLocationArray(l2reg).names;
+                if (picker.cols[1].replaceValues) {
+                    picker.cols[1].replaceValues(l2codes, l2names);
+                }
+                var l2 = l2codes[0].substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}";
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv2init).codes,
+            displayValues: returnLocationArray(lv2init).names,
+            onChange: function(picker, value, displayValue) {
+                var l2 = value.substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}"
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv3init).codes,
+            displayValues: returnLocationArray(lv3init).names
+        }
+    ]
+});
+
+//房产地址区域选择器
+var locationpick4 = myApp.picker({
+    input: '#homelocation',
+    formatValue: function(picker, values, displayValues) {
+        //return values[2];
+        return displayValues[0] + displayValues[1] + displayValues[2]
+    },
+    toolbarCloseText: '确定',
+    //onOpen: function (picker) {
+    //    if (temppk[0]) {
+    //        picker.setValue(temppk[0])
+    //        temppk[0] = null
+    //    }
+    //},
+    cols: [{
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv1).codes, //code,
+            displayValues: returnLocationArray(lv1).names, //names,
+            onChange: function(picker, value, displayValue) {
+                var l1 = value.substr(0, 2);
+                var l2reg = l1 + "([0-9][1-9]|[1-9][0-9])0{8}"
+                var l2codes = returnLocationArray(l2reg).codes;
+                var l2names = returnLocationArray(l2reg).names;
+                if (picker.cols[1].replaceValues) {
+                    picker.cols[1].replaceValues(l2codes, l2names);
+                }
+                var l2 = l2codes[0].substr(0, 4);
+                var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}";
+                if (picker.cols[2].replaceValues) {
+                    picker.cols[2].replaceValues(returnLocationArray(l3reg).codes, returnLocationArray(l3reg).names);
+                }
+            }
+        },
+        {
+            width: 160,
+            textAlign: 'left',
+            values: returnLocationArray(lv2init).codes,
+            displayValues: returnLocationArray(lv2init).names,
+            onChange: function(picker, value, displayValue) {
                 var l2 = value.substr(0, 4);
                 var l3reg = l2 + "([0-9][1-9]|[1-9][0-9])0{6}"
                 if (picker.cols[2].replaceValues) {
