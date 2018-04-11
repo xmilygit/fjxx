@@ -189,4 +189,21 @@ router.get('/test5', function(req, res, next) {
     res.end();
 })
 
+
+router.get('/test6', function(req, res, next) {
+
+    var xls = path.resolve(__dirname, '../public/工作簿1.xlsx');
+    var jsonf = path.resolve(__dirname, '../public/gzb.json');
+    xlstojson({
+        input: xls,
+        output: jsonf,
+        sheet: '备注版原始版'
+    }, function(err, result) {
+        if (err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
 module.exports = router;
