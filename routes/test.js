@@ -207,9 +207,29 @@ router.get('/test6', function(req, res, next) {
     res.end();
 })
 
+router.get('/test7', function(req, res, next) {
+
+    var xls = path.resolve(__dirname, '../public/2017graduate.xlsx');
+    var jsonf = path.resolve(__dirname, '../public/2017.json');
+    xlstojson({
+        input: xls,
+        output: jsonf,
+        sheet: '附表2'
+    }, function(err, result) {
+        if (err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
 router.get('/testreg', function(req, res, next) {
-    var k = 0;
     var pattern = /叠彩/g;
+    var stu1=[];
+    var stu2=[];
+    var stu3=[];
+
 
     mongoose.model('temp').find({}, function(err, docs) {
         if (err) {
@@ -218,20 +238,42 @@ router.get('/testreg', function(req, res, next) {
             return;
         }
         docs.forEach(function(v, i, docs) {
-            if (/桂林|叠彩|七星|秀峰|象山/g.test(v.户口所在地及性质)) {
-                if (!/村|组|队|乡|屯/g.test(v.户口所在地性质)) {
-                    k++;
-                    console.log(v.姓名 + '[' + v.户口所在地及性质 + ']')
+            if (/桂林|叠彩|七星|秀峰|象山/g.test(v.户口所在地)&&!/临桂|雁山/g.test(v.户口所在地)) {
+                if (/村|组|队|乡|屯/g.test(v.户口所在地)) {
+                    stu2.push(v.姓名+"["+v.户口所在地+"]");
+                    //console.log(v.姓名 + '[' + v.户口所在地 + ']')
+                }else{
+                    stu1.push(v.姓名+"["+v.户口所在地+"]");
                 }
+            }else{
+                stu3.push(v.姓名+"["+v.户口所在地+"]");
             }
         });
-        console.log("共" + docs.length + "其中" + k + "人")
+        console.log("共" + docs.length + "其中四城区户籍" + stu1.length + "人");
+        console.log(stu1);
+        console.log("共" + docs.length + "其中桂林市郊区户籍" + stu2.length + "人");
+        console.log(stu2);
+        console.log("共" + docs.length + "其中外来户籍" + stu3.length + "人");
+        console.log(stu3);
+        res.setHeader('content-type','text/html; charset=UTF-8');
+        stu1.forEach(function(s,i,ss){
+            res.write(s+"</br>");
+        })
+        res.write("================================</br>")
+        stu2.forEach(function(s,i,ss){
+            res.write(s+"</br>");
+        })
+        res.write("================================</br>")
+        stu3.forEach(function(s,i,ss){
+            res.write(s+"</br>");
+        })
+        res.end();
+        
     })
 
 
     //var t1 = '叠彩区中山北路133号44座202室';
     //console.log(/叠彩/g.test(t1));
-    res.end();
 })
 
 
