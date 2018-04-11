@@ -206,4 +206,34 @@ router.get('/test6', function(req, res, next) {
     })
     res.end();
 })
+
+router.get('/testreg', function(req, res, next) {
+    var k = 0;
+    var pattern = /叠彩/g;
+
+    mongoose.model('temp').find({}, function(err, docs) {
+        if (err) {
+            console(err)
+            res.end();
+            return;
+        }
+        docs.forEach(function(v, i, docs) {
+            if (/桂林|叠彩|七星|秀峰|象山/g.test(v.户口所在地及性质)) {
+                if (!/村|组|队|乡|屯/g.test(v.户口所在地性质)) {
+                    k++;
+                    console.log(v.姓名 + '[' + v.户口所在地及性质 + ']')
+                }
+            }
+        });
+        console.log("共" + docs.length + "其中" + k + "人")
+    })
+
+
+    //var t1 = '叠彩区中山北路133号44座202室';
+    //console.log(/叠彩/g.test(t1));
+    res.end();
+})
+
+
+
 module.exports = router;
