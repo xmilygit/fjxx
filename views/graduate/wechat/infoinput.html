@@ -1,10 +1,12 @@
 <div class="view view-main">
-    <div class="pages navbar-fixed">
-        <div data-page="index" class="page with-subnavbar">
+    <div class="pages">
+        <div data-page="index" class="page navbar-fixed">
             <div class="navbar">
                 <div class="navbar-inner">
                     <div class="center">毕业生信息采集</div>
-                    <div class="right"><a href="#" class="button button-fill color-green" id="savebutt">保存</a></div>
+                    <div class="right">
+                        <a href="#" class="button button-fill color-green" id="savebutt">保存</a>
+                    </div>
                     <!--
                     <div class="subnavbar">
                         <div class="buttons-row">
@@ -20,198 +22,186 @@
             <!-- Tabs, tabs wrapper -->
             <!--<div class="tabs">-->
             <!-- Tab 1, active by default -->
-            <!--<div id="tab1" class="page-content tab active">-->
-            <!--<div class="content-block">-->
-            <div class="content-block-title">毕业生基本信息</div>
-            <form class="list-block" id="form1">
-                <ul>
-                    <li class="item-divider">毕业生基本信息</li>
-                    <!-- Text inputs -->
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">学籍号</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="学籍号" name="sid" id="pid" disabled>
+            <div class="page-content">
+                <!--<div class="content-block">-->
+                    <form class="list-block" id="form1">
+                        <ul>
+                            <li class="item-divider">毕业生基本信息</li>
+                            <!-- Text inputs -->
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">学籍号</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="学籍号" name="sid" id="pid" disabled>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">姓名</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="姓名" name="stuname" disabled>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">姓名</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="姓名" name="stuname" disabled>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">性别</div>
-                                <div class="item-input">
-                                    <select name="gender">
-                                                        <option>男</option>
-                                                        <option>女</option>
-                                                    </select>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">性别</div>
+                                        <div class="item-input">
+                                            <select name="gender">
+                                                <option>男</option>
+                                                <option>女</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">出生日期</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="出生日期" readonly name="dob" id="dob">
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">出生日期</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="出生日期" readonly name="dob" id="dob">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">民族</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="民族" name="nation">
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">民族</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="民族" name="nation">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">户籍地址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省、市、区" readonly id="stureglocation">
-                                    <textarea style="height:80px" placeholder="详细地址" name="regaddress" id="regaddress"></textarea>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="省、市、区" readonly id="stureglocation">
+                                            <textarea style="height:80px" placeholder="详细地址" name="regaddress" id="regaddress"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-divider">监护人基本信息</li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">监护人1姓名</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="监护人1姓名" name="fname">
+                            </li>
+                            <li class="item-divider">监护人基本信息</li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">监护人1姓名</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="监护人1姓名" name="fname">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">户籍与学生同册</div>
-                                <div class="item-input">
-                                    <label class="label-switch">
-                                                            <input type="checkbox" name="fregsame" id="fregsame" value="是">
-                                                            <div class="checkbox"></div>
-                                                        </label>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">户籍与学生同册</div>
+                                        <div class="item-input">
+                                            <label class="label-switch">
+                                                <input type="checkbox" name="fregsame" id="fregsame" value="是">
+                                                <div class="checkbox"></div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li id="fregaddress_li">
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">户籍地址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省、市、区" readonly id="freglocation">
-                                    <!--<textarea style="height:80px" name="fregaddress"></textarea>-->
+                            </li>
+                            <li id="fregaddress_li">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="省、市、区" readonly id="freglocation">
+                                            <!--<textarea style="height:80px" name="fregaddress"></textarea>-->
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">监护人2姓名</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="监护人2姓名" name="sname">
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">监护人2姓名</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="监护人2姓名" name="sname">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">户籍与学生同册</div>
-                                <div class="item-input">
-                                    <label class="label-switch">
-                                                            <input type="checkbox" name="sregsame" id="sregsame" value="是">
-                                                            <div class="checkbox"></div>
-                                                        </label>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">户籍与学生同册</div>
+                                        <div class="item-input">
+                                            <label class="label-switch">
+                                                <input type="checkbox" name="sregsame" id="sregsame" value="是">
+                                                <div class="checkbox"></div>
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li id="sregaddress_li">
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">户籍地址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省、市、区" readonly id="sreglocation">
-                                    <!--<textarea style="height:80px" name="sregaddress"></textarea>-->
+                            </li>
+                            <li id="sregaddress_li">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="省、市、区" readonly id="sreglocation">
+                                            <!--<textarea style="height:80px" name="sregaddress"></textarea>-->
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">联系电话</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="联系电话" name="tel">
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">联系电话</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="联系电话" name="tel">
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="item-divider">居住地信息</li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">房屋产权归属</div>
-                                <div class="item-input">
-                                    <select name="whohome">
-                                                            <option>监护人1产权房</option>
-                                                            <option>监护人2产权房</option>
-                                                            <option>祖父母或外祖父母产权房</option>
-                                                            <option>租房</option>
-                                                        </select>
+                            </li>
+                            <li class="item-divider">居住地信息</li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">房屋产权归属</div>
+                                        <div class="item-input">
+                                            <select name="whohome">
+                                                <option>监护人1产权房</option>
+                                                <option>监护人2产权房</option>
+                                                <option>祖父母或外祖父母产权房</option>
+                                                <option>租房</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">居住地址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省、市、区" readonly id="homelocation">
-                                    <textarea style="height:80px" name="homeaddress"></textarea>
+                            </li>
+                            <li>
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">居住地址</div>
+                                        <div class="item-input">
+                                            <input type="text" placeholder="省、市、区" readonly id="homelocation">
+                                            <textarea style="height:80px" name="homeaddress"></textarea>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </form>
-            <!--</div>-->
-            <!--</div>-->
-            <!-- Tab 2 -->
-            <!--<div id="tab2" class="page-content tab">
-                        <form class="list-block" id="form2">
-                            <ul>-->
-            <!-- Text inputs -->
-
-            <!--</ul>
-                        </form>
-                    </div>
-                </div>
-            </div>-->
+                            </li>
+                        </ul>
+                    </form>
+                <!--</div>-->
+            </div>
         </div>
     </div>
 </div>
