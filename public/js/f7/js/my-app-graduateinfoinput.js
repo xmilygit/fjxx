@@ -360,39 +360,19 @@ function getinfoAjaxSuccess(data) {
         "dob": dobformpid(data.recordset.身份证件号),
         "nation": data.recordset.民族,
         "homeaddress": data.recordset.家庭地址,
-        "regaddress": data.recordset.现住址,
+        "sregaddress": data.recordset.现住址,
         "sid": data.recordset.学籍号,
         "fname": data.recordset.成员1姓名,
         "sname": data.recordset.成员2姓名,
-        "tel": data.recordset.联系电话
+        "tel": data.recordset.联系电话,
+        "fregsame":[data.recordset.监护人1户籍与学生同户],
+        "sregsame":[data.recordset.监护人2户籍与学生同户],
+        "whohome":data.recordset.房屋产权归属,
+        "stureglocation":data.recordset.学生户籍区域,
+        "freglocation":data.recordset.监护人1户籍区域,
+        "sreglocation":data.recordset.监护人2户籍区域,
+        "homelocation":data.recordset.房屋区域
     }
-        /*
-            var pickerVal = stu.pid.substr(0,6)+'000000';
-            if (stu.borncode === "" || !stu.borncode){
-                stu.borncode = pickerVal;
-                temppk[0]=getPickerVal(pickerVal)
-            }else{
-                temppk[0]=getPickerVal(stu.borncode)
-            }
-            if (stu.regcode === ""|| !stu.regcode){
-                stu.regcode = pickerVal;
-                temppk[1]=getPickerVal(pickerVal)
-            }else{
-                temppk[1]=getPickerVal(stu.regcode)
-            }
-            if (fs.fregcode === ""||!fs.fregcode){
-                fs.fregcode = pickerVal;
-                temppk[2]=getPickerVal(pickerVal)
-            }else{
-                temppk[2]=getPickerVal(fs.fregcode)
-            }
-            if (fs.sregcode === ""||!fs.sregcode){
-                fs.sregcode = pickerVal;
-                temppk[3]=getPickerVal(pickerVal)
-            }else{
-                temppk[3]=getPickerVal(fs.sregcode)
-            }
-        */
     myApp.formFromJSON('#form1', stu);
 }
 
@@ -409,45 +389,15 @@ function dobformpid(pid) {
 }
 
 
-$$("#savebutt").on('click', function() {
+$$("#step1save").on('click', function() {
     var stdata = myApp.formToJSON('#form1')
-    var fsdata = myApp.formToJSON('#form2')
-        /*
-        var stu = {
-            "姓名":stdata.stuname,
-            "性别":stdata.gender,
-            "出生日期":stdata.dob,
-            "民族":stdata.nation,
-            "家庭地址":stdata.homeaddress,
-            "现住址":stdata.regaddress,
-            "籍贯":stdata.origin,
-            "身份证件号":stdata.pid,
-            "是否独生子女":stdata.onlychild[0]|"否",
-            "是否受过学前教育":stdata.preschool[0]|"否",
-            "户口性质":stdata.regtype,
-            "出生地行政区划代码":stdata.borncode,
-            "户口所在地行政区划":stdata.regcode,
-            "邮政编码":stdata.zipcode,
-            "成员1姓名":fsdata.fname,
-            "成员1关系":fsdata.frelationship,
-            "成员1是否监护人":fsdata.Fguardian[0]|"否",
-            "成员1现住址":fsdata.fhomeaddress,
-            "成员1户口所在地行政区划":fsdata.fregcode,
-            "成员1联系电话":fsdata.ftel,
-            "成员2姓名":fsdata.sname,
-            "成员2关系":fsdata.srelationship,
-            "成员2是否监护人":fsdata.sguardian[0]|"否",
-            "成员2现住址":fsdata.shomeaddress,
-            "成员2户口所在地行政区划":fsdata.sregcode,
-            "成员2联系电话":fsdata.stel
-        }
-        */
+
     myApp.showPreloader('正在保存数据...')
     $.ajax({
-        url: svrUrl + "/wechat/stuinfo/SaveInfoByOpenid",
+        url: svrUrl + "/wechat/graduate/SaveInfoByOpenid",
         method: 'POST',
         dataType: 'json',
-        data: { stdata: JSON.stringify(stdata), fsdata: JSON.stringify(fsdata) },
+        data: { stdata: JSON.stringify(stdata) },
         complete: function() {
             myApp.hidePreloader()
         },

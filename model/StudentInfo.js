@@ -107,7 +107,14 @@ var StudentInfoSchema = new mongoose.Schema({
     "成员2是否监护人": {
         type: String,
         required: [true, '成员2是否监护人必须填写']
-    }
+    },
+    "学生户籍区域": String,
+    "监护人1户籍与学生同户": String,
+    "监护人1户籍区域": String,
+    "监护人2户籍与学生同户": String,
+    "监护人2户籍区域": String,
+    "房屋产权归属": String,
+    "房屋区域":String
 },{collection:'StudentInfo'});
 
 mongoose.model('StudentInfo',StudentInfoSchema);

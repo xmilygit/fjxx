@@ -5,25 +5,11 @@
                 <div class="navbar-inner">
                     <div class="center">毕业生信息采集</div>
                     <div class="right">
-                        <a href="#" class="button button-fill color-green" id="savebutt">保存</a>
+                        <a href="#" class="button button-fill color-green" id="step1save">下一步</a>
                     </div>
-                    <!--
-                    <div class="subnavbar">
-                        <div class="buttons-row">
-                            <a href="#tab1" class="button active tab-link">学生基本信息</a>
-                            <a href="#tab2" class="button tab-link">监护人基本信息</a>
-                        </div>
-                    </div>
-                    -->
                 </div>
             </div>
-            <!-- Tabs swipeable wrapper, required to switch tabs with swipes -->
-            <!--<div class="tabs-swipeable-wrap">-->
-            <!-- Tabs, tabs wrapper -->
-            <!--<div class="tabs">-->
-            <!-- Tab 1, active by default -->
             <div class="page-content">
-                <!--<div class="content-block">-->
                     <form class="list-block" id="form1">
                         <ul>
                             <li class="item-divider">毕业生基本信息</li>
@@ -33,7 +19,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">学籍号</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="学籍号" name="sid" id="pid" disabled>
+                                            <input type="text" placeholder="学籍号" name="sid" id="sid" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -43,21 +29,16 @@
                                     <div class="item-inner">
                                         <div class="item-title label">姓名</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="姓名" name="stuname" disabled>
+                                            <input type="text" placeholder="姓名" name="stuname" id="stuname" disabled>
                                         </div>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div class="item-content">
-                                    <div class="item-inner">
+                                    <div class="item-inner">                                        
                                         <div class="item-title label">性别</div>
-                                        <div class="item-input">
-                                            <select name="gender">
-                                                <option>男</option>
-                                                <option>女</option>
-                                            </select>
-                                        </div>
+                                        <input type="text" placeholder="性别" name="gender" id="gender" disabled>
                                     </div>
                                 </div>
                             </li>
@@ -76,7 +57,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">民族</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="民族" name="nation">
+                                            <input type="text" placeholder="民族" name="nation" id="nation">
                                         </div>
                                     </div>
                                 </div>
@@ -86,8 +67,8 @@
                                     <div class="item-inner">
                                         <div class="item-title label">户籍地址</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="省、市、区" readonly id="stureglocation">
-                                            <textarea style="height:80px" placeholder="详细地址" name="regaddress" id="regaddress"></textarea>
+                                            <input type="text" placeholder="省、市、区" readonly name="stureglocation" id="stureglocation">
+                                            <textarea style="height:80px" placeholder="户籍地址" name="sregaddress" id="sregaddress"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +79,7 @@
                                     <div class="item-inner">
                                         <div class="item-title label">监护人1姓名</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="监护人1姓名" name="fname">
+                                            <input type="text" placeholder="监护人1姓名" name="fname" id="fname">
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +87,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍与学生同册</div>
+                                        <div class="item-title label">户籍与学生同户</div>
                                         <div class="item-input">
                                             <label class="label-switch">
                                                 <input type="checkbox" name="fregsame" id="fregsame" value="是">
@@ -119,9 +100,9 @@
                             <li id="fregaddress_li">
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-title label">户籍区域</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="省、市、区" readonly id="freglocation">
+                                            <input type="text" placeholder="省、市、区" readonly name="freglocation" id="freglocation">
                                             <!--<textarea style="height:80px" name="fregaddress"></textarea>-->
                                         </div>
                                     </div>
@@ -140,7 +121,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍与学生同册</div>
+                                        <div class="item-title label">户籍与学生同户</div>
                                         <div class="item-input">
                                             <label class="label-switch">
                                                 <input type="checkbox" name="sregsame" id="sregsame" value="是">
@@ -153,9 +134,9 @@
                             <li id="sregaddress_li">
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-title label">户籍区域</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="省、市、区" readonly id="sreglocation">
+                                            <input type="text" placeholder="省、市、区" readonly name="sreglocation" id="sreglocation">
                                             <!--<textarea style="height:80px" name="sregaddress"></textarea>-->
                                         </div>
                                     </div>
@@ -190,9 +171,9 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">居住地址</div>
+                                        <div class="item-title label">房产地址</div>
                                         <div class="item-input">
-                                            <input type="text" placeholder="省、市、区" readonly id="homelocation">
+                                            <input type="text" placeholder="省、市、区" readonly name="homelocation" id="homelocation">
                                             <textarea style="height:80px" name="homeaddress"></textarea>
                                         </div>
                                     </div>
@@ -200,7 +181,6 @@
                             </li>
                         </ul>
                     </form>
-                <!--</div>-->
             </div>
         </div>
     </div>

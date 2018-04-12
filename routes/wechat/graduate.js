@@ -48,4 +48,39 @@ router.post('/GetInfoById', function (req, res, next) {
     })
 })
 
+router.post('/SaveInfoByOpenid', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    var openid = "o_BZpuDFj3Gi-psvtFFDRgl9id-0";//req.session.openid;//
+    var stdata = JSON.parse(req.body.stdata);
+    var stu = {
+        "民族": stdata.nation,
+        "现住址":stdata.sregaddress,
+        "学生户籍区域":stdata.stureglocation,
+        "成员1姓名": stdata.fname,
+        "监护人1户籍与学生同户":stdata.fregsame,
+        "监护人1户籍区域":stdata.freglocation,
+        "成员2姓名": stdata.sname,
+        "监护人2户籍与学生同册":stdata.sregsame,
+        "监护人2户籍区域":stdata.sreglocation,
+        "房屋产权归属":stdata.whohome,
+        "家庭地址":stdata.homeaddress,
+        "房屋区域":stdata.homelocation
+    }
+    mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
+        if (err) {
+            if (err) {
+                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });
+                return;
+            }
+        }
+        mongoose.model('StudentInfo').findByIdAndUpdate(doc.infoid, stu, { runValidators: true, upsert: true }, function (err, doc2) {
+            if (err) {
+                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });
+                return;
+            }
+            res.json({ 'recordset': doc2 });
+        })
+    })
+})
+
 module.exports = router;

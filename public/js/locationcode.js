@@ -13085,8 +13085,8 @@ var locationcode=[
         "code": "445381000000"
     },
     {
-        "locationname": "广西壮族自治区",
-        "nameandcode": "广西壮族自治区(450000000000)",
+        "locationname": "广西",
+        "nameandcode": "广西(450000000000)",
         "code": "450000000000"
     },
     {
