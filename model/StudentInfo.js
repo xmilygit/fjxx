@@ -114,7 +114,9 @@ var StudentInfoSchema = new mongoose.Schema({
     "监护人2户籍与学生同户": String,
     "监护人2户籍区域": String,
     "房屋产权归属": String,
-    "房屋区域":String
+    "房屋区域":String,
+    "联系电话":String,
+    "毕业生区域数据":[String]
 },{collection:'StudentInfo'});
 
 mongoose.model('StudentInfo',StudentInfoSchema);

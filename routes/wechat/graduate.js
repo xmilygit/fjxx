@@ -26,7 +26,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/GetInfoById', function (req, res, next) {
-    console.log(req.session.openid)
+    //console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");
     var openid = "o_BZpuDFj3Gi-psvtFFDRgl9id-0";//req.session.openid;"opFC7v33Bv242Ic7tMxvt-JbhyD0";//
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
@@ -42,7 +42,7 @@ router.post('/GetInfoById', function (req, res, next) {
                 res.json({ 'error': true, 'message': err });
                 return;
             }
-            console.log(stuinfo)
+            //console.log(stuinfo)
             res.json({ 'recordset': stuinfo })
         })
     })
@@ -60,11 +60,13 @@ router.post('/SaveInfoByOpenid', function (req, res, next) {
         "监护人1户籍与学生同户":stdata.fregsame,
         "监护人1户籍区域":stdata.freglocation,
         "成员2姓名": stdata.sname,
-        "监护人2户籍与学生同册":stdata.sregsame,
+        "监护人2户籍与学生同户":stdata.sregsame,
         "监护人2户籍区域":stdata.sreglocation,
         "房屋产权归属":stdata.whohome,
         "家庭地址":stdata.homeaddress,
-        "房屋区域":stdata.homelocation
+        "房屋区域":stdata.homelocation,
+        "联系电话":stdata.tel,
+        "毕业生区域数据":[stdata.stureglocationcode,stdata.freglocationcode,stdata.sreglocationcode,stdata.homelocationcode]
     }
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
         if (err) {

@@ -65,9 +65,10 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍地址</div>
+                                        <div class="item-title label">户籍地址 <i class="f7-icons size-15" id="sregaddress_tip">help_fill</i></div>
                                         <div class="item-input">
                                             <input type="text" placeholder="省、市、区" readonly name="stureglocation" id="stureglocation">
+                                            <input type="hidden" name="stureglocationcode" id="stureglocationcode">
                                             <textarea style="height:80px" placeholder="户籍地址" name="sregaddress" id="sregaddress"></textarea>
                                         </div>
                                     </div>
@@ -87,7 +88,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍与学生同户</div>
+                                        <div class="item-title label">户籍与学生同户 <i class="f7-icons size-15" id="fregsame_tip">help_fill</i></div>
                                         <div class="item-input">
                                             <label class="label-switch">
                                                 <input type="checkbox" name="fregsame" id="fregsame" value="是">
@@ -103,6 +104,7 @@
                                         <div class="item-title label">户籍区域</div>
                                         <div class="item-input">
                                             <input type="text" placeholder="省、市、区" readonly name="freglocation" id="freglocation">
+                                            <input type="hidden" name="freglocationcode" id="freglocationcode">
                                             <!--<textarea style="height:80px" name="fregaddress"></textarea>-->
                                         </div>
                                     </div>
@@ -121,7 +123,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">户籍与学生同户</div>
+                                        <div class="item-title label">户籍与学生同户 <i class="f7-icons size-15" id="sregsame_tip">help_fill</i></div>
                                         <div class="item-input">
                                             <label class="label-switch">
                                                 <input type="checkbox" name="sregsame" id="sregsame" value="是">
@@ -137,6 +139,7 @@
                                         <div class="item-title label">户籍区域</div>
                                         <div class="item-input">
                                             <input type="text" placeholder="省、市、区" readonly name="sreglocation" id="sreglocation">
+                                            <input type="hidden" name="sreglocationcode" id="sreglocationcode">
                                             <!--<textarea style="height:80px" name="sregaddress"></textarea>-->
                                         </div>
                                     </div>
@@ -156,7 +159,7 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">房屋产权归属</div>
+                                        <div class="item-title label">房屋产权归属 <i class="f7-icons size-15" id="whohome_tip">help_fill</i></div>
                                         <div class="item-input">
                                             <select name="whohome">
                                                 <option>监护人1产权房</option>
@@ -171,10 +174,11 @@
                             <li>
                                 <div class="item-content">
                                     <div class="item-inner">
-                                        <div class="item-title label">房产地址</div>
+                                        <div class="item-title label">房产地址 <i class="f7-icons size-15" id="homeaddress_tip">help_fill</i></div>
                                         <div class="item-input">
                                             <input type="text" placeholder="省、市、区" readonly name="homelocation" id="homelocation">
-                                            <textarea style="height:80px" name="homeaddress"></textarea>
+                                            <Input type="hidden" name="homelocationcode" id="homelocationcode">
+                                            <textarea style="height:80px" name="homeaddress" id="homeaddress"></textarea>
                                         </div>
                                     </div>
                                 </div>
