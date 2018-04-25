@@ -489,5 +489,6 @@ function saveinfoAjaxSuccess(data) {
         myApp.alert(data.message, "出错了");
         return;
     }
-    myApp.alert('保存成功!', "提示")
+    //myApp.alert('保存成功!', "提示")
+    myApp.alert(data.recordset,"提示")
 }
