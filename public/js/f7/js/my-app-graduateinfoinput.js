@@ -92,6 +92,10 @@ $$("#sregsame").on('change', function (obj) {
         $$("#sregaddress_li").show();
 })
 
+$$("stureglocationcode").val("450303000000")
+$$("freglocationcode").val("450303000000")
+$$("sreglocationcode").val("450303000000")
+$$("homelocationcode").val("450303000000")
 //区域选择基础部分
 var defaultlocation = ["450000000000", "450300000000", "450303000000"];
 var lv1 = "[1-9][0-9]0{10}"

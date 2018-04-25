@@ -115,7 +115,10 @@ var StudentInfoSchema = new mongoose.Schema({
     "监护人2户籍区域": String,
     "房屋产权归属": String,
     "房屋区域":String,
-    "联系电话":String,
+    "联系电话": {
+        type: String,
+        required: [true, '联系电话必须填写']
+    },
     "毕业生区域数据":[String]
 },{collection:'StudentInfo'});
 
