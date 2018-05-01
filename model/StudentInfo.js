@@ -119,7 +119,8 @@ var StudentInfoSchema = new mongoose.Schema({
         type: String,
         required: [true, '联系电话必须填写']
     },
-    "毕业生区域数据":[String]
+    "毕业生区域数据":[String],
+    "无房查询":[String]
 },{collection:'StudentInfo'});
 
 mongoose.model('StudentInfo',StudentInfoSchema);

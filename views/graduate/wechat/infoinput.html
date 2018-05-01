@@ -82,6 +82,21 @@
                         <li>
                             <div class="item-content">
                                 <div class="item-inner">
+                                    <div class="item-title label">仅有一个监护人
+                                        <i class="f7-icons size-15" id="onlyone_tip">help_fill</i>
+                                    </div>
+                                    <div class="item-input">
+                                        <label class="label-switch">
+                                            <input type="checkbox" name="onlyone" id="onlyone" value="是">
+                                            <div class="checkbox"></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="item-content">
+                                <div class="item-inner">
                                     <div class="item-title label">监护人1姓名</div>
                                     <div class="item-input">
                                         <input type="text" placeholder="监护人1姓名" name="fname" id="fname">
@@ -107,7 +122,7 @@
                         <li id="fregaddress_li">
                             <div class="item-content">
                                 <div class="item-inner">
-                                    <div class="item-title label">户籍区域</div>
+                                    <div class="item-title label">户籍所在地</div>
                                     <div class="item-input">
                                         <input type="text" placeholder="省、市、区" readonly name="freglocation" id="freglocation">
                                         <input type="hidden" name="freglocationcode" id="freglocationcode">
@@ -116,17 +131,17 @@
                                 </div>
                             </div>
                         </li>
-                        <li>
+                        <li id="sname_li">
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title label">监护人2姓名</div>
                                     <div class="item-input">
-                                        <input type="text" placeholder="监护人2姓名" name="sname">
+                                        <input type="text" placeholder="监护人2姓名" name="sname" id="sname">
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li>
+                        <li id="sregsame_li">
                             <div class="item-content">
                                 <div class="item-inner">
                                     <div class="item-title label">户籍与学生同户
@@ -144,7 +159,7 @@
                         <li id="sregaddress_li">
                             <div class="item-content">
                                 <div class="item-inner">
-                                    <div class="item-title label">户籍区域</div>
+                                    <div class="item-title label">户籍所在地</div>
                                     <div class="item-input">
                                         <input type="text" placeholder="省、市、区" readonly name="sreglocation" id="sreglocation">
                                         <input type="hidden" name="sreglocationcode" id="sreglocationcode">
@@ -174,8 +189,15 @@
                                         <select name="whohome">
                                             <option>监护人1产权房</option>
                                             <option>监护人2产权房</option>
+                                            <option>监护人1名下单位集资房</option>
+                                            <option>监护人2名下单位集资房</option>
                                             <option>祖父母或外祖父母产权房</option>
-                                            <option>租房</option>
+                                            <option>监护人1名义租房</option>
+                                            <option>监护人2名义租房</option>                                            
+                                            <option>监护人1名下单位房</option>
+                                            <option>监护人2名下单位房</option>
+                                            <option>监护人1名下公租房（租约房）或廉租房</option>
+                                            <option>监护人2名下公租房（租约房）或廉租房</option>                                            
                                         </select>
                                     </div>
                                 </div>

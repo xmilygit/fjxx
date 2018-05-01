@@ -37,39 +37,39 @@ $(function () {
     }
 })
 
-$("#homeaddress,#homeaddress_tip").on('click',function(){
+$("#homeaddress,#homeaddress_tip").on('click', function () {
     myApp.addNotification({
         message: '请务必抄写毕业生所居住房产证上所显示的座落地址，精确到房号',
-        title:'注意：',
-        closeOnClick:true
+        title: '注意：',
+        closeOnClick: true
         //hold:'5000'
     });
 })
-$("#sregaddress,#sregaddress_tip").on('click',function(){
+$("#sregaddress,#sregaddress_tip").on('click', function () {
     myApp.addNotification({
         message: '请务必抄写毕业生所在户口簿首页上的地址',
-        title:'注意：'
+        title: '注意：'
         //hold:'5000'
     });
 })
-$("#fregsame_tip").on('click',function(){
+$("#fregsame_tip").on('click', function () {
     myApp.addNotification({
         message: '监护人1户籍是否与毕业生在同一户口簿上，绿色表示“是”，灰色表示“否”',
-        title:'说明：'
+        title: '说明：'
         //hold:'5000'
     });
 })
-$("#sregsame_tip").on('click',function(){
+$("#sregsame_tip").on('click', function () {
     myApp.addNotification({
         message: '监护人2户籍是否与毕业生在同一户口簿上，绿色表示“是”，灰色表示“否”',
-        title:'说明：'
+        title: '说明：'
         //hold:'5000'
     });
 })
-$("#whohome_tip").on('click',function(){
+$("#whohome_tip").on('click', function () {
     myApp.addNotification({
         message: '填写毕业生所居住房产的产权是属于谁的',
-        title:'说明：'
+        title: '说明：'
         //hold:'5000'
     });
 })
@@ -90,6 +90,22 @@ $$("#sregsame").on('change', function (obj) {
         $$("#sregaddress_li").hide();
     else
         $$("#sregaddress_li").show();
+})
+//仅一个监护人处理事件
+$$("#onlyone").on('change', function (obj) {
+    var sstate = $("#onlyone").is(':checked') ? true : false;
+    var sstate2 = $("#sregsame").is(':checked') ? true : false;
+    if (sstate) {
+        $$("#sname_li").hide();
+        $$("#sregsame_li").hide();
+        $$("#sregaddress_li").hide();
+    } else {
+        $$("#sname_li").show();
+        $$("#sregsame_li").show();
+        $$("#sname").val("");
+        if (!sstate2)
+            $$("#sregaddress_li").show();
+    }
 })
 
 $$("stureglocationcode").val("450303000000")
@@ -432,23 +448,37 @@ function getinfoAjaxSuccess(data) {
         "freglocation": data.recordset.监护人1户籍区域,
         "sreglocation": data.recordset.监护人2户籍区域,
         "homelocation": data.recordset.房屋区域,
-        "locationcodelist": data.recordset.毕业生区域数据
+        "locationcodelist": data.recordset.毕业生区域数据,
+        "onlyone": [data.recordset.成员2姓名 == '无' ? "是" : "否"]
     }
 
     if (stu.locationcodelist.length > 0) {
-        if (stu.locationcodelist[0] != '')
+        if (stu.locationcodelist[0] != '') {
             temppk[0] = getPickerVal(stu.locationcodelist[0]);
-        if (stu.locationcodelist[1] != '')
+            $$("#stureglocationcode").val(stu.locationcodelist[0]);
+        }
+        if (stu.locationcodelist[1] != '') {
             temppk[1] = getPickerVal(stu.locationcodelist[1]);
-        if (stu.locationcodelist[2] != '')
+            $$("#freglocationcode").val(stu.locationcodelist[1]);
+        }
+        if (stu.locationcodelist[2] != '') {
             temppk[2] = getPickerVal(stu.locationcodelist[2]);
-        if (stu.locationcodelist[3] != '')
+            $$("#sreglocationcode").val(stu.locationcodelist[2]);
+        }
+        if (stu.locationcodelist[3] != '') {
             temppk[3] = getPickerVal(stu.locationcodelist[3]);
+            $$("#homelocationcode").val(stu.locationcodelist[3]);
+        }
     }
     if (stu.fregsame == '是') {
         $$("#fregaddress_li").hide();
     }
     if (stu.sregsame == '是') {
+        $$("#sregaddress_li").hide();
+    }
+    if (stu.sname == '无') {
+        $$("#sname_li").hide();
+        $$("#sregsame_li").hide();
         $$("#sregaddress_li").hide();
     }
     myApp.formFromJSON('#form1', stu);
@@ -469,6 +499,19 @@ function dobformpid(pid) {
 
 $$("#step1save").on('click', function () {
     var stdata = myApp.formToJSON('#form1')
+    if (stdata.fregsame.length == 0) {
+        stdata.fregsame = ["否"];
+    }
+    if (stdata.sregsame.length == 0) {
+        stdata.sregsame = ["否"];
+    }
+    if (stdata.onlyone.length == 0) {
+        stdata.onlyone = ["否"];
+    }
+    if (stdata.onlyone == "是" && /监护人2/gi.test(stdata.whohome)) {
+        myApp.alert("当无第二监护人时，房屋产权归属不能使用非监护人的住房!", "出错了")
+        retrun;
+    }
 
     myApp.showPreloader('正在保存数据...')
     $.ajax({
@@ -489,6 +532,37 @@ function saveinfoAjaxSuccess(data) {
         myApp.alert(data.message, "出错了");
         return;
     }
+    myApp.showPreloader('正在发送结果')
+    $.ajax({
+        url: svrUrl + "/wechat/sendtemplate",
+        method: 'POST',
+        dataType: 'json',
+        data: { templateId: "hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ",msg:data.recordset},
+        complete: function () {
+            myApp.hidePreloader()
+        },
+        success: sendtemplateAjaxSuccess,
+        error: ajaxError
+    })
+
     //myApp.alert('保存成功!', "提示")
-    myApp.alert(data.recordset,"提示")
+    //myApp.alert(data.recordset,"提示")
+    /*
+    var popupHTML = '<div class="popup">' +
+        '<div class="content-block">' +
+        '<p>需要提交以下材料：</p>' +
+        data.recordset +
+        '<p><a href="#" class="close-popup">知道了</a></p>' +
+        '</div>' +
+        '</div>'
+    myApp.popup(popupHTML);
+    */
+}
+
+function sendtemplateAjaxSuccess(data){
+    if (data.error) {
+        myApp.alert(data.message, "出错了");
+        return;
+    }
+    myApp.alert('发送成功!', "提示")
 }
