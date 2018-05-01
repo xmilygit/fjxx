@@ -6,7 +6,7 @@ $(function () {
             url: svrUrl + '/wechat/jsconfig',
             method: 'GET',
             dataType: 'json',
-            data: { debug: false, url: svrUrl + '/wechat/graduate', jsapilist: ['hideOptionMenu', 'closeWindow'] },
+            data: { debug: false, url: svrUrl + '/wechat/graduate/querypid', jsapilist: ['hideOptionMenu', 'closeWindow'] },
 
             success: jsconfigSuccess,
             error: ajaxError,
@@ -106,5 +106,8 @@ function saveinfoAjaxSuccess(data) {
         return;
     }
 
-    myApp.alert('保存成功!', "提示")
+    myApp.alert('保存成功!确定后回到微信界面', "提示",function(){
+        wx.closeWindow();
+    })
+    
 }

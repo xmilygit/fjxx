@@ -73,6 +73,13 @@ $("#whohome_tip").on('click', function () {
         //hold:'5000'
     });
 })
+$("#onlyone_tip").on('click', function () {
+    myApp.addNotification({
+        message: '如果只有一个监护人，那么请把此开关修改为绿色；绿色表示“只有一个监护人”，灰色表示“有两个监护人”',
+        title: '说明：'
+        //hold:'5000'
+    });
+})
 //户籍1同册处理事件
 $$("#fregsame").on('change', function (obj) {
     var fstate = $("#fregsame").is(':checked') ? true : false;
@@ -497,7 +504,7 @@ function dobformpid(pid) {
 }
 
 
-$$("#step1save").on('click', function () {
+$$("#save").on('click', function () {
     var stdata = myApp.formToJSON('#form1')
     if (stdata.fregsame.length == 0) {
         stdata.fregsame = ["否"];
@@ -532,37 +539,27 @@ function saveinfoAjaxSuccess(data) {
         myApp.alert(data.message, "出错了");
         return;
     }
-    myApp.showPreloader('正在发送结果')
+
+    myApp.showPreloader('正在发送结果到您微信...')
     $.ajax({
         url: svrUrl + "/wechat/sendtemplate",
         method: 'POST',
         dataType: 'json',
-        data: { templateId: "hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ",msg:data.recordset},
+        data: { templateId: "hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ", msg: data.recordset, queryhome: data.queryhome },
         complete: function () {
             myApp.hidePreloader()
         },
         success: sendtemplateAjaxSuccess,
         error: ajaxError
     })
-
-    //myApp.alert('保存成功!', "提示")
-    //myApp.alert(data.recordset,"提示")
-    /*
-    var popupHTML = '<div class="popup">' +
-        '<div class="content-block">' +
-        '<p>需要提交以下材料：</p>' +
-        data.recordset +
-        '<p><a href="#" class="close-popup">知道了</a></p>' +
-        '</div>' +
-        '</div>'
-    myApp.popup(popupHTML);
-    */
 }
 
-function sendtemplateAjaxSuccess(data){
+function sendtemplateAjaxSuccess(data) {
     if (data.error) {
         myApp.alert(data.message, "出错了");
         return;
     }
-    myApp.alert('发送成功!', "提示")
+    myApp.alert('发送成功!确定后退回到微信界面', "提示", function () {
+        wx.closeWindow();
+    })
 }

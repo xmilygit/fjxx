@@ -293,11 +293,18 @@ router.get('/getMedia', function (req, res, next) {
 
 //ajax调用发送模板消息测试
 router.post('/sendtemplate', function (req, res, next) {
-    var templateId=req.body.templateId;
-    var msg=req.body.msg;
+    var templateId = req.body.templateId;
+    var msg = req.body.msg;
+    var queryhome = req.body.queryhome;
     //var templateId = 'hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ';
     // URL置空，则在发送后,点击模板消息会进入一个空白页面（ios）, 或无法点击（android）
-    var url = 'http://www.163.com';
+    if (queryhome=="true"){
+        var url = "http://"+req.hostname+"/wechat/graduate/querypid";
+        msg+="\n\r\n\r请点击此文字，输入房产情况查询表!";
+    }
+    else
+        var url = ""
+    msg+="\n\r\n\r注意：\n\r1、所提交材料均需要提交原件。\n\r2、本结果仅做为材料提交参考，最终以学校审核结果为准。"
     var data = {
         "material": {
             "value": msg,
@@ -305,13 +312,13 @@ router.post('/sendtemplate', function (req, res, next) {
         }
     };
     api.sendTemplate('o_BZpuDFj3Gi-psvtFFDRgl9id-0', templateId, url, data, function (err, result) {
-        if (err){
+        if (err) {
             console.log(err);
             res.json({ 'error': true, 'message': err });
             return;
         }
         console.log(result)
-        res.json({'error':null,'message':'ok'});
+        res.json({ 'error': null, 'message': 'ok' });
     });
 })
 //发送模板消息测试
