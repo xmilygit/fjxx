@@ -114,16 +114,19 @@ var StudentInfoSchema = new mongoose.Schema({
     "监护人2户籍与学生同户": String,
     "监护人2户籍区域": String,
     "房屋产权归属": String,
-    "房屋区域":String,
+    "房屋区域": String,
     "联系电话": {
         type: String,
         required: [true, '联系电话必须填写']
     },
-    "毕业生区域数据":[String],
-    "无房查询":[String],
-    'stypedesc':String,
-    '材料':String
+    "毕业生区域数据": [String],
+    "无房查询": [String],
+    'stypedesc': String,
+    '材料': String,
+    'school1': String,
+    'school2': String,
+    'school3': String
 
-},{collection:'StudentInfo'});
+}, { collection: 'StudentInfo' });
 
-mongoose.model('StudentInfo',StudentInfoSchema);
+mongoose.model('StudentInfo', StudentInfoSchema);

@@ -1,0 +1,50 @@
+<div class="view view-main">
+    <div class="pages">
+        <div data-page="index" class="page navbar-fixed">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <div class="center">材料提交参考</div>
+                    <div class="right">
+                        <a href="#" class="button button-fill color-green" id="save">关闭</a>
+                    </div>
+                </div>
+            </div>
+            <div class="page-content">
+                <div class="content-block">
+                    <div class="content-block-inner">
+                        <p style="font-size:18px;color:blue;line-height:30px" id="msg"></p>
+                        <p style="font-size:18px;color:red;line-height:30px">注意：所提交材料均要求为原件</p>
+                        <input type="hidden" id="openid" value="{{openid}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/js/f7/js/framework7.min.js"></script>
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script>
+    // Initialize your app
+    var myApp = new Framework7({
+        precompileTemplates: true,
+    });
+
+    // Export selectors engine
+    var $$ = Dom7;
+
+
+    // Add view
+    var mainView = myApp.addView('.view-main', {
+        // Because we use fixed-through navbar we can enable dynamic navbar
+        domCache: true,
+        dynamicNavbar: true
+    });
+</script>
+<!--<script type="text/javascript" src="js/async.min.js"></script>-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+
+<!-- Path to your app js-->
+<script type="text/javascript" src="/js/appinit.js"></script>
+<script type="text/javascript" src="/js/f7/js/my-app-graduatedispresult.js"></script>

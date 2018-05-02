@@ -1,20 +1,20 @@
 var fs = require("fs");
 //正式配置
-/*
-var wechatauth={
+
+var wechatauth = {
     appid: 'wx4e22ba98362ec444',
     appsecret: '456d2b7769f5e91cd208a8399964d53f',
     token: 'xmilyhh'
 }
-*/
-//测试号配置
 
+//测试号配置
+/*
 var wechatauth = {
     appid: 'wxba8db6584881bbab',
     appsecret: '7d234a1b76eb803e6683d3a8945985bb',
     token: 'xmilyhh'
 };
-
+*/
 
 //MXThink测试用
 /*
@@ -27,49 +27,49 @@ var wechatauth={
 exports.varmng = { wechatauth: wechatauth };
 //module.exports = { wechatauth: wechatauth }
 //以下是改进功能版本
-exports.GetEnable=function(tg,cb){
-    fs.readFile("appvar.txt",function(err,txt){
-        if(err){
-            console.error("读取应用基础数据失败!部分功能可能失效!");
-            cb("读取应用基础数据失败!部分功能可能失效!",null);
-            return;
-        }
-        var t=JSON.parse(txt.toString());
-        //console.log(eval("t."+tg));
-        cb(null,eval("t."+tg))
-    })
-}
-//以下是原来的版本
-exports.GetNewStuInfoEnable = function (cb) {
-    fs.readFile("appvar.txt", function (err, txt) {
+exports.GetEnable = function(tg, cb) {
+        fs.readFile("appvar.txt", function(err, txt) {
+            if (err) {
+                console.error("读取应用基础数据失败!部分功能可能失效!");
+                cb("读取应用基础数据失败!部分功能可能失效!", null);
+                return;
+            }
+            var t = JSON.parse(txt.toString());
+            //console.log(eval("t."+tg));
+            cb(null, eval("t." + tg))
+        })
+    }
+    //以下是原来的版本
+exports.GetNewStuInfoEnable = function(cb) {
+    fs.readFile("appvar.txt", function(err, txt) {
         if (err) {
             console.error("读取应用基础数据失败!部分功能可能失效!");
-            cb("读取应用基础数据失败!部分功能可能失效!",null);
+            cb("读取应用基础数据失败!部分功能可能失效!", null);
             return;
         }
         var t = JSON.parse(txt.toString())
         console.log(t.newstudentinfoEnable);
-        cb(null,t.newstudentinfoEnable);
+        cb(null, t.newstudentinfoEnable);
     })
 }
-exports.SetNewStuInfoDisable = function (state,cb) {
-    fs.readFile("appvar.txt", function (err, txt) {
+exports.SetNewStuInfoDisable = function(state, cb) {
+    fs.readFile("appvar.txt", function(err, txt) {
         if (err) {
             console.error("写入应用基础数据失败!部分功能可能失效!")
-            cb("写入应用基础数据失败!部分功能可能失效!",null)
+            cb("写入应用基础数据失败!部分功能可能失效!", null)
             return;
         }
         var t = JSON.parse(txt.toString())
         console.log(t.newstudentinfoEnable);
-        state=state==='false'?false:true;
+        state = state === 'false' ? false : true;
         t.newstudentinfoEnable = state;
-        fs.writeFile("appvar.txt", JSON.stringify(t), function (err) {
+        fs.writeFile("appvar.txt", JSON.stringify(t), function(err) {
             if (err) {
                 console.error('写入应用基础数据失败！部分功能可能出现异常！')
-                cb("写入应用基础数据失败！部分功能可能出现异常！",null)
-                //return;
+                cb("写入应用基础数据失败！部分功能可能出现异常！", null)
+                    //return;
             }
-            cb(null,'写入成功')
+            cb(null, '写入成功')
         })
     })
 }
