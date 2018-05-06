@@ -336,7 +336,7 @@ router.get('/getnewstuinfoenable', function (req, res, next) {
     })
 })
 
-//设置新生信息录入激活状态
+//设置新生信息录入激活状态,未改进版本（暂时没更新，新的版本在SetOnOffFun）
 router.get('/setnewstuinfoenable', function (req, res, next) {
     res.setHeader("Access-Control-Allow-Origin", "*");
     async.auto({
@@ -354,3 +354,40 @@ router.get('/setnewstuinfoenable', function (req, res, next) {
     })
 })
 module.exports = router;
+
+
+//设置相关开关参数的统一ajax方法
+router.get('/SetOnOffFun',function(req,res,next){
+    res.setHeader('Access-Control-Allow-Origin',"*");
+    async.auto({
+        method1:function(callback){
+            appvar.SetEnable(req.query['state'],req.query['target'],callback)
+        }
+    },function(err,result){
+        if(err){
+            res.json({ 'error': true, 'message': err });
+            return
+        }else{
+            res.json({ "type": "ok", recordset: req.query['state'] });
+            return
+        }
+    })
+})
+//获取相关开关参数的AJAX方法
+router.get('/GetAllOnOffFun',function(req,res,next){
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    async.auto({
+        method1: function (callback) {
+            appvar.GetAllOnOff(callback);
+        }
+    }, function (err, result) {
+        if (err) {
+            res.json({ 'error': true, 'message': err });
+            retur;
+        } else {
+            res.json({ 'type': "ok", "recordset": result.method1 });
+            return;
+        }
+
+    })
+})

@@ -43,7 +43,7 @@ var mymenu = {
         {
             "name": "我的凤集",
             "type": "view",
-            "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxx.tunnel.echomod.cn/wechat/binder/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
+            "url": 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + myauth.appid + '&redirect_uri=' + encodeURIComponent("http://fjxxtest.tunnel.echomod.cn/wechat/binder/") + '&response_type=code&scope=snsapi_base&state=123#wechat_redirect'
         }
     ]
 };

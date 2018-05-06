@@ -446,15 +446,15 @@ $$(document).on('pageInit', function (e) {
     console.log(e.detail.page.name)
 })
 //新生信息录入状态页面打开时初始化
-myApp.onPageInit('newstuinfomng', function (e) {    
+myApp.onPageInit('stateinfomng', function (e) {    
     myApp.showPreloader("正在初始数据...");
     try {
         $$.ajax({
-            url: svrUrl + '/main/getnewstuinfoenable',
+            url: svrUrl + '/main/GetAllOnOffFun',
             method: 'GET',
             dataType: 'json',
             data:{},
-            success: NewStuInfoEnableAS,
+            success: StateInfoEnableAS,
             error: ajaxError,
             complete: function () {
                 myApp.hidePreloader();
@@ -466,8 +466,10 @@ myApp.onPageInit('newstuinfomng', function (e) {
     }
 })
 //执行获取新生信息激活状态的Ajax的success方法
-function NewStuInfoEnableAS(data){
-    $("#newstuinput").attr("checked",data.recordset);
+function StateInfoEnableAS(data){
+    var state=data.recordset;
+    $("#newstuinput").attr("checked",state.newstudentinfoEnable);
+    $("#graduateinput").attr("checked",state.graduateinfoEnable);
 }
 myApp.onPageInit('userlist', function (page) {
     vlistInit();
@@ -531,6 +533,31 @@ $$("#newstuinput").on("change",function(){
             method: 'GET',
             dataType: 'json',
             data:{'state':state},
+            success: function setNewStuInfoEnableAS(data){
+                
+            },
+            error: ajaxError,
+            complete: function () {
+                myApp.hidePreloader();
+            }
+        })
+    } catch (err) {
+        myApp.hidePreloader();
+        myApp.alert(err,"出错了！")
+    }
+})
+
+//当毕业生信息录入状态改变时
+$$("#graduateinput").on("change",function(){
+    //alert($("#newstuinput").is(':checked'))
+    var state=$("#graduateinput").is(':checked')?true:false;
+    myApp.showPreloader("正在保存...");
+    try {
+        $$.ajax({
+            url: svrUrl + '/main/SetOnOffFun',
+            method: 'GET',
+            dataType: 'json',
+            data:{'state':state,'target':'graduateinfoEnable'},
             success: function setNewStuInfoEnableAS(data){
                 
             },
