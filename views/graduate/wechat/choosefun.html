@@ -11,12 +11,14 @@
             <input type="hidden" value="{{openid}}" id="openid">
             <div class="page-content">
                 <div class="content-block">
+                    <p><a id="link0" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">查看毕业生基础信息</a></p>
                     <p>
-                        <a id="link1" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">毕业生基础信息录入</a>
+                        <!--<a id="link1" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">毕业生基础信息录入</a>-->
                     </p>
                     <!--<p><a id="link2" href="#" data-popup=".nsregpop" class="button button-big button-fill open-popup color-red">分流意向</a></p>-->
                     <p>
-                        <a id="link3" href="#" data-popup=".sregpop" class="button button-big button-fill open-popup color-green">无房查询登记表</a>
+                        <!--<a id="link3" href="#" data-popup=".sregpop" class="button button-big button-fill open-popup color-green">无房查询登记表</a>-->
+
                     </p>
                 </div>
             </div>
@@ -32,15 +34,32 @@
 <script type="text/javascript" src="/js/appinit.js"></script>
 <script type="text/javascript" src="/js/f7/js/my-app-wxbinder.js"></script>
 <script>
-    $("#link1").on('click', function () {
+    $("#link0").on('click', function() {
+        myApp.showPreloader('正在发送结果到您微信...')
+            /*
+        
+            $.ajax({
+                url: svrUrl + "/wechat/sendtemplate",
+                method: 'POST',
+                dataType: 'json',
+                data: {
+                    templateId: "hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ",
+                    msg: data.recordset,
+                    queryhome: data.queryhome
+                },
+                complete: function() {
+                    myApp.hidePreloader()
+                },
+                success: sendtemplateAjaxSuccess,
+                error: ajaxError
+            })
+            */
+    })
+
+    $("#link1").on('click', function() {
         document.location.href = svrUrl + "/wechat/graduate";
     })
-    /*
-    $("#link2").on('click', function() {
-        document.location.href = "http://fjxx.tunnel.echomod.cn/wechat/graduate/fenliu";
-    })
-    */
-    $("#link3").on('click', function () {
+    $("#link3").on('click', function() {
         document.location.href = svrUrl + "/wechat/graduate/querypid";
     })
 </script>

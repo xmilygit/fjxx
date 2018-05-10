@@ -291,10 +291,10 @@ router.get('/getMedia', function(req, res, next) {
     })
 })
 
-//ajax调用发送模板消息测试
+//ajax调用发送模板消息测试  材料准备模板
 router.post('/sendtemplate', function(req, res, next) {
         //var templateId = req.body.templateId;
-        templateId = "7-Cuqk5r7qADVGLk8Fr6qMOBUnE_bFB_lsg7cbHGaGs"
+        var templateId = "7-Cuqk5r7qADVGLk8Fr6qMOBUnE_bFB_lsg7cbHGaGs"
         var msg = req.body.msg;
         var queryhome = req.body.queryhome;
         //var templateId = 'hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ';
@@ -361,6 +361,12 @@ router.get('/sendtemplate', function(req, res, next) {
         console.log(result)
         res.end();
     });
+})
+
+//ajax调用发送获取学籍号户口房产信息的模板消息
+router.post('/sendtemplate2', function(req, res, next) {
+    var templateId = "";
+
 })
 
 //显示永久素材（图片）列表
