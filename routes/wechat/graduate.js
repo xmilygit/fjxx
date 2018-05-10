@@ -4,6 +4,7 @@ var async = require('async')
 var request = require('request');
 var mongoose = require('mongoose');
 var router = express.Router();
+var StudentInfo = require('../../model/StudentInfoDB');
 
 router.get('/', function(req, res, next) {
     /*if (req.session.openid) {
@@ -159,7 +160,23 @@ router.post('/SavePidsByOpenid', function(req, res, next) {
 router.post('/GetInfoById', function(req, res, next) {
     //console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");
-    var openid = req.session.openid; //"o_BZpuDFj3Gi-psvtFFDRgl9id-0"; //req.session.openid;//
+    if (req.session.openid) {
+        var openid = req.session.openid; //"o_BZpuDFj3Gi-psvtFFDRgl9id-0"; //req.session.openid;//
+        async.waterfall([
+            function(cb) {
+                StudentInfo.GetAccountInfoByOpenid(openid, cb)
+            }
+        ], function(err, stuinfo) {
+            if (err) {
+                res.json({ 'error': true, 'message': err.message });
+                return;
+            }
+            res.json({ 'recordset': stuinfo })
+        })
+    }
+
+
+    /*改用引用studentinfodb逻辑的方式
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function(err, doc) {
         if (err) {
             if (err) {
@@ -177,6 +194,7 @@ router.post('/GetInfoById', function(req, res, next) {
             res.json({ 'recordset': stuinfo })
         })
     })
+    */
 })
 
 router.post('/GetInfoByOpenId', function(req, res, next) {
