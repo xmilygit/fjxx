@@ -27,7 +27,7 @@ exports.GetAccountInfoByOpenid = function(openid, cb) {
             if (err) {
                 cb({ 'error': true, 'message': err }, null);
             }
-            cb(null, stuinfo)
+            cb(null, stuinfo._doc)
         })
     })
 }

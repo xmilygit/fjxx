@@ -11,9 +11,12 @@
             <input type="hidden" value="{{openid}}" id="openid">
             <div class="page-content">
                 <div class="content-block">
-                    <p><a id="link0" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">查看毕业生基础信息</a></p>
                     <p>
-                        <a id="link1" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">毕业生基础信息录入</a> </p>
+                        <a id="link0" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">查看毕业生基础信息</a>
+                    </p>
+                    <p>
+                        <!--<a id="link1" href="#" data-popup=".tregpop" class="button button-big button-fill open-popup">毕业生基础信息录入</a>-->
+                    </p>
                     <!--<p><a id="link2" href="#" data-popup=".nsregpop" class="button button-big button-fill open-popup color-red">分流意向</a></p>-->
                     <p>
                         <!--<a id="link3" href="#" data-popup=".sregpop" class="button button-big button-fill open-popup color-green">无房查询登记表</a>-->
@@ -25,33 +28,77 @@
     </div>
 </div>
 
+<script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
 <script type="text/javascript" src="/js/f7/js/framework7.min.js"></script>
 <script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/jquery.validate.min.js"></script>
-<script src="http://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
-<script type="text/javascript" src="/js/additional-methods.js"></script>
 <script type="text/javascript" src="/js/appinit.js"></script>
-<script type="text/javascript" src="/js/f7/js/my-app-wxbinder.js"></script>
 <script>
-    $("#link0").on('click', function() {
-        myApp.showPreloader('正在发送结果到您微信...')
-            /*
+    $(function () {
+        //获取JS-SDK配置信息
+        try {
             $.ajax({
-                url: svrUrl + "/wechat/sendtemplate",
-                method: 'POST',
+                url: svrUrl + '/wechat/jsconfig',
+                method: 'GET',
                 dataType: 'json',
-                data: {
-                    templateId: "hK0TIi7znV-26YTWtchQgDkA_jBD0hLi0xksT7bxjmQ",
-                    msg: data.recordset,
-                    queryhome: data.queryhome
-                },
-                complete: function() {
-                    myApp.hidePreloader()
-                },
-                success: sendtemplateAjaxSuccess,
-                error: ajaxError
+                data: { debug: false, url: svrUrl + '/wechat/graduate/choosefun', jsapilist: ['hideOptionMenu', 'closeWindow'] },
+
+                success: jsconfigSuccess,
+                error: ajaxError,
+                complete: function () {
+                    //myApp.hidePreloader();
+                }
             })
-            */
+        } catch (err) {
+            //myApp.hidePreloader();
+            myApp.alert('系统出错：' + err, "获取JS-SDK出错了!")
+        }
+    });
+    function jsconfigSuccess(data) {
+        if (data) {
+            //alert(JSON.stringify(data))
+            wx.config(data);
+        } else {
+            myApp.alert("出错了!")
+        }
+    }
+
+    wx.ready(function () {
+        //alert("js接口已准备好")
+        wx.hideOptionMenu();
+    });
+    wx.error(function (res) {
+        myApp.alert(res.errMsg + "-js接口加载失败", "出错了")
+    })
+    var myApp = new Framework7({
+        precompileTemplates: true,
+    });
+
+    // Export selectors engine
+    var $$ = Dom7;
+
+
+    // Add view
+    var mainView = myApp.addView('.view-main', {
+        // Because we use fixed-through navbar we can enable dynamic navbar
+        domCache: true,
+        dynamicNavbar: true
+    });
+
+    $("#link0").on('click', function () {
+        myApp.showPreloader('正在发送结果到您微信...')
+
+        $.ajax({
+            url: svrUrl + "/wechat/sendtemplate2",
+            method: 'POST',
+            dataType: 'json',
+            data: {},
+            complete: function () {
+                myApp.hidePreloader()
+            },
+            success: sendtemplateAjaxSuccess,
+            error: ajaxError
+        })
+
     })
 
     function sendtemplateAjaxSuccess(data) {
@@ -59,15 +106,21 @@
             myApp.alert(data.message, "出错了");
             return;
         }
-        myApp.alert('发送成功!确定后退回到微信界面', "提示", function() {
+        myApp.alert('查询成功!确定后退回到微信界面', "提示", function () {
             wx.closeWindow();
         })
     }
+    //ajax执行出错时执行
+    function ajaxError(data) {
+        myApp.alert("系统出错!", "出错了")
+        //vlistloading = false;
+        console.log(data);
+    }
 
-    $("#link1").on('click', function() {
+    $("#link1").on('click', function () {
         document.location.href = svrUrl + "/wechat/graduate";
     })
-    $("#link3").on('click', function() {
+    $("#link3").on('click', function () {
         document.location.href = svrUrl + "/wechat/graduate/querypid";
     })
 </script>

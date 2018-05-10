@@ -33,16 +33,16 @@ router.get('/', function(req, res, next) {
 })
 
 router.get('/choosefun', function(req, res, next) {
-    if (req.session.openid) {
+    //if (req.session.openid) {
         res.render('graduate/wechat/choosefun', {
             title: '选择功能',
             layout: 'f7layoutsbase'
         })
-    } else {
-        res.render('wechat/error', {
-            layout: null
-        })
-    }
+    //} else {
+    //    res.render('wechat/error', {
+    //        layout: null
+    //    })
+    //}
 })
 
 router.get('/fenliu', function(req, res, next) {
