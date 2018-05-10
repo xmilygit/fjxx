@@ -37,7 +37,6 @@
     $("#link0").on('click', function() {
         myApp.showPreloader('正在发送结果到您微信...')
             /*
-        
             $.ajax({
                 url: svrUrl + "/wechat/sendtemplate",
                 method: 'POST',
@@ -55,6 +54,16 @@
             })
             */
     })
+
+    function sendtemplateAjaxSuccess(data) {
+        if (data.error) {
+            myApp.alert(data.message, "出错了");
+            return;
+        }
+        myApp.alert('发送成功!确定后退回到微信界面', "提示", function() {
+            wx.closeWindow();
+        })
+    }
 
     $("#link1").on('click', function() {
         document.location.href = svrUrl + "/wechat/graduate";
