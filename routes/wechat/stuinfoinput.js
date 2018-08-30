@@ -28,6 +28,31 @@ router.get('/', function (req, res, next) {
     })
 })
 
+router.get('/queryNewStuClass', function (req, res, next) {
+    res.render('Student/wechat/queryNewStuClass', {
+        title: '新生分班查询',
+        layout: 'f7layoutsbase'
+    })
+})
+
+router.post('/querynewstuclassno', function (req, res, next) {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    var stdata = JSON.parse(req.body.stdata);
+    mongoose.model('stu2018').findOne({ name: stdata.stuname, sex: stdata.gender, }, { classno: 1 }, function (err, doc) {
+        if (err) {
+            if (err) {
+                res.json({ 'error': true, 'message': String(err).replace('ValidationError: ', '') });
+                return;
+            }
+        }
+        if (doc)
+            res.json({ 'recordset': doc, 'error': false });
+        else {
+            res.json({ 'error': true, 'message': '没有查询到记录，请检查姓名及性别是否有误！' })
+        }
+    })
+})
+
 router.post('/GetInfoById', function (req, res, next) {
     console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");

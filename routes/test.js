@@ -224,6 +224,23 @@ router.get('/test7', function(req, res, next) {
     res.end();
 })
 
+router.get('/test8', function(req, res, next) {
+
+    var xls = path.resolve(__dirname, '../public/副本分班.xlsx');
+    var jsonf = path.resolve(__dirname, '../public/2018.json');
+    xlstojson({
+        input: xls,
+        output: jsonf,
+        sheet: 'json'
+    }, function(err, result) {
+        if (err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
 router.get('/testreg', function(req, res, next) {
     var pattern = /叠彩/g;
     var stu1=[];

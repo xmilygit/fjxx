@@ -17,6 +17,7 @@ var db = require('./model/db');
 var Account = require('./model/Account');
 var StudentInfo = require('./model/StudentInfo');
 var temp = require('./model/tempModel');
+var stu2018=require('./model/stu2018');
 var admin = require('./routes/admin/main');
 var StuInfoInput = require('./routes/wechat/stuinfoinput')
 var rootsite = require('./routes/root');
