@@ -56,7 +56,7 @@ router.post('/querynewstuclassno', function (req, res, next) {
 router.post('/GetInfoById', function (req, res, next) {
     console.log(req.session.openid)
     res.setHeader("Access-Control-Allow-Origin", "*");
-    var openid = "opFC7v33Bv242Ic7tMxvt-JbhyD0";//req.session.openid;"opFC7v33Bv242Ic7tMxvt-JbhyD0";//
+    var openid = req.session.openid;//"opFC7v33Bv242Ic7tMxvt-JbhyD0";
     mongoose.model('Account').findOne({ wxopenid: openid }, { infoid: 1 }, function (err, doc) {
         if (err) {
             if (err) {
@@ -84,7 +84,7 @@ router.post('/SaveInfoByOpenid', function (req, res, next) {
     var stu = {
         "姓名": stdata.stuname,
         "性别": stdata.gender,
-        "出生日期": stdata.dob,
+        "出生日期": stdata.dob1.replace(/-/gi,""),
         "民族": stdata.nation,
         "家庭地址": stdata.homeaddress,
         "现住址": stdata.regaddress,

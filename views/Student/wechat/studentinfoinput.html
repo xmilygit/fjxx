@@ -54,7 +54,8 @@
                                             <div class="item-inner">
                                                 <div class="item-title label">出生日期</div>
                                                 <div class="item-input">
-                                                    <input type="text" placeholder="出生日期" readonly name="dob" id="dob">
+                                                    <!-- <input type="text" placeholder="出生日期" name="dob" id="dob"> -->
+                                                    <input type="date" placeholder="出生日期" name="dob1" id="dob1">
                                                 </div>
                                             </div>
                                         </div>
@@ -344,6 +345,7 @@
     // Initialize your app
     var myApp = new Framework7({
         precompileTemplates: true,
+        theme:"md",
     });
 
     // Export selectors engine

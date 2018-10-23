@@ -21,7 +21,8 @@ router.get('/testjssdk', function(req, res, next) {
 router.get('/setstudentpasswordbat', function(req, res, next) {
         //mongoose.model('Account').find({ infoid: { $ne: null } }, function (err, docs) {
         //mongoose.model('Account').find({ _id: { $gt: '59860ba9bc1d5059d9b96a48' } }, function (err, docs) {
-        mongoose.model('Account').find({ _id: { $gte: '5ac24b5389c40a4dc997058b' } }, function(err, docs) {
+        //mongoose.model('Account').find({ _id: { $gte: '5ac24b5389c40a4dc997058b' } }, function(err, docs) {
+          mongoose.model('Account').find({ _id: { $gte: '5bcd778e494da82690dd7f23' } }, function(err, docs) {
             docs.forEach(function(v, i, docs) {
 
                 if (v.pid != "") {
@@ -232,6 +233,23 @@ router.get('/test8', function(req, res, next) {
         input: xls,
         output: jsonf,
         sheet: 'json'
+    }, function(err, result) {
+        if (err)
+            console.error(err);
+        else
+            console.log(result);
+    })
+    res.end();
+})
+
+router.get('/test9', function(req, res, next) {
+
+    var xls = path.resolve(__dirname, '../public/基本信息app版.xlsx');
+    var jsonf = path.resolve(__dirname, '../public/2018info.json');
+    xlstojson({
+        input: xls,
+        output: jsonf,
+        sheet: '学籍信息'
     }, function(err, result) {
         if (err)
             console.error(err);

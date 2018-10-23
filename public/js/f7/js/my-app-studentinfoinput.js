@@ -346,7 +346,8 @@ function getinfoAjaxSuccess(data) {
     var stu = {
         "stuname": data.recordset.姓名,
         "gender": data.recordset.性别,
-        "dob": data.recordset.出生日期||dobformpid(data.recordset.身份证件号),
+        // "dob": data.recordset.出生日期||dobformpid(data.recordset.身份证件号),
+        "dob1": dobformat(data.recordset.出生日期),//"2012-12-12",//data.recordset.出生日期||dobformpid(data.recordset.身份证件号),
         "nation": data.recordset.民族,
         "homeaddress": data.recordset.家庭地址,
         "regaddress": data.recordset.现住址,
@@ -403,8 +404,9 @@ function getinfoAjaxSuccess(data) {
     myApp.formFromJSON('#form1', stu)
     myApp.formFromJSON('#form2', fs)
 
-    var dob = stu.dob.substr(0, 4) + "-" + stu.dob.substr(5, 2) + "-" + stu.dob.substr(6, 2);
-    calendarDateFormat.value = [dob]
+    // var dob = stu.dob.substr(0, 4) + "-" + stu.dob.substr(5, 2) + "-" + stu.dob.substr(6, 2);
+    // var dob = stu.dob1.substr(0, 4) + "-" + stu.dob1.substr(5, 2) + "-" + stu.dob1.substr(6, 2);
+    // calendarDateFormat.value = [dob]
     //$('#pid').trigger("blur");
     //alert(data.recordset.成员2联系电话)
 }
@@ -421,6 +423,12 @@ function dobformpid(pid){
     return pid.substr(6,8);
 }
 
+//处理日期格式问题
+function dobformat(date){
+    return date.substr(0,4)+"-"+date.substr(4,2)+"-"+date.substr(6,2);
+
+}
+
 //定义日期控件的配置变量
 
 var calendarconfig = {
@@ -431,15 +439,15 @@ var calendarconfig = {
     toolbarCloseText: "Ok",
 }
 
-var calendarDateFormat = myApp.calendar({
-    input: '#dob',
-    dateFormat: 'yyyymmdd',
-    monthNames: calendarconfig.monthNames,
-    monthNamesShort: calendarconfig.monthNamesShort,
-    dayNames: calendarconfig.dayNames,
-    dayNamesShort: calendarconfig.dayNamesShort,
-    toolbarCloseText: "Ok"
-});
+// var calendarDateFormat = myApp.calendar({
+//     input: '#dob',
+//     dateFormat: 'yyyymmdd',
+//     monthNames: calendarconfig.monthNames,
+//     monthNamesShort: calendarconfig.monthNamesShort,
+//     dayNames: calendarconfig.dayNames,
+//     dayNamesShort: calendarconfig.dayNamesShort,
+//     toolbarCloseText: "Ok"
+// });
 
 
 $$("#savebutt").on('click', function () {

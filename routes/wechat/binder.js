@@ -76,18 +76,21 @@ router.get('*', function(req, res, next) {
 
                 if (isBinder) {
                     //res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
-                    /*if (doc.infoid) {
+                    //新生录入跳转
+                    if (doc.infoid) {
                         res.redirect('/wechat/stuinfo')
                         //res.end("当前绑定的用户是新生")
                         return;
-                    }*/
+                    }
+                    //毕业生录入跳转
+                    /*
                     if (doc.usertype == "graduate") {
                         //res.end("old student")
                         //res.redirect('/wechat/graduate')
                         res.redirect('/wechat/graduate/choosefun')
                         return;
                     }
-
+                    */
                     res.end("当前绑定的是教师")
                 } else {
                     res.render('wechat/choosetype', {
@@ -123,18 +126,21 @@ router.get('*', function(req, res, next) {
                 if (isBinder) {
                     //res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'})
                     req.session.openid = openid;
-                    /*if (doc.infoid) {
+                    //新生录入跳转
+                    if (doc.infoid) {
                         res.redirect('/wechat/stuinfo')
                         //res.end("当前绑定的用户是新生")
                         return;
-                    }*/
+                    }
+                    //毕业生录入跳转
+                    /*
                     if (doc.usertype == 'graduate') {
                         //res.end("毕业生")
                         //res.redirect("/wechat/graduate")
                         res.redirect("/wechat/graduate/choosefun")
                         return;
                     }
-
+                    */
                     res.end("当前绑定的是教师")
                 } else {
                     req.session.openid = openid;
