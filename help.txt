@@ -16,5 +16,12 @@ db.getCollection('Account').find({infoid:null,_id:{$gte:ObjectId("5ac24b5389c40a
 )
 
 
+
+mongoexport --host 188.188.3.2 --port 27017 --username fjxx --password 818140 --collection StudentInfo --db fjxx --type=csv --fieldFile c:\fields.txt --out c:\aaaa.csv --queryFile c:\query.txt
+
+
+
+
+
 JS接口安全域名
 填写该接口不能带http://直接填写域名如：fjxx.tunnel.echomod.cn
